@@ -10,12 +10,21 @@
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "typescript": "^3.6.4",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.10"
   },
   "scripts": {
     "start": "rimraf ./build && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.11",
+    "@types/react-dom": "^16.9.3",
+    "@types/react-router": "^5.1.2",
+    "@types/react-router-dom": "^5.1.2"
   }
 }

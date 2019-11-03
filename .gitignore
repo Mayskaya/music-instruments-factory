@@ -3,11 +3,11 @@
 
 # Visual Studio (Code) env files
 .vs
-appsettings.Development.json
-appsettings.json
-
 
 # Output directories
 bin
 obj
+dist
 
+# There is exist another .gitifnore file
+# Path: project\MusicInstrumentsCrm\MusicInstrumentsCrm\ClientApp\.gitignore
