@@ -1,6 +1,6 @@
 ﻿namespace MusicInstrumentsCrm.Domain
 {
-	public class Address
+	public class Address{
 	
 		public int Id { get; set; }
 
