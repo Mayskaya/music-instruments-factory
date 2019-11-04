@@ -1,0 +1,5 @@
+CREATE TABLE Address(
+	id integer NOT NULL);
+
+ALTER TABLE Address ADD CONSTRAINT PK_Address
+	PRIMARY KEY (id);
