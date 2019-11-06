@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MusicInstrumentsCrm.Domain;
+using MusicInstrumentsCrm.Repositories;
 
 namespace MusicInstrumentsCrm
 {
@@ -21,6 +22,25 @@ namespace MusicInstrumentsCrm
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			
+			services.AddScoped<IGoodRepository, GoodRepository>();
+			services.AddScoped<IGoodTypeRepository, GoodTypeRepository>();
+			services.AddScoped<IGoodInOfferRepository, GoodInOfferRepository>();
+			services.AddScoped<IFactoryRepository, FactoryRepository>();
+			services.AddScoped<IOfferRepository, OfferRepository>();
+			services.AddScoped<ISupplyInStoreRepository, SupplyInStoreRepository>();
+			services.AddScoped<IStoreRepository, StoreRepository>();
+			services.AddScoped<IBuyerRepository, BuyerRepository>();
+			services.AddScoped<IStaffRepository, StaffRepository>();
+			services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+			services.AddScoped<ICarRepository, CarRepository>();
+			services.AddScoped<IMarkRepository, MarkRepository>();
+			services.AddScoped<IModelRepository, ModelRepository>();
+			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IAddressRepository, AddressRepository>();
+			services.AddScoped<ICountryRepository, CountryRepository>();
+
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 			services.AddDbContext<ApplicationDbContext>(options=>

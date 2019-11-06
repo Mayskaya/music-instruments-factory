@@ -2,83 +2,82 @@
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	interface IGoodRepository: IRepository<Good, int>
+	public interface IGoodRepository: IRepository<Good, int>
 	{
 
 	}
 
-	interface IGoodTypeRepository: IRepository<GoodTypeRepository, int>
+	public interface IGoodTypeRepository : IRepository<GoodTypeRepository, int>
 	{
 
 	}
 
-	interface IGoodInOfferRepository : IRepository<GoodInOfferRepository, int>
+	public interface IGoodInOfferRepository : IRepository<GoodInOfferRepository, int>
 	{
 
 	}
 
-	interface IFactoryRepository : IRepository<Domain.Factory, int>
+	public interface IFactoryRepository : IRepository<Domain.Factory, int>
 	{
 
 	}
 
-	interface IOfferRepository : IRepository<OfferRepository, int>
+	public interface IOfferRepository : IRepository<OfferRepository, int>
 	{
 
 	}
 
-	interface ISupplyInStoreRepository : IRepository<SupplyInStoreRepository, int>
+	public interface ISupplyInStoreRepository : IRepository<SupplyInStoreRepository, int>
 	{
 
 	}
 
-	interface IStoreRepository : IRepository<Store, int>
+	public interface IStoreRepository : IRepository<Store, int>
 	{
 
 	}
 
-	interface IBuyerRepository : IRepository<Buyer, int>
+	public interface IBuyerRepository : IRepository<Buyer, int>
 	{
 
 	}
 
-	interface IStaffRepository : IRepository<Staff, int>
+	public interface IStaffRepository : IRepository<Staff, int>
 	{
 
 	}
 
-	interface IDeliveryRepository : IRepository<Delivery, int>
+	public interface IDeliveryRepository : IRepository<Delivery, int>
 	{
 
 	}
 
-
-	interface ICarRepository : IRepository<Car, int>
+	public interface ICarRepository : IRepository<Car, int>
 	{
 
 	}
 
-	interface IMarkRepository : IRepository<Mark, int>
+	public interface IMarkRepository : IRepository<Mark, int>
 	{
 
 	}
 
-	interface IModelRepository : IRepository<Model, int>
+	public interface IModelRepository : IRepository<Model, int>
 	{
 
 	}
 
-	interface IUserRepository : IRepository<User, int>
+	public interface IUserRepository : IRepository<User, int>
 	{
 
 	}
 
-	interface IAddressRepository : IRepository<Address, int>
+	public interface IAddressRepository : IRepository<Address, int>
 	{
 
 	}
 
-	interface ICountryRepository : IRepository<Country, int>
+	public interface ICountryRepository : IRepository<Country, int>
 	{
 
 	}

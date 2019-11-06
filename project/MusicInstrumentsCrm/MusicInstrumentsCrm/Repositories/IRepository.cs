@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	interface IRepository<DomainClass, Key>
+	public interface IRepository<DomainClass, Key>
 	{
 		Task<DomainClass> CreateAsync(DomainClass model);
 

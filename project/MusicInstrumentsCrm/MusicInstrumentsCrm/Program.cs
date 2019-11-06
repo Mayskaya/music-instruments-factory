@@ -7,6 +7,7 @@ using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace MusicInstrumentsCrm
 {
@@ -19,6 +20,15 @@ namespace MusicInstrumentsCrm
 
 		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
 			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>();
+				.UseStartup<Startup>()
+				.ConfigureLogging(logging =>
+				{
+					logging.ClearProviders();
+					logging.AddConsole();
+					logging.AddFilter("Microsoft", LogLevel.Warning);
+					logging.AddFilter("System", LogLevel.Warning);
+					logging.AddFilter("MusicInstrumentsCrm.Program", LogLevel.Debug);
+				
+				});
 	}
 }

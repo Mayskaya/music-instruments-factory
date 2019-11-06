@@ -6,7 +6,7 @@ using MusicInstrumentsCrm.Domain;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class GoodRepostiory : IGoodRepository
+	public class GoodRepository : IGoodRepository
 	{
 		public Task<Good> CreateAsync(Good model)
 		{
