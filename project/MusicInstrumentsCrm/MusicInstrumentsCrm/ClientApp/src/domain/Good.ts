@@ -1,6 +1,8 @@
 ﻿import { Factory } from "./Factory";
 import { GoodType } from "./GoodType";
 import { Strings } from "../util/Strings";
+import DefaultValues from "../util/DefaultValues";
+
 
 export class Good {
     private _id: number;
@@ -9,8 +11,8 @@ export class Good {
     private _goodType: GoodType;
     private _factory: Factory;
     private _price: number;
-    
-    public constructor(id: number, name:string, description: string, goodType: GoodType, factory: Factory, price: number) {
+
+    public constructor(id: number, name: string, description: string, goodType: GoodType, factory: Factory, price: number) {
         this._id = id;
         this._name = name;
         this._description = description;
@@ -87,7 +89,7 @@ export class Good {
      * Getter factory
      * @return {Factory}
      */
-    public get factory(): Factory{
+    public get factory(): Factory {
         return this._factory;
     }
 
