@@ -11,7 +11,7 @@ namespace MusicInstrumentsCrm.Controllers
 	[Route("api/v1/[controller]")]
 	public class StoreController : Controller
 	{
-		private IStoreRepository storeRepository
+		private IStoreRepository storeRepository;
 		public StoreController(IStoreRepository storeRepository)
 		{
 			this.storeRepository = storeRepository;
