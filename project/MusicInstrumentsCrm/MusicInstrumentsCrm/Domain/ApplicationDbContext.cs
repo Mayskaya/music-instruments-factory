@@ -40,12 +40,12 @@ namespace MusicInstrumentsCrm.Domain
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
 		{
+
 		}
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			optionsBuilder.UseNpgsql("Host=my_host;Database=micrm_db;Username=admin;Password=admin");
-
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
