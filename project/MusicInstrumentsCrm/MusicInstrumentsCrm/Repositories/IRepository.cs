@@ -9,15 +9,13 @@ namespace MusicInstrumentsCrm.Repositories
 	{
 		Task<DomainClass> CreateAsync(DomainClass model);
 
-		Task<IEnumerable<DomainClass>> RetrieveAllAsync();
+		Task<IEnumerable<DomainClass>> FindAllAsync();
 
-		Task<DomainClass> RetrieveAsync(Key id);
-
-		Task<DomainClass> UpdateAsync(Key id, DomainClass model);
+		Task<DomainClass> FindByIdAsync(Key id);
 
 		Task<DomainClass> UpdateAsync(DomainClass model);
 
-		Task<DomainClass> DeleteAsync(Key id);
+		Task<DomainClass> DeleteByIdAsync(Key id);
 
 		Task<DomainClass> DeleteAsync(DomainClass model);
 	}

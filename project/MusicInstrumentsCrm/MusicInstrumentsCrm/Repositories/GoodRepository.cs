@@ -13,7 +13,7 @@ namespace MusicInstrumentsCrm.Repositories
 			throw new NotImplementedException();
 		}
 
-		public Task<Good> DeleteAsync(int id)
+		public Task<Good> DeleteByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
@@ -23,12 +23,12 @@ namespace MusicInstrumentsCrm.Repositories
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<Good>> RetrieveAllAsync()
+		public Task<IEnumerable<Good>> FindAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Good> RetrieveAsync(int id)
+		public Task<Good> FindByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
