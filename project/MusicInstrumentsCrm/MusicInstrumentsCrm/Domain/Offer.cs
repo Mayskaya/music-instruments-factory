@@ -16,6 +16,8 @@ namespace MusicInstrumentsCrm.Domain
 
 		public Staff Seller { get; set; }
 
+		public Store Store {get;set;}
+
 		public Delivery Delivery { get; set; }
 
 		public decimal Summary { get; set; }

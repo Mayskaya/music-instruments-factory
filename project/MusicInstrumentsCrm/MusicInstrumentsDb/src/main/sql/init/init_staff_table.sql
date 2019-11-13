@@ -10,4 +10,4 @@ INSERT INTO Staff(
     "user"
   )
 VALUES
-  ()
+  ();
