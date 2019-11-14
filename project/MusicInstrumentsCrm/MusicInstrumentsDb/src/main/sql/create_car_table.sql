@@ -1,11 +1,13 @@
 CREATE TABLE Car(
 	id integer NOT NULL,
-	serial varchar(50) NOT NULL,
-	region varchar(50) NOT NULL,
+	serial varchar(6) NOT NULL,
+	region varchar(3) NOT NULL,
 	mark_model integer NOT NULL);
 
 ALTER TABLE Car ADD CONSTRAINT PK_Car
 	PRIMARY KEY (id);
+
+ALTER TABLE Car ADD CONSTRAINT UQ_Car_serial UNIQUE (serial);
 
 CREATE INDEX IXFK_Car_Mark ON Car (mark_model ASC);
 

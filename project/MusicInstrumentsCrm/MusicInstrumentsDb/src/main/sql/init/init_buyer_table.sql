@@ -1,11 +1,12 @@
-INSERT INTO Buyer(
-    id,
-    first_name,
-    last_name,
-    patronymic,
-    email,
-    phone,
-    "user"
-  )
+INSERT INTO Buyer(id,first_name,last_name,patronymic,email,phone,"user")
 VALUES
-  ();
+  (1, 'Артем', 'Мотозов', 'Владимирович', 'motozov.a.v@gmail.com', '+79853338076', 3),
+  (2, 'Алина', 'Федотова', 'Александровна', 'fedotova.a.a@gmail.com', '+78005553535', 8),
+  (3, 'Ярослав', 'Аваков', 'Игоревич', 'avakov.y.i@gmail.com', '+79203338077', 5),
+  (4, 'Алексей', 'Козлов', 'Михайлович', 'kozlov.a.m@gmail.com', '+79203438976', 9),
+  (5, 'Екатерина', 'Зеленцова', 'Викторовна', 'zelencova.e.v@gmail.com', '+79163333676', 6),
+  (6, 'Яна', 'Климова', 'Вячеславовна', 'klimova.y.v@gmail.com', '+79033898026', 4),
+  (7, 'Анна', 'Скузоваткина', 'Александровна', 'skuzovatkina.a.a@gmail.com', '+79855558076', 2),
+  (8, 'Сергей', 'Бердов', 'Владимирович', 'berdov.s.v@gmail.com', '+79889338076', 7),
+  (9, 'Игорь', 'Бутов', 'Игоревич', 'butov.i.i@gmail.com', '+7936638076', 13),
+  (10, 'Павел', 'Романов', 'Сергеевич', 'lepehin.d.n@gmail.com', '+74953331212', 10);

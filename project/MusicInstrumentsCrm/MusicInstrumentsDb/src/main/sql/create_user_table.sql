@@ -8,3 +8,7 @@ CREATE TABLE "User"(
 
 ALTER TABLE "User" ADD CONSTRAINT PK_User
 	PRIMARY KEY (id);
+
+ALTER TABLE "User" ADD CONSTRAINT UQ_User_login UNIQUE (login);
+
+ALTER TABLE "User" ADD CONSTRAINT UQ_User_password UNIQUE (password);
