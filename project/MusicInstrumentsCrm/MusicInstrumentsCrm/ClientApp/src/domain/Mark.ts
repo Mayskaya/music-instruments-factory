@@ -1,8 +1,7 @@
-import { Country } from "./Country";
+import Country from "./Country";
 import DefaultValues from "../util/DefaultValues";
 
-
-export class Mark {
+export default class Mark {
     private _id: number;
     private _name: string;
     private _country: Country;
@@ -12,7 +11,6 @@ export class Mark {
         this._name = name;
         this._country = country;
     }
-
 
     /**
      * Getter id

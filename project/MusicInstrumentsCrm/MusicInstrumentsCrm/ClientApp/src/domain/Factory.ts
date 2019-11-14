@@ -1,11 +1,10 @@
-import { Address } from "./Address";
+import Address from "./Address";
 import DefaultValues from "../util/DefaultValues";
 
-export class Factory {
+export default class Factory {
     private _id: number;
     private _address: Address;
     private _foudationDate: Date;
-
 
     constructor(id: number, address: Address, foudationDate: Date) {
         this._id = id;

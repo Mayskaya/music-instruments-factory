@@ -1,13 +1,12 @@
-import { Address } from "./Address";
+import Address from "./Address";
 import DefaultValues from "../util/DefaultValues";
 
 
-export class Store {
+export default class Store {
     private _id: number;
     private _name: string;
     private _address: Address;
     private _foundationDate: Date;
-
 
     constructor(id: number, name: string, address: Address, foundationDate: Date) {
         this._id = id;

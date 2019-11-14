@@ -1,14 +1,13 @@
-import { Good } from "./Good";
-import { Store } from "./Store";
+import Good from "./Good";
+import Store from "./Store";
 import DefaultValues from "../util/DefaultValues";
 
 
-export class SupplyInStore {
+export default class SupplyInStore {
     private _id: number;
     private _good: Good;
     private _store: Store;
     private _date: Date;
-
 
     constructor(id: number, good: Good, store: Store, date: Date) {
         this._id = id;

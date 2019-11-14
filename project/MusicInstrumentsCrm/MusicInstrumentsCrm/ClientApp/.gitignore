@@ -24,3 +24,4 @@ yarn-error.log*
 
 # domain folders
 **/domain/*.js*
+**/util/*.js*

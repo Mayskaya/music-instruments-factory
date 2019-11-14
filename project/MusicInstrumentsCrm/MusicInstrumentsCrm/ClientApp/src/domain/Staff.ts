@@ -1,7 +1,7 @@
-import { User } from "./User";
+import User from "./User";
 import DefaultValues from "../util/DefaultValues";
 
-export class Staff {
+export default class Staff {
     private _id: number;
     private _firstName: string;
     private _lastName: string;
@@ -11,7 +11,6 @@ export class Staff {
     private _inn: string;
     private _snils: string;
     private _user: User;
-
 
     constructor(id: number, firstName: string, lastName: string, patronymic: string, passportSerial: string, passportNumber: string, inn: string, snils: string, user: User) {
         this._id = id;

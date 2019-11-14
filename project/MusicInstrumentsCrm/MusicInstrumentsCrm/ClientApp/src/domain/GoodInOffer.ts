@@ -1,9 +1,9 @@
-import { Good } from "./Good";
-import { Offer } from "./Offer";
+import Good from "./Good";
+import Offer from "./Offer";
 import DefaultValues from "../util/DefaultValues";
 
 
-export class GoodInOffer {
+export default class GoodInOffer {
     private _id: number;
     private _good: Good;
     private _offer: Offer;

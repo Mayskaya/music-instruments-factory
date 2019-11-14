@@ -1,8 +1,8 @@
-import { Mark } from "./Mark";
+import Mark from "./Mark";
 import DefaultValues from "../util/DefaultValues";
 
 
-export class Model {
+export default class Model {
     private _id: number;
     private _modelName: string;
     private _mark: Mark;

@@ -1,14 +1,13 @@
-import { Car } from "./Car";
-import { Address } from "./Address";
-import { Staff } from "./Staff";
+import Car from "./Car";
+import Address from "./Address";
+import Staff from "./Staff";
 import DefaultValues from "../util/DefaultValues";
 
-export class Delivery {
+export default class Delivery {
     private _id: number;
     private _car: Car;
     private _address: Address;
     private _courier: Staff;
-
 
     constructor(id: number, car: Car, address: Address, courier: Staff) {
         this._id = id;

@@ -1,7 +1,6 @@
 import DefaultValues from "../util/DefaultValues";
 
-
-export class GoodType {
+export default class GoodType {
     private _id: number;
     private _typeName: string;
 

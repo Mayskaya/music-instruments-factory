@@ -1,17 +1,16 @@
-import { Buyer } from "./Buyer";
-import { Staff } from "./Staff";
-import { Delivery } from "./Delivery";
+import Buyer from "./Buyer";
+import Staff from "./Staff";
+import Delivery from "./Delivery";
 import DefaultValues from "../util/DefaultValues";
 
 
-export class Offer {
+export default class Offer {
     private _id: number;
     private _code: string;
     private _buyer: Buyer;
     private _seller: Staff;
     private _delivery: Delivery;
     private _sum: number;
-
 
     constructor(id: number, code: string, buyer: Buyer, seller: Staff, delivery: Delivery, sum: number) {
         this._id = id;

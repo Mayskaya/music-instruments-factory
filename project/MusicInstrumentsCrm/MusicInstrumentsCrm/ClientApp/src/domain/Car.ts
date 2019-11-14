@@ -1,13 +1,11 @@
-import { Model } from "./Model";
+import Model from "./Model";
 import DefaultValues from "../util/DefaultValues";
 
-
-export class Car {
+export default class Car {
     private _id: number;
     private _serial: string;
     private _region: string;
     private _markModel: Model;
-
 
     constructor(id: number, serial: string, region: string, markModel: Model) {
         this._id = id;

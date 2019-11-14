@@ -1,7 +1,7 @@
-import { User } from "./User";
+import User from "./User";
 import DefaultValues from "../util/DefaultValues";
 
-export class Buyer {
+export default class Buyer {
     private _id: number;
     private _firstName: string;
     private _lastName: string;
@@ -9,7 +9,6 @@ export class Buyer {
     private _email: string;
     private _phone: string;
     private _user: User;
-
 
     constructor(id: number, firstName: string, lastName: string, patronymic: string, email: string, phone: string, user: User) {
         this._id = id;
@@ -131,6 +130,6 @@ export class Buyer {
      */
     public set user(value: User) {
         this._user = value;
-    }
+	}
 
 }

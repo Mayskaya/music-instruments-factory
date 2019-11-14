@@ -1,7 +1,5 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Message from './Message';
 
 export default class App extends React.Component<{}, {}> {
   public render() {
@@ -9,7 +7,7 @@ export default class App extends React.Component<{}, {}> {
       <Header/>
       <Navbar/> 
       <Footer/>
-    </div>);
+	</div>);
 
   }
 }

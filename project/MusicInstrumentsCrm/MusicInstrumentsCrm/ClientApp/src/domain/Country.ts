@@ -1,7 +1,6 @@
 import DefaultValues from "../util/DefaultValues";
 
-
-export class Country {
+export default class Country {
     private _id: number;
     private _name: string;
 

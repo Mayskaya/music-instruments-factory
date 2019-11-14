@@ -1,6 +1,6 @@
 import DefaultValues from "../util/DefaultValues";
 
-export class Address{
+export default class Address{
     private _id: number;
     private _fullName: string;
 

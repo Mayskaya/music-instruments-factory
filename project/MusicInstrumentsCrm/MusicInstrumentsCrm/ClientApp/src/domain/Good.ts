@@ -1,10 +1,10 @@
-﻿import { Factory } from "./Factory";
-import { GoodType } from "./GoodType";
+﻿import Factory from "./Factory";
+import GoodType from "./GoodType";
 import { Strings } from "../util/Strings";
 import DefaultValues from "../util/DefaultValues";
 
 
-export class Good {
+export default class Good {
     private _id: number;
     private _name: string;
     private _description: string;
