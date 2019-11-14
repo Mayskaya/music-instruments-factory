@@ -12,6 +12,8 @@ namespace MusicInstrumentsCrm.Domain
 
 		public DbSet<GoodType> GoodTypes { get; set; }
 
+		public DbSet<GoodInOffer> GoodsInOffers { get; set; }
+
 		public DbSet<Factory> Factories { get; set; }
 
 		public DbSet<Offer> Offers { get; set; }

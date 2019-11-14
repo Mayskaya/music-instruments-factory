@@ -1,45 +1,97 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MusicInstrumentsCrm.Domain;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class GoodInOfferRepository : IGoodInOfferRepository
+	public class GoodInOfferRepository : AbstractCache<GoodInOffer, int>, IGoodInOfferRepository
 	{
-		public Task<GoodInOfferRepository> CreateAsync(GoodInOfferRepository model)
+
+		private ApplicationDbContext db;
+
+		public GoodInOfferRepository(ApplicationDbContext db)
 		{
-			throw new NotImplementedException();
+			this.db = db ?? throw new ArgumentNullException(nameof(db));
+
+			if (cache == null)
+			{
+				cache = new ConcurrentDictionary<int, GoodInOffer>(db.GoodsInOffers.ToDictionary(gio => gio.Id));
+			}
 		}
 
-		public Task<GoodInOfferRepository> DeleteByIdAsync(int id)
+		public async Task<GoodInOffer> CreateAsync(GoodInOffer model)
 		{
-			throw new NotImplementedException();
+			EntityEntry<GoodInOffer> added = await db.GoodsInOffers.AddAsync(model);
+			int affected = await db.SaveChangesAsync();
+			if (affected == 1)
+			{
+				return cache.AddOrUpdate(model.Id, model, UpdateCache);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
-		public Task<GoodInOfferRepository> DeleteAsync(GoodInOfferRepository model)
+		public async Task<bool> DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				GoodInOffer goodInOffer = db.GoodsInOffers.Find(id);
+				db.GoodsInOffers.Remove(goodInOffer);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => cache.TryRemove(id, out goodInOffer));
+				}
+				else
+				{
+					return null;
+				}
+			});
 		}
 
-		public Task<IEnumerable<GoodInOfferRepository>> FindAllAsync()
+		public async Task<bool> DeleteAsync(GoodInOffer model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() => DeleteAsync(model.Id));
 		}
 
-		public Task<GoodInOfferRepository> FindByIdAsync(int id)
+		public async Task<IEnumerable<GoodInOffer>> FindAllAsync()
 		{
-			throw new NotImplementedException();
+			return await Task.Run<IEnumerable<GoodInOffer>>(() => cache.Values);
 		}
 
-		public Task<GoodInOfferRepository> UpdateAsync(int id, GoodInOfferRepository model)
+		public async Task<GoodInOffer> FindByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				GoodInOffer goodInOffer;
+				cache.TryGetValue(id, out goodInOffer);
+				return goodInOffer;
+			});
 		}
 
-		public Task<GoodInOfferRepository> UpdateAsync(GoodInOfferRepository model)
+		public async Task<GoodInOffer> UpdateAsync(int id, GoodInOffer model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				db.GoodsInOffers.Update(model);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => UpdateCache(id, model));
+				}
+				return null;
+			});
+		}
+
+		public async Task<GoodInOffer> UpdateAsync(GoodInOffer model)
+		{
+			return await Task.Run(() => UpdateAsync(model.Id, model));
 		}
 	}
 }

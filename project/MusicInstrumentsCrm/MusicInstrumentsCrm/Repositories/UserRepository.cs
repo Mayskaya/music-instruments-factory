@@ -8,37 +8,37 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class UserRepository : IUserRepository
 	{
-		public Task<User> CreateAsync(User model)
+		public async Task<User> CreateAsync(User model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<User> DeleteByIdAsync(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<User> DeleteAsync(User model)
+		public async Task<bool> DeleteAsync(User model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<User>> FindAllAsync()
+		public async Task<IEnumerable<User>> FindAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<User> FindByIdAsync(int id)
+		public async Task<User> FindByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<User> UpdateAsync(int id, User model)
+		public async Task<User> UpdateAsync(int id, User model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<User> UpdateAsync(User model)
+		public async Task<User> UpdateAsync(User model)
 		{
 			throw new NotImplementedException();
 		}

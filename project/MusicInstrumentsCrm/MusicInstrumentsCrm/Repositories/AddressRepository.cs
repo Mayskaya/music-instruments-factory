@@ -8,37 +8,37 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class AddressRepository : IAddressRepository
 	{
-		public Task<Address> CreateAsync(Address model)
+		public async Task<Address> CreateAsync(Address model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Address> DeleteByIdAsync(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Address> DeleteAsync(Address model)
+		public async Task<bool> DeleteAsync(Address model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<Address>> FindAllAsync()
+		public async Task<IEnumerable<Address>> FindAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Address> FindByIdAsync(int id)
+		public async Task<Address> FindByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Address> UpdateAsync(int id, Address model)
+		public async Task<Address> UpdateAsync(int id, Address model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Address> UpdateAsync(Address model)
+		public async Task<Address> UpdateAsync(Address model)
 		{
 			throw new NotImplementedException();
 		}

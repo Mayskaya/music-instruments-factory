@@ -1,45 +1,97 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
+using MusicInstrumentsCrm.Domain;
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class GoodTypeRepository : IGoodTypeRepository
+	public class GoodTypeRepository : AbstractCache<GoodType, int>, IGoodTypeRepository
 	{
-		public Task<GoodTypeRepository> CreateAsync(GoodTypeRepository model)
+
+		private ApplicationDbContext db;
+
+		public GoodTypeRepository(ApplicationDbContext db)
 		{
-			throw new NotImplementedException();
+			this.db = db ?? throw new ArgumentNullException(nameof(db));
+
+			if (cache == null)
+			{
+				cache = new ConcurrentDictionary<int, GoodType>(db.GoodTypes.ToDictionary(g => g.Id));
+			}
 		}
 
-		public Task<GoodTypeRepository> DeleteByIdAsync(int id)
+		public async Task<GoodType> CreateAsync(GoodType model)
 		{
-			throw new NotImplementedException();
+			EntityEntry<GoodType> added = await db.GoodTypes.AddAsync(model);
+			int affected = await db.SaveChangesAsync();
+			if (affected == 1)
+			{
+				return cache.AddOrUpdate(model.Id, model, UpdateCache);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
-		public Task<GoodTypeRepository> DeleteAsync(GoodTypeRepository model)
+		public async Task<bool> DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				GoodType goodType = db.GoodTypes.Find(id);
+				db.GoodTypes.Remove(goodType);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => cache.TryRemove(id, out goodType));
+				}
+				else
+				{
+					return null;
+				}
+			});
 		}
 
-		public Task<IEnumerable<GoodTypeRepository>> FindAllAsync()
+		public async Task<bool> DeleteAsync(GoodType model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() => DeleteAsync(model.Id));
 		}
 
-		public Task<GoodTypeRepository> FindByIdAsync(int id)
+		public async Task<IEnumerable<GoodType>> FindAllAsync()
 		{
-			throw new NotImplementedException();
+			return await Task.Run<IEnumerable<GoodType>>(() => cache.Values);
 		}
 
-		public Task<GoodTypeRepository> UpdateAsync(int id, GoodTypeRepository model)
+		public async Task<GoodType> FindByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				GoodType goodType;
+				cache.TryGetValue(id, out goodType);
+				return goodType;
+			});
 		}
 
-		public Task<GoodTypeRepository> UpdateAsync(GoodTypeRepository model)
+		public async Task<GoodType> UpdateAsync(int id, GoodType model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				db.GoodTypes.Update(model);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => UpdateCache(id, model));
+				}
+				return null;
+			});
+		}
+
+		public async Task<GoodType> UpdateAsync(GoodType model)
+		{
+			return await Task.Run(()=> UpdateAsync(model.Id, model));
 		}
 	}
 }

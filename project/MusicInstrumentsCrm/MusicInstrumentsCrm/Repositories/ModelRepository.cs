@@ -8,37 +8,37 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class ModelRepository : IModelRepository
 	{
-		public Task<Model> CreateAsync(Model model)
+		public async Task<Model> CreateAsync(Model model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Model> DeleteByIdAsync(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Model> DeleteAsync(Model model)
+		public async Task<bool> DeleteAsync(Model model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<Model>> FindAllAsync()
+		public async Task<IEnumerable<Model>> FindAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Model> FindByIdAsync(int id)
+		public async Task<Model> FindByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Model> UpdateAsync(int id, Model model)
+		public async Task<Model> UpdateAsync(int id, Model model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Model> UpdateAsync(Model model)
+		public async Task<Model> UpdateAsync(Model model)
 		{
 			throw new NotImplementedException();
 		}

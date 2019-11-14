@@ -8,37 +8,37 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class CountryRepository : ICountryRepository
 	{
-		public Task<Country> CreateAsync(Country model)
+		public async Task<Country> CreateAsync(Country model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Country> DeleteByIdAsync(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Country> DeleteAsync(Country model)
+		public async Task<bool> DeleteAsync(Country model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<Country>> FindAllAsync()
+		public async Task<IEnumerable<Country>> FindAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Country> FindByIdAsync(int id)
+		public async Task<Country> FindByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Country> UpdateAsync(int id, Country model)
+		public async Task<Country> UpdateAsync(int id, Country model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Country> UpdateAsync(Country model)
+		public async Task<Country> UpdateAsync(Country model)
 		{
 			throw new NotImplementedException();
 		}

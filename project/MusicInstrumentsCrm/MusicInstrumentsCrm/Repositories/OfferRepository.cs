@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusicInstrumentsCrm.Domain;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,37 +8,37 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class OfferRepository : IOfferRepository
 	{
-		public Task<OfferRepository> CreateAsync(OfferRepository model)
+		public async Task<Offer> CreateAsync(Offer model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<OfferRepository> DeleteByIdAsync(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<OfferRepository> DeleteAsync(OfferRepository model)
+		public async Task<bool> DeleteAsync(Offer model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<OfferRepository>> FindAllAsync()
+		public async Task<IEnumerable<Offer>> FindAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<OfferRepository> FindByIdAsync(int id)
+		public async Task<Offer> FindByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<OfferRepository> UpdateAsync(int id, OfferRepository model)
+		public async Task<Offer> UpdateAsync(int id, Offer model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<OfferRepository> UpdateAsync(OfferRepository model)
+		public async Task<Offer> UpdateAsync(Offer model)
 		{
 			throw new NotImplementedException();
 		}

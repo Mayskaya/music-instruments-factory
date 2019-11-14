@@ -8,37 +8,37 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class BuyerRepository : IBuyerRepository
 	{
-		public Task<Buyer> CreateAsync(Buyer model)
+		public async Task<Buyer> CreateAsync(Buyer model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Buyer> DeleteByIdAsync(int id)
+		public async Task<bool> DeleteAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Buyer> DeleteAsync(Buyer model)
+		public async Task<bool> DeleteAsync(Buyer model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<IEnumerable<Buyer>> FindAllAsync()
+		public async Task<IEnumerable<Buyer>> FindAllAsync()
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Buyer> FindByIdAsync(int id)
+		public async Task<Buyer> FindByIdAsync(int id)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Buyer> UpdateAsync(int id, Buyer model)
+		public async Task<Buyer> UpdateAsync(int id, Buyer model)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<Buyer> UpdateAsync(Buyer model)
+		public async Task<Buyer> UpdateAsync(Buyer model)
 		{
 			throw new NotImplementedException();
 		}

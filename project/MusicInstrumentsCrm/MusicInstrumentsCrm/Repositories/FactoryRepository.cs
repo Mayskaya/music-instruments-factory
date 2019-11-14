@@ -1,46 +1,95 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicInstrumentsCrm.Domain;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class FactoryRepository : IFactoryRepository
-	{
-		public Task<Factory> CreateAsync(Factory model)
+	public class FactoryRepository : AbstractCache<Factory, int>, IFactoryRepository
+	{ 
+		private ApplicationDbContext db;
+
+		public FactoryRepository(ApplicationDbContext db)
 		{
-			throw new NotImplementedException();
+			this.db = db ?? throw new ArgumentNullException(nameof(db));
+			if (cache == null)
+			{
+				cache = new ConcurrentDictionary<int, Factory>(db.Factories.ToDictionary(f => f.Id));
+			}
 		}
 
-		public Task<Factory> DeleteByIdAsync(int id)
+		public async Task<Factory> CreateAsync(Factory model)
 		{
-			throw new NotImplementedException();
+			EntityEntry<Factory> added = await db.Factories.AddAsync(model);
+			int affected = await db.SaveChangesAsync();
+			if (affected == 1)
+			{
+				return cache.AddOrUpdate(model.Id, model, UpdateCache);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
-		public Task<Factory> DeleteAsync(Factory model)
+		public async Task<bool> DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				Factory factory = db.Factories.Find(id);
+				db.Factories.Remove(factory);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => cache.TryRemove(id, out factory));
+				}
+				else
+				{
+					return null;
+				}
+			});
 		}
 
-		public Task<IEnumerable<Factory>> FindAllAsync()
+		public async Task<bool> DeleteAsync(Factory model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() => DeleteAsync(model.Id));
 		}
 
-		public Task<Factory> FindByIdAsync(int id)
+		public async Task<IEnumerable<Factory>> FindAllAsync()
 		{
-			throw new NotImplementedException();
+			return await Task.Run<IEnumerable<Factory>>(() => cache.Values);
 		}
 
-		public Task<Factory> UpdateAsync(int id, Factory model)
+		public async Task<Factory> FindByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				Factory good;
+				cache.TryGetValue(id, out good);
+				return good;
+			});
 		}
 
-		public Task<Factory> UpdateAsync(Factory model)
+		public async Task<Factory> UpdateAsync(int id, Factory model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				db.Factories.Update(model);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => UpdateCache(id, model));
+				}
+				return null;
+			});
+		}
+
+		public async Task<Factory> UpdateAsync(Factory model)
+		{
+			return await Task.Run(() => UpdateAsync(model.Id, model));
 		}
 	}
 }

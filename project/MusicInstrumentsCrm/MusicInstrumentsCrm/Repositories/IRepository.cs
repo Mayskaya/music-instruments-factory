@@ -13,11 +13,13 @@ namespace MusicInstrumentsCrm.Repositories
 
 		Task<DomainClass> FindByIdAsync(Key id);
 
+		Task<DomainClass> UpdateAsync(Key id, DomainClass model);
+
 		Task<DomainClass> UpdateAsync(DomainClass model);
 
-		Task<DomainClass> DeleteByIdAsync(Key id);
+		Task<bool> DeleteAsync(Key id);
 
-		Task<DomainClass> DeleteAsync(DomainClass model);
+		Task<bool> DeleteAsync(DomainClass model);
 
 	}
 
@@ -28,26 +30,12 @@ namespace MusicInstrumentsCrm.Repositories
 
 		DomainClass FindById(Key id);
 
+		DomainClass UpdateByIdAsync(Key id, DomainClass model);
+
 		DomainClass Update(DomainClass model);
 
-		DomainClass DeleteById(Key id);
+		bool DeleteById(Key id);
 
-		Task<DomainClass> Delete(DomainClass model);
+		bool Delete(DomainClass model);
 	}
 }
-
-
-/***
-
-		DomainClass Create(DomainClass model);
-		
-		IEnumerable<DomainClass> FindAll();
-
-		DomainClass FindById(Key id);
-
-		DomainClass Update(DomainClass model);
-
-		DomainClass DeleteById(Key id);
-
-		Task<DomainClass> Delete(DomainClass model);
-		**/

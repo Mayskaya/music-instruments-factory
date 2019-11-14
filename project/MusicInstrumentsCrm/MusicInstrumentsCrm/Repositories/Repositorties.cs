@@ -7,27 +7,27 @@ namespace MusicInstrumentsCrm.Repositories
 
 	}
 
-	public interface IGoodTypeRepository : IAsyncRepository<GoodTypeRepository, int>
+	public interface IGoodTypeRepository : IAsyncRepository<GoodType, int>
 	{
 
 	}
 
-	public interface IGoodInOfferRepository : IAsyncRepository<GoodInOfferRepository, int>
+	public interface IGoodInOfferRepository : IAsyncRepository<GoodInOffer, int>
 	{
 
 	}
 
-	public interface IFactoryRepository : IAsyncRepository<Domain.Factory, int>
+	public interface IFactoryRepository : IAsyncRepository<Factory, int>
 	{
 
 	}
 
-	public interface IOfferRepository : IAsyncRepository<OfferRepository, int>
+	public interface IOfferRepository : IAsyncRepository<Offer, int>
 	{
 
 	}
 
-	public interface ISupplyInStoreRepository : IAsyncRepository<SupplyInStoreRepository, int>
+	public interface ISupplyInStoreRepository : IAsyncRepository<SupplyInStore, int>
 	{
 
 	}

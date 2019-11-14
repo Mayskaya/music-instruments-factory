@@ -1,46 +1,96 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicInstrumentsCrm.Domain;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class GoodRepository : IGoodRepository
+	public class GoodRepository : AbstractCache<Good, int>, IGoodRepository 
 	{
-		public Task<Good> CreateAsync(Good model)
+
+		private ApplicationDbContext db;
+
+		public GoodRepository(ApplicationDbContext db)
 		{
-			throw new NotImplementedException();
+			this.db = db ?? throw new ArgumentNullException(nameof(db));
+			if (cache == null)
+			{
+				cache = new ConcurrentDictionary<int, Good>(db.Goods.ToDictionary(g => g.Id));
+			}
 		}
 
-		public Task<Good> DeleteByIdAsync(int id)
+		public async Task<Good> CreateAsync(Good model)
 		{
-			throw new NotImplementedException();
+			EntityEntry<Good> added = await db.Goods.AddAsync(model);
+			int affected = await db.SaveChangesAsync();
+			if (affected == 1)
+			{
+				return cache.AddOrUpdate(model.Id, model, UpdateCache);
+			}
+			else
+			{
+				return null;
+			}
+ 		}
+
+		public async Task<bool> DeleteAsync(int id)
+		{
+			return await Task.Run(() =>
+			{
+				Good good = db.Goods.Find(id);
+				db.Goods.Remove(good);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => cache.TryRemove(id, out good));
+				}
+				else
+				{
+					return null;
+				}
+			});
 		}
 
-		public Task<Good> DeleteAsync(Good model)
+		public async Task<bool> DeleteAsync(Good model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() => DeleteAsync(model.Id));
 		}
 
-		public Task<IEnumerable<Good>> FindAllAsync()
+		public async Task<IEnumerable<Good>> FindAllAsync()
 		{
-			throw new NotImplementedException();
+			return await Task.Run<IEnumerable<Good>>(() => cache.Values);
 		}
 
-		public Task<Good> FindByIdAsync(int id)
+		public async Task<Good> FindByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				Good good;
+				cache.TryGetValue(id, out good);
+				return good;
+			});
 		}
 
-		public Task<Good> UpdateAsync(int id, Good model)
+		public async Task<Good> UpdateAsync(int id, Good model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				db.Goods.Update(model);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => UpdateCache(id, model));
+				}
+				return null;
+			});
 		}
 
-		public Task<Good> UpdateAsync(Good model)
+		public async Task<Good> UpdateAsync(Good model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() => UpdateAsync(model.Id, model));
 		}
 	}
 }
