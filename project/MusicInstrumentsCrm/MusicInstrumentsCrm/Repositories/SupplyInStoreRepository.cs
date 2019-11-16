@@ -1,46 +1,93 @@
 ﻿using MusicInstrumentsCrm.Domain;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class SupplyInStoreRepository : ISupplyInStoreRepository
+	public class SupplyInStoreRepository : AbstractCache<SupplyInStore, int>, ISupplyInStoreRepository
 	{
+		private ApplicationDbContext db;
+
+		public SupplyInStoreRepository(ApplicationDbContext db)
+		{
+			this.db = db ?? throw new ArgumentNullException(nameof(db));
+
+			if (cache == null)
+			{
+				cache = new ConcurrentDictionary<int, SupplyInStore>();
+			}
+		}
+
 		public async Task<SupplyInStore> CreateAsync(SupplyInStore model)
 		{
-			throw new NotImplementedException();
+			EntityEntry<SupplyInStore> added = await db.SuppliesInStore.AddAsync(model);
+			int affected = await db.SaveChangesAsync();
+			if (affected == 1)
+			{
+				return cache.AddOrUpdate(model.Id, model, UpdateCache);
+			}
+
+			return null;
 		}
 
 		public async Task<bool> DeleteAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				SupplyInStore supplyInStore = db.SuppliesInStore.Find(id);
+				db.SuppliesInStore.Remove(supplyInStore);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => cache.TryRemove(id, out supplyInStore));
+				}
+
+				return null;
+			});
 		}
 
 		public async Task<bool> DeleteAsync(SupplyInStore model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() => DeleteAsync(model.Id));
 		}
 
 		public async Task<IEnumerable<SupplyInStore>> FindAllAsync()
 		{
-			throw new NotImplementedException();
+			return await Task.Run<IEnumerable<SupplyInStore>>(() => cache.Values);
 		}
 
 		public async Task<SupplyInStore> FindByIdAsync(int id)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				SupplyInStore supplyInStore;
+				cache.TryGetValue(id, out supplyInStore);
+				return supplyInStore;
+			});
 		}
 
 		public async Task<SupplyInStore> UpdateAsync(int id, SupplyInStore model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() =>
+			{
+				db.SuppliesInStore.Update(model);
+				int affected = db.SaveChanges();
+				if (affected == 1)
+				{
+					return Task.Run(() => UpdateCache(id, model));
+				}
+
+				return null;
+			});
 		}
 
 		public async Task<SupplyInStore> UpdateAsync(SupplyInStore model)
 		{
-			throw new NotImplementedException();
+			return await Task.Run(() => UpdateAsync(model.Id, model));
 		}
 	}
 }

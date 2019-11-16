@@ -30,11 +30,9 @@ namespace MusicInstrumentsCrm.Repositories
 			{
 				return cache.AddOrUpdate(model.Id, model, UpdateCache);
 			}
-			else
-			{
-				return null;
-			}
- 		}
+
+			return null;
+		}
 
 		public async Task<bool> DeleteAsync(int id)
 		{
@@ -47,10 +45,8 @@ namespace MusicInstrumentsCrm.Repositories
 				{
 					return Task.Run(() => cache.TryRemove(id, out good));
 				}
-				else
-				{
-					return null;
-				}
+
+				return null;
 			});
 		}
 

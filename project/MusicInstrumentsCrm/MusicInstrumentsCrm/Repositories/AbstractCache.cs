@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class AbstractCache<DomainClass, Key>
+	public class AbstractCache<TDomainClass, TKey>
 	{
-		protected static ConcurrentDictionary<Key, DomainClass> cache;
+		protected static ConcurrentDictionary<TKey, TDomainClass> cache;
 		
-		protected DomainClass UpdateCache(Key id, DomainClass model)
+		protected TDomainClass UpdateCache(TKey id, TDomainClass model)
 		{
-			DomainClass old;
+			TDomainClass old;
 			if (cache.TryGetValue(id, out old))
 			{
 				if (cache.TryUpdate(id, model, old))

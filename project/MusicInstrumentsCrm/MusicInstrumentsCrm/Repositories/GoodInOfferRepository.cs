@@ -10,7 +10,6 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class GoodInOfferRepository : AbstractCache<GoodInOffer, int>, IGoodInOfferRepository
 	{
-
 		private ApplicationDbContext db;
 
 		public GoodInOfferRepository(ApplicationDbContext db)
@@ -31,10 +30,8 @@ namespace MusicInstrumentsCrm.Repositories
 			{
 				return cache.AddOrUpdate(model.Id, model, UpdateCache);
 			}
-			else
-			{
-				return null;
-			}
+
+			return null;
 		}
 
 		public async Task<bool> DeleteAsync(int id)
@@ -48,10 +45,8 @@ namespace MusicInstrumentsCrm.Repositories
 				{
 					return Task.Run(() => cache.TryRemove(id, out goodInOffer));
 				}
-				else
-				{
-					return null;
-				}
+
+				return null;
 			});
 		}
 
@@ -85,6 +80,7 @@ namespace MusicInstrumentsCrm.Repositories
 				{
 					return Task.Run(() => UpdateCache(id, model));
 				}
+
 				return null;
 			});
 		}

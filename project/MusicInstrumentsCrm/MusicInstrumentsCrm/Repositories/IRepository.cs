@@ -5,37 +5,37 @@ using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public interface IAsyncRepository<DomainClass, Key>
+	public interface IAsyncRepository<TDomainClass, TKey>
 	{
-		Task<DomainClass> CreateAsync(DomainClass model);
+		Task<TDomainClass> CreateAsync(TDomainClass model);
 
-		Task<IEnumerable<DomainClass>> FindAllAsync();
+		Task<IEnumerable<TDomainClass>> FindAllAsync();
 
-		Task<DomainClass> FindByIdAsync(Key id);
+		Task<TDomainClass> FindByIdAsync(TKey id);
 
-		Task<DomainClass> UpdateAsync(Key id, DomainClass model);
+		Task<TDomainClass> UpdateAsync(TKey id, TDomainClass model);
 
-		Task<DomainClass> UpdateAsync(DomainClass model);
+		Task<TDomainClass> UpdateAsync(TDomainClass model);
 
-		Task<bool> DeleteAsync(Key id);
+		Task<bool> DeleteAsync(TKey id);
 
-		Task<bool> DeleteAsync(DomainClass model);
+		Task<bool> DeleteAsync(TDomainClass model);
 
 	}
 
-	public interface IRepository<DomainClass, Key> {
-		DomainClass Create(DomainClass model);
+	public interface IRepository<TDomainClass, TKey> {
+		TDomainClass Create(TDomainClass model);
 		
-		IEnumerable<DomainClass> FindAll();
+		IEnumerable<TDomainClass> FindAll();
 
-		DomainClass FindById(Key id);
+		TDomainClass FindById(TKey id);
 
-		DomainClass UpdateByIdAsync(Key id, DomainClass model);
+		TDomainClass UpdateByIdAsync(TKey id, TDomainClass model);
 
-		DomainClass Update(DomainClass model);
+		TDomainClass Update(TDomainClass model);
 
-		bool DeleteById(Key id);
+		bool DeleteById(TKey id);
 
-		bool Delete(DomainClass model);
+		bool Delete(TDomainClass model);
 	}
 }
