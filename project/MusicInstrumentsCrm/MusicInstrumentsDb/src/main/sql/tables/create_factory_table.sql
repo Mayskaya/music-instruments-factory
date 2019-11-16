@@ -1,4 +1,4 @@
-/** Factory table*/
+﻿/** Factory table*/
 CREATE TABLE Factory
 (
     id              integer     NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE Factory
 );
 
 ALTER TABLE Factory
-    ADD CONSTRAINT PK_Store
+    ADD CONSTRAINT PK_Factory
         PRIMARY KEY (id);
 
 CREATE INDEX IXFK_Factory_Address ON Factory (address ASC);

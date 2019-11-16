@@ -1,4 +1,4 @@
-/** GoodInOffer table*/
+﻿/** GoodInOffer table*/
 CREATE TABLE GoodInOffer
 (
     id    integer NOT NULL,

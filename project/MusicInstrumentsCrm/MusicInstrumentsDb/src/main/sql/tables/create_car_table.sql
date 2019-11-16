@@ -1,4 +1,4 @@
-/** Car table*/
+﻿/** Car table*/
 CREATE TABLE Car
 (
     id         INTEGER    NOT NULL,

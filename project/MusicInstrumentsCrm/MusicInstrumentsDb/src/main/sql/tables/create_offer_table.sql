@@ -1,4 +1,4 @@
-/** Offer table*/
+﻿/** Offer table*/
 CREATE TABLE Offer
 (
     id       integer        NOT NULL,

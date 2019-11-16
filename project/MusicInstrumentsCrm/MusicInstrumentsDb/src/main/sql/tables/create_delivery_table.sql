@@ -1,4 +1,4 @@
-/** Delivery table*/
+﻿/** Delivery table*/
 CREATE TABLE Delivery
 (
     id      integer NOT NULL,

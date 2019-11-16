@@ -1,4 +1,4 @@
-/** Address table*/
+﻿/** Address table*/
 CREATE TABLE Address
 (
     id           INTEGER      NOT NULL,

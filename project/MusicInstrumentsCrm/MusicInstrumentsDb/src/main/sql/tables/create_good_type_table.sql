@@ -1,4 +1,4 @@
-/** GoodType table*/
+﻿/** GoodType table*/
 CREATE TABLE GoodType
 (
     id        integer     NOT NULL,

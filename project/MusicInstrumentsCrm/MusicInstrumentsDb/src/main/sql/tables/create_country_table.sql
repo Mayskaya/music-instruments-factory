@@ -1,4 +1,4 @@
-/** Country table*/
+﻿/** Country table*/
 CREATE TABLE Country
 (
     id   INTEGER      NOT NULL,

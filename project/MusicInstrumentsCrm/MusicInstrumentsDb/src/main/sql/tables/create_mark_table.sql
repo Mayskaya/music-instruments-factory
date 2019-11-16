@@ -1,4 +1,4 @@
-/** Mark table*/
+﻿/** Mark table*/
 CREATE TABLE Mark
 (
     id      integer     NOT NULL,

@@ -1,15 +1,12 @@
-﻿/** Address table*/
+﻿/* Address table*/
 CREATE TABLE Address
 (
     id           INTEGER      NOT NULL,
     full_address VARCHAR(255) NOT NULL
 );
 
-ALTER TABLE Address
-    ADD CONSTRAINT PK_Address
-        PRIMARY KEY (id);
 
-/** Buyer table*/
+/*Buyer table*/
 CREATE TABLE Buyer
 (
     id         INTEGER      NOT NULL,
@@ -18,26 +15,11 @@ CREATE TABLE Buyer
     patronymic VARCHAR(50)  NULL,
     email      VARCHAR(255) NOT NULL,
     phone      VARCHAR(50)  NULL,
-    "user"     INTEGER      NULL
+    crm_user   INTEGER      NULL
 );
 
-ALTER TABLE Buyer
-    ADD CONSTRAINT PK_Buyer
-        PRIMARY KEY (id);
 
-ALTER TABLE Buyer
-    ADD CONSTRAINT UQ_Buyer_email UNIQUE (email);
-
-ALTER TABLE Buyer
-    ADD CONSTRAINT UQ_Buyer_phone UNIQUE (phone)
-
-CREATE INDEX IXFK_Buyer_User ON Buyer ("user" ASC);
-
-ALTER TABLE Buyer
-    ADD CONSTRAINT FK_Buyer_User
-        FOREIGN KEY ("user") REFERENCES "User" (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-/** Car table*/
+/*Car table*/
 CREATE TABLE Car
 (
     id         INTEGER    NOT NULL,
@@ -46,6 +28,191 @@ CREATE TABLE Car
     mark_model INTEGER    NOT NULL
 );
 
+/*Country table*/
+CREATE TABLE Country
+(
+    id   INTEGER      NOT NULL,
+    name VARCHAR(150) NOT NULL
+);
+
+/*Delivery table*/
+CREATE TABLE Delivery
+(
+    id      integer NOT NULL,
+    car     integer NOT NULL,
+    address integer NOT NULL,
+    courier integer NOT NULL
+);
+
+/*Factory table*/
+CREATE TABLE Factory
+(
+    id              integer     NOT NULL,
+    address         integer     NOT NULL,
+    foundation_date varchar(50) NOT NULL
+);
+
+/*GoodInOffer table*/
+CREATE TABLE GoodInOffer
+(
+    id    integer NOT NULL,
+    good  integer NOT NULL,
+    offer integer NOT NULL,
+    count integer NOT NULL
+);
+
+/*Good table*/
+CREATE TABLE Good
+(
+    id          integer        NOT NULL,
+    name        varchar(50)    NOT NULL,
+    description varchar(50)    NULL,
+    good_type   integer        NOT NULL,
+    factory     integer        NOT NULL,
+    price       numeric(12, 2) NOT NULL
+);
+
+/*GoodType table*/
+CREATE TABLE GoodType
+(
+    id        integer     NOT NULL,
+    type_name varchar(50) NOT NULL
+);
+
+/*Mark table*/
+CREATE TABLE Mark
+(
+    id      integer     NOT NULL,
+    name    varchar(50) NOT NULL,
+    country varchar(50) NOT NULL
+);
+
+/*Model table*/
+CREATE TABLE Model
+(
+    id         integer     NOT NULL,
+    model_name varchar(50) NOT NULL,
+    mark       integer     NOT NULL,
+    year       timestamp   NOT NULL
+);
+/*Offer table*/
+CREATE TABLE Offer
+(
+    id       integer        NOT NULL,
+    code     varchar(38)    NOT NULL,
+    buyer    integer        NOT NULL,
+    seller   integer        NOT NULL,
+    store    integer        NULL,
+    delivery integer        NULL,
+    sum      numeric(12, 2) NOT NULL
+);
+
+/*Staff table*/
+CREATE TABLE Staff
+(
+    id              integer     NOT NULL,
+    first_name      varchar(50) NULL,
+    last_name       varchar(50) NULL,
+    patronymic      varchar(50) NULL,
+    passport_serial varchar(4)  NULL,
+    passport_number varchar(6)  NULL,
+    inn             varchar(10) NULL,
+    snils           varchar(14) NULL,
+    crm_user        integer     NULL
+);
+
+/*Store table*/
+CREATE TABLE Store
+(
+    id      integer     NOT NULL,
+    name    varchar(50) NOT NULL,
+    address integer     NOT NULL
+);
+
+/*SupplyInStore table*/
+CREATE TABLE SupplyInStore
+(
+    id    integer      NOT NULL,
+    good  integer      NOT NULL,
+    store integer      NOT NULL,
+    date  timestamp(6) NOT NULL
+);
+
+/*CrmUser table*/
+CREATE TABLE CrmUser
+(
+    id            integer      NOT NULL,
+    login         varchar(50)  NOT NULL,
+    password      varchar(100) NOT NULL,
+    creation_date timestamp    NOT NULL,
+    last_login    timestamp    NULL,
+    active        boolean      NOT NULL
+);
+
+/* !!!!!!!!!!!!!!!!!!!!!!!!!! CONSTRAINTS !!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+/*CrmUser constraint*/
+ALTER TABLE CrmUser
+    ADD CONSTRAINT PK_CrmUser
+        PRIMARY KEY (id);
+
+ALTER TABLE CrmUser
+    ADD CONSTRAINT UQ_CrmUser_login UNIQUE (login);
+
+ALTER TABLE CrmUser
+    ADD CONSTRAINT UQ_CrmUser_password UNIQUE (password);
+
+/*Country constraint*/
+ALTER TABLE Country
+    ADD CONSTRAINT PK_Country
+        PRIMARY KEY (id);
+
+/*Mark constraint*/
+ALTER TABLE Mark
+    ADD CONSTRAINT PK_Model
+        PRIMARY KEY (id);
+
+CREATE INDEX IXFK_Mark_Country ON Mark (id ASC);
+
+ALTER TABLE Mark
+    ADD CONSTRAINT FK_Mark_Country
+        FOREIGN KEY (id) REFERENCES Country (id) ON DELETE No Action ON UPDATE No Action;
+
+/*Model constraint*/
+ALTER TABLE Model
+    ADD CONSTRAINT PK_Mark
+        PRIMARY KEY (id);
+
+
+CREATE INDEX IXFK_Mark_Model ON Model (mark ASC);
+
+ALTER TABLE Model
+    ADD CONSTRAINT FK_Mark_Model
+        FOREIGN KEY (mark) REFERENCES Mark (id) ON DELETE No Action ON UPDATE No Action;
+
+/* Address constraint*/
+ALTER TABLE Address
+    ADD CONSTRAINT PK_Address
+        PRIMARY KEY (id);
+
+/* Buyer constraint*/
+ALTER TABLE Buyer
+    ADD CONSTRAINT PK_Buyer
+        PRIMARY KEY (id);
+
+ALTER TABLE Buyer
+    ADD CONSTRAINT UQ_Buyer_email UNIQUE (email);
+
+ALTER TABLE Buyer
+    ADD CONSTRAINT UQ_Buyer_phone UNIQUE (phone);
+
+CREATE INDEX IXFK_Buyer_CrmUser ON Buyer (crm_user ASC);
+
+ALTER TABLE Buyer
+    ADD CONSTRAINT FK_Buyer_CrmUser
+        FOREIGN KEY (crm_user) REFERENCES CrmUser (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+/*Car constraint*/
 ALTER TABLE Car
     ADD CONSTRAINT PK_Car
         PRIMARY KEY (id);
@@ -59,26 +226,72 @@ ALTER TABLE Car
     ADD CONSTRAINT FK_Car_Mark
         FOREIGN KEY (mark_model) REFERENCES Model (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
-/** Country table*/
-CREATE TABLE Country
-(
-    id   INTEGER      NOT NULL,
-    name VARCHAR(150) NOT NULL
-);
-
-ALTER TABLE Country
-    ADD CONSTRAINT PK_Country
+/*Factory constraint*/
+ALTER TABLE Factory
+    ADD CONSTRAINT PK_Factory
         PRIMARY KEY (id);
 
-/** Delivery table*/
-CREATE TABLE Delivery
-(
-    id      integer NOT NULL,
-    car     integer NOT NULL,
-    address integer NOT NULL,
-    courier integer NOT NULL
-);
+CREATE INDEX IXFK_Factory_Address ON Factory (address ASC);
 
+ALTER TABLE Factory
+    ADD CONSTRAINT FK_Factory_Address
+        FOREIGN KEY (address) REFERENCES Address (id) ON DELETE No Action ON UPDATE No Action;
+
+/*GoodType constraint*/
+ALTER TABLE GoodType
+    ADD CONSTRAINT PK_GoodType
+        PRIMARY KEY (id);
+
+/*Good constraint*/
+ALTER TABLE Good
+    ADD CONSTRAINT PK_Good
+        PRIMARY KEY (id);
+
+CREATE INDEX IXFK_Good_Factory ON Good (factory ASC);
+
+CREATE INDEX IXFK_Good_GoodType ON Good (good_type ASC);
+
+ALTER TABLE Good
+    ADD CONSTRAINT FK_Good_Factory
+        FOREIGN KEY (factory) REFERENCES Factory (id) ON DELETE No Action ON UPDATE No Action;
+
+ALTER TABLE Good
+    ADD CONSTRAINT FK_Good_GoodType
+        FOREIGN KEY (good_type) REFERENCES GoodType (id) ON DELETE No Action ON UPDATE No Action;
+
+/*Staff constraint*/
+ALTER TABLE Staff
+    ADD CONSTRAINT PK_Staff
+        PRIMARY KEY (id);
+
+ALTER TABLE Staff
+    ADD CONSTRAINT UQ_Staff_passport UNIQUE (passport_serial, passport_number);
+
+ALTER TABLE Staff
+    ADD CONSTRAINT UQ_Staff_inn UNIQUE (inn);
+
+ALTER TABLE Staff
+    ADD CONSTRAINT UQ_Staff_snils UNIQUE (snils);
+
+CREATE INDEX IXFK_Staff_User ON Staff (crm_user ASC);
+
+ALTER TABLE Staff
+    ADD CONSTRAINT FK_Staff_CrmUser
+        FOREIGN KEY (crm_user) REFERENCES CrmUser (id) ON DELETE No Action ON UPDATE No Action;
+
+/*Store constraint*/
+ALTER TABLE Store
+    ADD CONSTRAINT PK_Store
+        PRIMARY KEY (id);
+
+CREATE INDEX IXFK_Store_Address ON Store (id ASC);
+
+ALTER TABLE Store
+    ADD CONSTRAINT FK_Store_Address
+        FOREIGN KEY (id) REFERENCES Address (id) ON DELETE No Action ON UPDATE No Action;
+
+
+/*Delivery constraint*/
 ALTER TABLE Delivery
     ADD CONSTRAINT PK_Delivery
         PRIMARY KEY (id);
@@ -101,136 +314,7 @@ ALTER TABLE Delivery
     ADD CONSTRAINT FK_Delivery_Staff
         FOREIGN KEY (courier) REFERENCES Staff (id) ON DELETE No Action ON UPDATE No Action;
 
-/** Factory table*/
-CREATE TABLE Factory
-(
-    id              integer     NOT NULL,
-    address         integer     NOT NULL,
-    foundation_date varchar(50) NOT NULL
-);
-
-ALTER TABLE Factory
-    ADD CONSTRAINT PK_Store
-        PRIMARY KEY (id);
-
-CREATE INDEX IXFK_Factory_Address ON Factory (address ASC);
-
-ALTER TABLE Factory
-    ADD CONSTRAINT FK_Factory_Address
-        FOREIGN KEY (address) REFERENCES Address (id) ON DELETE No Action ON UPDATE No Action;
-
-/** GoodInOffer table*/
-CREATE TABLE GoodInOffer
-(
-    id    integer NOT NULL,
-    good  integer NOT NULL,
-    offer integer NOT NULL,
-    count integer NOT NULL
-);
-
-ALTER TABLE GoodInOffer
-    ADD CONSTRAINT PK_GoodInOffer
-        PRIMARY KEY (id);
-
-CREATE INDEX IXFK_GoodInOffer_Good ON GoodInOffer (good ASC);
-
-CREATE INDEX IXFK_GoodInOffer_Offer ON GoodInOffer (offer ASC);
-
-ALTER TABLE GoodInOffer
-    ADD CONSTRAINT FK_GoodInOffer_Good
-        FOREIGN KEY (good) REFERENCES Good (id) ON DELETE No Action ON UPDATE No Action;
-
-ALTER TABLE GoodInOffer
-    ADD CONSTRAINT FK_GoodInOffer_Offer
-        FOREIGN KEY (offer) REFERENCES Offer (id) ON DELETE No Action ON UPDATE No Action;
-
-/** Good table*/
-CREATE TABLE Good
-(
-    id          integer        NOT NULL,
-    name        varchar(50)    NOT NULL,
-    description varchar(50)    NULL,
-    good_type   integer        NOT NULL,
-    factory     integer        NOT NULL,
-    price       numeric(12, 2) NOT NULL
-);
-
-ALTER TABLE Good
-    ADD CONSTRAINT PK_Good
-        PRIMARY KEY (id);
-
-CREATE INDEX IXFK_Good_Factory ON Good (factory ASC);
-
-CREATE INDEX IXFK_Good_GoodType ON Good (good_type ASC);
-
-ALTER TABLE Good
-    ADD CONSTRAINT FK_Good_Factory
-        FOREIGN KEY (factory) REFERENCES Factory (id) ON DELETE No Action ON UPDATE No Action;
-
-ALTER TABLE Good
-    ADD CONSTRAINT FK_Good_GoodType
-        FOREIGN KEY (good_type) REFERENCES GoodType (id) ON DELETE No Action ON UPDATE No Action;
-
-/** GoodType table*/
-CREATE TABLE GoodType
-(
-    id        integer     NOT NULL,
-    type_name varchar(50) NOT NULL
-);
-
-ALTER TABLE GoodType
-    ADD CONSTRAINT PK_GoodType
-        PRIMARY KEY (id);
-
-/** Mark table*/
-CREATE TABLE Mark
-(
-    id      integer     NOT NULL,
-    name    varchar(50) NOT NULL,
-    country varchar(50) NOT NULL
-);
-
-ALTER TABLE Mark
-    ADD CONSTRAINT PK_Model
-        PRIMARY KEY (id);
-
-CREATE INDEX IXFK_Mark_Country ON Mark (id ASC);
-
-ALTER TABLE Mark
-    ADD CONSTRAINT FK_Mark_Country
-        FOREIGN KEY (id) REFERENCES Country (id) ON DELETE No Action ON UPDATE No Action;
-
-/** Model table*/
-CREATE TABLE Model
-(
-    id         integer     NOT NULL,
-    model_name varchar(50) NOT NULL,
-    mark       integer     NOT NULL,
-    year       timestamp   NOT NULL
-);
-
-ALTER TABLE Model
-    ADD CONSTRAINT PK_Mark
-        PRIMARY KEY (id);
-
-CREATE INDEX IXFK_Mark_Model ON Model (mark ASC);
-
-ALTER TABLE Model
-    ADD CONSTRAINT FK_Mark_Model
-        FOREIGN KEY (mark) REFERENCES Mark (id) ON DELETE No Action ON UPDATE No Action;
-
-/** Offer table*/
-CREATE TABLE Offer
-(
-    id       integer        NOT NULL,
-    code     varchar(38)    NOT NULL,
-    buyer    integer        NOT NULL,
-    seller   integer        NOT NULL,
-    store    integer        NULL,
-    delivery integer        NULL,
-    sum      numeric(12, 2) NOT NULL
-);
-
+/*Offer constraint*/
 ALTER TABLE Offer
     ADD CONSTRAINT PK_Offer
         PRIMARY KEY (id);
@@ -262,66 +346,24 @@ ALTER TABLE Offer
     ADD CONSTRAINT FK_Offer_Store
         FOREIGN KEY (store) REFERENCES Store (id) ON DELETE No Action ON UPDATE No Action;
 
-/** Staff table*/
-CREATE TABLE Staff
-(
-    id              integer     NOT NULL,
-    first_name      varchar(50) NULL,
-    last_name       varchar(50) NULL,
-    patronymic      varchar(50) NULL,
-    passport_serial varchar(4)  NULL,
-    passport_number varchar(6)  NULL,
-    inn             varchar(10) NULL,
-    snils           varchar(14) NULL,
-    "user"          integer     NULL
-);
-
-ALTER TABLE Staff
-    ADD CONSTRAINT PK_Staff
+/*GoodInOffer constraint*/
+ALTER TABLE GoodInOffer
+    ADD CONSTRAINT PK_GoodInOffer
         PRIMARY KEY (id);
 
-ALTER TABLE Staff
-    ADD CONSTRAINT UQ_Staff_passport UNIQUE (passport_serial, passport_number);
+CREATE INDEX IXFK_GoodInOffer_Good ON GoodInOffer (good ASC);
 
-ALTER TABLE Staff
-    ADD CONSTRAINT UQ_Staff_inn UNIQUE (inn);
+CREATE INDEX IXFK_GoodInOffer_Offer ON GoodInOffer (offer ASC);
 
-ALTER TABLE Staff
-    ADD CONSTRAINT UQ_Staff_snils UNIQUE (snils);
+ALTER TABLE GoodInOffer
+    ADD CONSTRAINT FK_GoodInOffer_Good
+        FOREIGN KEY (good) REFERENCES Good (id) ON DELETE No Action ON UPDATE No Action;
 
-CREATE INDEX IXFK_Staff_User ON Staff ("user" ASC);
+ALTER TABLE GoodInOffer
+    ADD CONSTRAINT FK_GoodInOffer_Offer
+        FOREIGN KEY (offer) REFERENCES Offer (id) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE Staff
-    ADD CONSTRAINT FK_Staff_User
-        FOREIGN KEY ("user") REFERENCES "User" (id) ON DELETE No Action ON UPDATE No Action;
-
-/** Store table*/
-CREATE TABLE Store
-(
-    id      integer     NOT NULL,
-    name    varchar(50) NOT NULL,
-    address integer     NOT NULL
-);
-
-ALTER TABLE Store
-    ADD CONSTRAINT PK_Store
-        PRIMARY KEY (id);
-
-CREATE INDEX IXFK_Store_Address ON Store (id ASC);
-
-ALTER TABLE Store
-    ADD CONSTRAINT FK_Store_Address
-        FOREIGN KEY (id) REFERENCES Address (id) ON DELETE No Action ON UPDATE No Action;
-
-/** SupplyInStore table*/
-CREATE TABLE SupplyInStore
-(
-    id    integer      NOT NULL,
-    good  integer      NOT NULL,
-    store integer      NOT NULL,
-    date  timestamp(6) NOT NULL
-);
-
+/*SupplyInStore constraint*/
 ALTER TABLE SupplyInStore
     ADD CONSTRAINT PK_SupplyInStore
         PRIMARY KEY (id);
@@ -333,25 +375,3 @@ CREATE INDEX IXFK_SupplyInStore_Store ON SupplyInStore (store ASC);
 ALTER TABLE SupplyInStore
     ADD CONSTRAINT FK_SupplyInStore_Good
         FOREIGN KEY (good) REFERENCES Good (id) ON DELETE No Action ON UPDATE No Action;
-
-/** User table*/
-CREATE TABLE "User"
-(
-    id            integer      NOT NULL,
-    login         varchar(50)  NOT NULL,
-    password      varchar(100) NOT NULL,
-    creation_date timestamp    NOT NULL,
-    last_login    timestamp    NULL,
-    active        boolean      NOT NULL
-);
-
-ALTER TABLE "User"
-    ADD CONSTRAINT PK_User
-        PRIMARY KEY (id);
-
-ALTER TABLE "User"
-    ADD CONSTRAINT UQ_User_login UNIQUE (login);
-
-ALTER TABLE "User"
-    ADD CONSTRAINT UQ_User_password UNIQUE (password);
-

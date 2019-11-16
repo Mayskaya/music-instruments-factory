@@ -1,4 +1,4 @@
-/** Model table*/
+﻿/** Model table*/
 CREATE TABLE Model
 (
     id         integer     NOT NULL,

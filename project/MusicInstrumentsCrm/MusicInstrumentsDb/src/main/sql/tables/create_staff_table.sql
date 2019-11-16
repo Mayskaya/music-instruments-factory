@@ -1,4 +1,4 @@
-/** Staff table*/
+﻿/** Staff table*/
 CREATE TABLE Staff
 (
     id              integer     NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE Staff
     passport_number varchar(6)  NULL,
     inn             varchar(10) NULL,
     snils           varchar(14) NULL,
-    "user"          integer     NULL
+    crm_user        integer     NULL
 );
 
 ALTER TABLE Staff
@@ -25,9 +25,9 @@ ALTER TABLE Staff
 ALTER TABLE Staff
     ADD CONSTRAINT UQ_Staff_snils UNIQUE (snils);
 
-CREATE INDEX IXFK_Staff_User ON Staff ("user" ASC);
+CREATE INDEX IXFK_Staff_User ON Staff (crm_user ASC);
 
 ALTER TABLE Staff
-    ADD CONSTRAINT FK_Staff_User
-        FOREIGN KEY ("user") REFERENCES "User" (id) ON DELETE No Action ON UPDATE No Action;
+    ADD CONSTRAINT FK_Staff_CrmUser
+        FOREIGN KEY (crm_user) REFERENCES CrmUser (id) ON DELETE No Action ON UPDATE No Action;
 

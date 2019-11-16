@@ -1,4 +1,4 @@
-/** Store table*/
+﻿/** Store table*/
 CREATE TABLE Store
 (
     id      integer     NOT NULL,

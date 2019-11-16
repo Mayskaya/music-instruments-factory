@@ -1,4 +1,4 @@
-/** Good table*/
+﻿/** Good table*/
 CREATE TABLE Good
 (
     id          integer        NOT NULL,

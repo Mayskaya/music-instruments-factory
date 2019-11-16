@@ -1,4 +1,4 @@
-/** SupplyInStore table*/
+﻿/** SupplyInStore table*/
 CREATE TABLE SupplyInStore
 (
     id    integer      NOT NULL,
