@@ -2,26 +2,6 @@
   background-color: #b2fab4;
 }
 
-/* .App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #09d3ac;
-} */ 
-
-
 .header-app{
   display: flex;
   flex-direction: row;
@@ -56,31 +36,25 @@
   width: 70%;
   max-width: 250px;
 
-  font-size: 20px;
-  padding: 20px 10px;
+  font-size: 25px;
+  padding-left: 30px;
   line-height: 1.5;
 
   list-style-type: none;
-  padding-top: 10px;
-}
 
-.nav-link{
-  /* display: flex;
-  flex-direction: column; */
-
-  text-decoration: none;
-  color: black;
-
-  padding-left: 20px;
-}
-
-.nav-links{
-  
   overflow-y: scroll;
 }
 
-.nav-table{
-  /* overflow-y: scroll; */
+.table-navbar{
+  width: 90%;
+  border-collapse: collapse;
+}
+
+.table-navbar td{
+  padding-left: 10px;
+  border-top: 2px solid #004c40;
+  border-left: none;
+  border-right: none;
 }
 
 .Footer{
@@ -91,5 +65,37 @@
   bottom: 0;
   left: 0;
   right: 0;
+}
 
+.Content{
+  position: fixed;
+  left: 270px;
+  top: 80px;
+  bottom: 60px;
+  width: 100%;
+
+  background-color: #e8f5e9;
+}
+
+.btn-content{
+  padding: 10px 20px;
+  margin: 20px 20px;
+
+  font-size: medium;
+  color: #004c40;
+  background-color: #b2fab4;
+  border: 2px solid #004c40;
+  border-radius: 10px;
+}
+
+.table-content{
+  margin-left: 20px;
+  margin-top: 20px;
+  width: 70%;
+  height: 70%;
+  border: 1px solid black;
+}
+
+.tr, td{
+  border: 1px solid #004c40;
 }
