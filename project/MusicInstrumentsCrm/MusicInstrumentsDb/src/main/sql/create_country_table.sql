@@ -1,6 +1,11 @@
-CREATE TABLE Country(
-	id integer NOT NULL,
-	name varchar(150) NOT NULL);
+/** Country table*/
+CREATE TABLE Country
+(
+    id   INTEGER      NOT NULL,
+    name VARCHAR(150) NOT NULL
+);
 
-ALTER TABLE Country ADD CONSTRAINT PK_Country
-	PRIMARY KEY (id);
+ALTER TABLE Country
+    ADD CONSTRAINT PK_Country
+        PRIMARY KEY (id);
+
