@@ -11,8 +11,7 @@ namespace MusicInstrumentsCrm.Controllers
 	[Route("api/v1/[controller]")]
 	public class DeliveryController : Controller
 	{
-
-		private IDeliveryRepository deliveryRepository;
+		private readonly IDeliveryRepository deliveryRepository;
 
 		public DeliveryController(IDeliveryRepository deliveryRepository)
 		{
@@ -23,7 +22,7 @@ namespace MusicInstrumentsCrm.Controllers
 		[HttpGet]
 		public IEnumerable<string> Get()
 		{
-			return new string[] { "value1", "value2" };
+			return new string[] {"value1", "value2"};
 		}
 
 		// GET api/<controller>/5
@@ -35,13 +34,13 @@ namespace MusicInstrumentsCrm.Controllers
 
 		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody]string value)
+		public void Post([FromBody] string value)
 		{
 		}
 
 		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody]string value)
+		public void Put(int id, [FromBody] string value)
 		{
 		}
 

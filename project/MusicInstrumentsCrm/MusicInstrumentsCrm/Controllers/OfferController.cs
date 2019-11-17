@@ -11,8 +11,7 @@ namespace MusicInstrumentsCrm.Controllers
 	[Route("api/v1/[controller]")]
 	public class OfferController : Controller
 	{
-
-		private IOfferRepository offerRepository;
+		private readonly IOfferRepository offerRepository;
 
 		public OfferController(IOfferRepository offerRepository)
 		{
@@ -20,12 +19,11 @@ namespace MusicInstrumentsCrm.Controllers
 		}
 
 
-
 		// GET: api/<controller>
 		[HttpGet]
 		public IEnumerable<string> Get()
 		{
-			return new string[] { "value1", "value2" };
+			return new string[] {"value1", "value2"};
 		}
 
 		// GET api/<controller>/5
@@ -37,13 +35,13 @@ namespace MusicInstrumentsCrm.Controllers
 
 		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody]string value)
+		public void Post([FromBody] string value)
 		{
 		}
 
 		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody]string value)
+		public void Put(int id, [FromBody] string value)
 		{
 		}
 

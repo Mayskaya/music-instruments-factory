@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -11,46 +12,84 @@ namespace MusicInstrumentsCrm.Controllers
 	[Route("api/v1/[controller]")]
 	public class GoodTypeController : Controller
 	{
-
-		private IGoodTypeRepository goodTypeRepository;
+		private readonly IGoodTypeRepository goodTypeRepository;
 
 		public GoodTypeController(IGoodTypeRepository goodTypeRepository)
 		{
 			this.goodTypeRepository = goodTypeRepository;
 		}
 
-
-
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<GoodType>> GetGoodTypes()
 		{
-			return new string[] { "value1", "value2" };
+			return await goodTypeRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetGoodType")]
+		public async Task<IActionResult> GetGoodType(int id)
 		{
-			return "value";
+			GoodType goodType = await goodTypeRepository.FindByIdAsync(id);
+			if (goodType == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(goodType);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody]string value)
+		public async Task<IActionResult> Create([FromBody] GoodType goodType)
 		{
+			if (goodType == null)
+			{
+				return BadRequest();
+			}
+
+			if (goodType.TypeName == null)
+			{
+				return BadRequest();
+			}
+
+			GoodType added = await goodTypeRepository.CreateAsync(goodType);
+			return CreatedAtRoute("GetGoodType", new {id = added.Id}, goodType);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody]string value)
+		public async Task<IActionResult> Update(int id, [FromBody] GoodType goodType)
 		{
+			if (goodType == null || goodType.Id != id)
+			{
+				return BadRequest();
+			}
+
+			GoodType existing = await goodTypeRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await goodTypeRepository.UpdateAsync(goodType);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			GoodType existing = await goodTypeRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await goodTypeRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+			else
+			{
+				return BadRequest();
+			}
 		}
 	}
 }
