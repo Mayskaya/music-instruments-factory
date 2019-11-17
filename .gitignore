@@ -2,14 +2,14 @@
 *.ldb
 
 # Visual Studio (Code) env files
-.vs
-.vscode
+**/.vs/*
+**/.vscode/*
 
 # Output directories
-bin
-obj
-dist
-.idea
+**/bin/*
+**/obj/*
+**/dist/*
+**/.idea/*
 
 # There is exist another .gitifnore file
 # Path: project\MusicInstrumentsCrm\MusicInstrumentsCrm\ClientApp\.gitignore
