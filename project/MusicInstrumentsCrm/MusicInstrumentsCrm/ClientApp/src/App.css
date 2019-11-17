@@ -57,6 +57,11 @@
   border-right: none;
 }
 
+.nav-link{
+  text-decoration: none;
+  color: #004c40;
+}
+
 .Footer{
   background-color: #b2fab4;
   height: 60px;

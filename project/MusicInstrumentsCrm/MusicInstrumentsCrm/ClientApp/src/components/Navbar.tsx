@@ -6,52 +6,52 @@ export default class Navbar extends React.Component<{}, {}> {
     <div className="Navbar">
         <table className="table-navbar">
             <tr>
-                <td>Good</td>
+                <td><a href="/" className='nav-link'>Good</a></td>
             </tr>
             <tr>
-                <td>GoodType</td>
+                <td><a href="/" className='nav-link'>GoodType</a></td>
             </tr>
             <tr>
-                <td>GoodInOffer</td>
+                <td><a href="/" className='nav-link'>GoodInOffer</a></td>
             </tr>
             <tr>
-                <td>Factory</td>
+                <td><a href="/" className='nav-link'>Factory</a></td>
             </tr>
             <tr>
-                <td>Offer</td>
+                <td><a href="/" className='nav-link'>Offer</a></td>
             </tr>
             <tr>
-                <td>SupplyInStore</td>
+                <td><a href="/" className='nav-link'>SupplyInStore</a></td>
             </tr>
             <tr>
-                <td>Store</td>
+                <td><a href="/" className='nav-link'>Store</a></td>
             </tr>
             <tr>
-                <td>Buyer</td>
+                <td><a href="/" className='nav-link'>Buyer</a></td>
             </tr>
             <tr>
-                <td>Staff</td>
+                <td><a href="/" className='nav-link'>Staff</a></td>
             </tr>
             <tr>
-                <td>Delivery</td>
+                <td><a href="/" className='nav-link'>Delivery</a></td>
             </tr>
             <tr>
-                <td>Car</td>
+                <td><a href="/" className='nav-link'>Car</a></td>
             </tr>
             <tr>
-                <td>Mark</td>
+                <td><a href="/" className='nav-link'>Mark</a></td>
             </tr>
             <tr>
-                <td>Model</td>
+                <td><a href="/" className='nav-link'>Model</a></td>
             </tr>
             <tr>
-                <td>User</td>
+                <td><a href="/" className='nav-link'>User</a></td>
             </tr>
             <tr>
-                <td>Country</td>
+                <td><a href="/" className='nav-link'>Country</a></td>
             </tr>
             <tr>
-                <td>Address</td>
+                <td><a href="/" className='nav-link'>Address</a></td>
             </tr>
         </table>
     </div>);
