@@ -8,8 +8,6 @@ ENV POSTGRES_PASSWORD admin
 ENV POSTGRES_DB micrm_db
 
 RUN mkdir /sql-data
-#COPY ./src/main/sql/schema.sql /docker-entrypoint-initdb.d/
-#COPY ./src/main/sql/init /docker-entrypoint-initdb.d/
 
 COPY ./src/main/sql/schema.sql /sql-data
 COPY ./src/main/sql/init /sql-data
