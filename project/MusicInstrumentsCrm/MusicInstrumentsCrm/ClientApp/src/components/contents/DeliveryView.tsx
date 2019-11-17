@@ -1,20 +1,16 @@
 import React from 'react';
 
-export default class UserView extends React.Component<{}, {}> {
+export default class DeliveryView extends React.Component<{}, {}> {
     public render() {
         return (
             <table>
                 <tr>
                     <td>id</td>
-                    <td>login</td>
-                    <td>password</td>
-                    <td>creation_date</td>
-                    <td>last_login</td>
-                    <td>active</td>
+                    <td>car</td>
+                    <td>address</td>
+                    <td>courier</td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
