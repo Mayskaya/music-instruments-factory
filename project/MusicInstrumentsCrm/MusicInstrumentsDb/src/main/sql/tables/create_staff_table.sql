@@ -2,14 +2,14 @@
 CREATE TABLE Staff
 (
     id              integer     NOT NULL,
-    first_name      varchar(50) NULL,
-    last_name       varchar(50) NULL,
-    patronymic      varchar(50) NULL,
-    passport_serial varchar(4)  NULL,
-    passport_number varchar(6)  NULL,
-    inn             varchar(10) NULL,
-    snils           varchar(14) NULL,
-    crm_user        integer     NULL
+    first_name      varchar(50) NOT NULL,
+    last_name       varchar(50) NOT NULL,
+    patronymic      varchar(50) NOT NULL,
+    passport_serial varchar(4)  NOT NULL,
+    passport_number varchar(6)  NOT NULL,
+    inn             varchar(10) NOT NULL,
+    snils           varchar(14) NOT NULL,
+    crm_user        integer     NOT NULL
 );
 
 ALTER TABLE Staff

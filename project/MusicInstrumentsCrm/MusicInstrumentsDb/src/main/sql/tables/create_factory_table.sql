@@ -2,6 +2,7 @@
 CREATE TABLE Factory
 (
     id              integer     NOT NULL,
+    name            VARCHAR(50) NOT NULL,
     address         integer     NOT NULL,
     foundation_date varchar(50) NOT NULL
 );
@@ -9,6 +10,10 @@ CREATE TABLE Factory
 ALTER TABLE Factory
     ADD CONSTRAINT PK_Factory
         PRIMARY KEY (id);
+
+ALTER TABLE Factory
+    ADD CONSTRAINT  UQ_Factory_name
+        PRIMARY KEY (name);
 
 CREATE INDEX IXFK_Factory_Address ON Factory (address ASC);
 

@@ -10,10 +10,9 @@ services:
   db:
     container_name: micrm_db_1
     image: micrm_db
-#    build:
-#      dockerfile: ../MusicInstrumentsCrm/MusicInstrumentsDb/Dockerfile
-#      context: .
-#    restart: always
+    build:
+      dockerfile: ../MusicInstrumentsCrm/MusicInstrumentsDb/Dockerfile
+      context: .
     ports:
       - 5432:5432
     volumes:

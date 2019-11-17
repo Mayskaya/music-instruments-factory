@@ -16,6 +16,3 @@ ALTER TABLE CrmUser
 ALTER TABLE CrmUser
     ADD CONSTRAINT UQ_CrmUser_login UNIQUE (login);
 
-ALTER TABLE CrmUser
-    ADD CONSTRAINT UQ_CrmUser_password UNIQUE (password);
-
