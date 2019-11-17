@@ -15,4 +15,4 @@
 # Path: project\MusicInstrumentsCrm\MusicInstrumentsCrm\ClientApp\.gitignore
 
 # This is mac
-#.DS_Store
+.DS_Store
