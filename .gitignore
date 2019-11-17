@@ -14,6 +14,5 @@
 # There is exist another .gitifnore file
 # Path: project\MusicInstrumentsCrm\MusicInstrumentsCrm\ClientApp\.gitignore
 
-#This is mac
-
-**/.DS_Store/*
+# This is mac
+#.DS_Store
