@@ -1,9 +1,9 @@
 ﻿/** Store table*/
 CREATE TABLE Store
 (
-    id      integer     NOT NULL,
-    name    varchar(50) NOT NULL,
-    address integer     NOT NULL
+    id      INTEGER     NOT NULL,
+    name    VARCHAR(50) NOT NULL,
+    address INTEGER     NOT NULL
 );
 
 ALTER TABLE Store

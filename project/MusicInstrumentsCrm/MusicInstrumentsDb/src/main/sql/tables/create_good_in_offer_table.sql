@@ -1,10 +1,10 @@
 ﻿/** GoodInOffer table*/
 CREATE TABLE GoodInOffer
 (
-    id    integer NOT NULL,
-    good  integer NOT NULL,
-    offer integer NOT NULL,
-    count integer NOT NULL
+    id    INTEGER NOT NULL,
+    good  INTEGER NOT NULL,
+    offer INTEGER NOT NULL,
+    count INTEGER NOT NULL
 );
 
 ALTER TABLE GoodInOffer

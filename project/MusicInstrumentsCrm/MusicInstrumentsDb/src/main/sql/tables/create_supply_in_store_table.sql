@@ -1,10 +1,10 @@
 ﻿/** SupplyInStore table*/
 CREATE TABLE SupplyInStore
 (
-    id    integer      NOT NULL,
-    good  integer      NOT NULL,
-    store integer      NOT NULL,
-    date  timestamp(6) NOT NULL
+    id    INTEGER      NOT NULL,
+    good  INTEGER      NOT NULL,
+    store INTEGER      NOT NULL,
+    date  TIMESTAMP(6) NOT NULL
 );
 
 ALTER TABLE SupplyInStore

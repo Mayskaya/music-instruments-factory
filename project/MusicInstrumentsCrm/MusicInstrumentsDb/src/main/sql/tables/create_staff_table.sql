@@ -1,15 +1,16 @@
 ﻿/** Staff table*/
 CREATE TABLE Staff
 (
-    id              integer     NOT NULL,
-    first_name      varchar(50) NOT NULL,
-    last_name       varchar(50) NOT NULL,
-    patronymic      varchar(50) NOT NULL,
-    passport_serial varchar(4)  NOT NULL,
-    passport_number varchar(6)  NOT NULL,
-    inn             varchar(10) NOT NULL,
-    snils           varchar(14) NOT NULL,
-    crm_user        integer     NOT NULL
+    id              INTEGER     NOT NULL,
+    first_name      VARCHAR(50) NOT NULL,
+    last_name       VARCHAR(50) NOT NULL,
+    patronymic      VARCHAR(50) NOT NULL,
+    passport_serial VARCHAR(4)  NOT NULL,
+    passport_number VARCHAR(6)  NOT NULL,
+    phone           VARCHAR(6)  NOT NULL,
+    inn             VARCHAR(10) NOT NULL,
+    snils           VARCHAR(14) NOT NULL,
+    crm_user        INTEGER     NOT NULL
 );
 
 ALTER TABLE Staff
@@ -24,6 +25,9 @@ ALTER TABLE Staff
 
 ALTER TABLE Staff
     ADD CONSTRAINT UQ_Staff_snils UNIQUE (snils);
+
+ALTER TABLE Staff 
+    ADD CONSTRAINT UQ_Staff_phone UNIQUE (phone);
 
 CREATE INDEX IXFK_Staff_User ON Staff (crm_user ASC);
 

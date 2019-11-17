@@ -1,10 +1,10 @@
 ﻿/** Factory table*/
 CREATE TABLE Factory
 (
-    id              integer     NOT NULL,
+    id              INTEGER     NOT NULL,
     name            VARCHAR(50) NOT NULL,
-    address         integer     NOT NULL,
-    foundation_date varchar(50) NOT NULL
+    address         INTEGER     NOT NULL,
+    foundation_date VARCHAR(50) NOT NULL
 );
 
 ALTER TABLE Factory

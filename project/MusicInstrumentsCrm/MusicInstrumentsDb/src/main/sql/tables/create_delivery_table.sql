@@ -1,10 +1,10 @@
 ﻿/** Delivery table*/
 CREATE TABLE Delivery
 (
-    id      integer NOT NULL,
-    car     integer NOT NULL,
-    address integer NOT NULL,
-    courier integer NOT NULL
+    id      INTEGER NOT NULL,
+    car     INTEGER NOT NULL,
+    address INTEGER NOT NULL,
+    courier INTEGER NOT NULL
 );
 
 ALTER TABLE Delivery

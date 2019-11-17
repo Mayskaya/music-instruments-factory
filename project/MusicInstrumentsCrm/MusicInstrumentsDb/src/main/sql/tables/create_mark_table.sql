@@ -1,9 +1,9 @@
 ﻿/** Mark table*/
 CREATE TABLE Mark
 (
-    id      integer     NOT NULL,
-    name    varchar(50) NOT NULL,
-    country varchar(50) NOT NULL
+    id      INTEGER     NOT NULL,
+    name    VARCHAR(50) NOT NULL,
+    country VARCHAR(50) NOT NULL
 );
 
 ALTER TABLE Mark

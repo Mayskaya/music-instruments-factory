@@ -1,10 +1,10 @@
 ﻿/** Model table*/
 CREATE TABLE Model
 (
-    id         integer     NOT NULL,
-    model_name varchar(50) NOT NULL,
-    mark       integer     NOT NULL,
-    year       timestamp   NOT NULL
+    id         INTEGER     NOT NULL,
+    model_name VARCHAR(50) NOT NULL,
+    mark       INTEGER     NOT NULL,
+    year       TIMESTAMP   NOT NULL
 );
 
 ALTER TABLE Model

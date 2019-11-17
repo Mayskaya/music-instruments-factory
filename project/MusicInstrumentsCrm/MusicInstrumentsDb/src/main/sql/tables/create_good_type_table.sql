@@ -1,8 +1,8 @@
 ﻿/** GoodType table*/
 CREATE TABLE GoodType
 (
-    id        integer     NOT NULL,
-    type_name varchar(50) NOT NULL
+    id        INTEGER     NOT NULL,
+    type_name VARCHAR(50) NOT NULL
 );
 
 ALTER TABLE GoodType

@@ -1,12 +1,12 @@
 ﻿/** Good table*/
 CREATE TABLE Good
 (
-    id          integer        NOT NULL,
-    name        varchar(50)    NOT NULL,
-    description varchar(50)    NULL,
-    good_type   integer        NOT NULL,
-    factory     integer        NOT NULL,
-    price       numeric(12, 2) NOT NULL
+    id          INTEGER        NOT NULL,
+    name        VARCHAR(50)    NOT NULL,
+    description VARCHAR(50)    NULL,
+    good_type   INTEGER        NOT NULL,
+    factory     INTEGER        NOT NULL,
+    price       NUMERIC(12, 2) NOT NULL
 );
 
 ALTER TABLE Good

@@ -1,13 +1,13 @@
 ﻿/** Offer table*/
 CREATE TABLE Offer
 (
-    id       integer        NOT NULL,
-    code     varchar(38)    NOT NULL,
-    buyer    integer        NOT NULL,
-    seller   integer        NOT NULL,
-    store    integer        NULL,
-    delivery integer        NULL,
-    sum      numeric(12, 2) NOT NULL
+    id       INTEGER        NOT NULL,
+    code     VARCHAR(38)    NOT NULL,
+    buyer    INTEGER        NOT NULL,
+    seller   INTEGER        NOT NULL,
+    store    INTEGER        NULL,
+    delivery INTEGER        NULL,
+    sum      NUMERIC(12, 2) NOT NULL
 );
 
 ALTER TABLE Offer
