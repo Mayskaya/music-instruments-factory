@@ -1,24 +1,23 @@
 version: '3.1'
 
 services:
-#  app:
-#    container_name: micrm_web
-#    build: ../MusicInstrumentsCrm/MusicInstrumentsCrm/Docker/Dockerfile
-#    depends_on: 
-#      - db 
+  #  app:
+  #    container_name: micrm_web
+  #    build: ../MusicInstrumentsCrm/MusicInstrumentsCrm/Docker/Dockerfile
+  #    depends_on: 
+  #      - db 
 
   db:
-    container_name: micrm_db
-    build: ../MusicInstrumentsCrm/MusicInstrumentsDb/Docker/Dockerfile
-    image: postgres:11.5
-    restart: always
+    container_name: micrm_db_1
+    image: micrm_db
+#    build:
+#      dockerfile: ../MusicInstrumentsCrm/MusicInstrumentsDb/Dockerfile
+#      context: .
+#    restart: always
     ports:
-      - "5432"
-    volumes: 
+      - 5432:5432
+    volumes:
       - ./volumes/var/lib/postgresql:/var/lib/postgresql
       - ./volumes/var/log/postgresql:/var/log/postgresql
       - ./volumes/etc/postgresql:/etc/postgresql
-    environment: 
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: 'micrm_db'
+    

@@ -1,4 +1,4 @@
-INSERT INTO GoodType(id, type_name)
+INSERT INTO micrm_db.public.GoodType(id, type_name)
 VALUES
   (1, 'Гитара'),
   (2, 'Тромбон'),

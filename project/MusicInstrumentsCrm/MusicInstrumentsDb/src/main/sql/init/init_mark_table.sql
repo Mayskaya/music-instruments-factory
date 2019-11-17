@@ -1,4 +1,4 @@
-INSERT INTO Mark(id, name, country)
+INSERT INTO micrm_db.public.Mark(id, name, country)
 VALUES
   (1, 'Hyundai', 1),
   (2, 'Skoda', 2),

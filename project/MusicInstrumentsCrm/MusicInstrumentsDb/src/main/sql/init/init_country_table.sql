@@ -1,4 +1,4 @@
-INSERT INTO Country(id, name)
+INSERT INTO micrm_db.public.Country(id, name)
 VALUES
   (1,'Россия'),
   (2,'США'),
@@ -10,4 +10,4 @@ VALUES
   (8,'Вьетнам'),
   (9,'Франция'),
   (10,'Англия'),
-  (11),'Казахстан');
+  (11,'Казахстан');

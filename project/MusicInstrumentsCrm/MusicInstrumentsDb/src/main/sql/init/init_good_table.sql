@@ -1,4 +1,4 @@
-INSERT INTO Good(id, name, description, good_type, factory, price)
+INSERT INTO micrm_db.public.Good(id, name, description, good_type, factory, price)
 VALUES
   (1, 'Fender Drednaut', 'Гитара Fender', 1,1, 31000.00),
   (2, 'Gibson Les Paul', 'Электрогитара Gibson Les Paul', 5,2, 69000.00),

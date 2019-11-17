@@ -1,4 +1,4 @@
-INSERT INTO Car(id, serial, region, mark_model)
+INSERT INTO micrm_db.public.Car(id, serial, region, mark_model)
 VALUES
   (1, 'P243XH', '777', 1),
   (2, 'M277XH', '98', 2),

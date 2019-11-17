@@ -1,4 +1,4 @@
-INSERT INTO Factory(id, address, foundation_date)
+INSERT INTO micrm_db.public.Factory(id, address, foundation_date)
 VALUES
   (1,  1, '1970-01-01 00:00:00.000Z'),
   (2,  2, '1970-01-01 00:00:00.000Z'),

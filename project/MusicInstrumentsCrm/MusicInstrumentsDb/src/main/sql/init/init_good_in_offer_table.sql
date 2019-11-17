@@ -1,4 +1,4 @@
-INSERT INTO GoodInOffer(id, good, offer, count)
+INSERT INTO micrm_db.public.GoodInOffer(id, good, offer, count)
 VALUES
   (1, 1, 1, 1),
   (2, 9, 1, 1),
@@ -10,9 +10,9 @@ VALUES
   (8, 8, 4, 1),
   (9, 2, 4, 1),
   (10, 4, 5, 1),
-  (10, 10, 6, 1),
-  (10, 2, 7, 1),
-  (10, 3, 8, 1),
-  (10, 6, 9, 1),
-  (10, 4, 10, 3);
+  (11, 10, 6, 1),
+  (12, 2, 7, 1),
+  (13, 3, 8, 1),
+  (14, 6, 9, 1),
+  (15, 4, 10, 3);
   
