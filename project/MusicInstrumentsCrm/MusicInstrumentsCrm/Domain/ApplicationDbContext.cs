@@ -47,7 +47,7 @@ namespace MusicInstrumentsCrm.Domain
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
-			optionsBuilder.UseNpgsql("Host=my_host;Database=micrm_db;Username=admin;Password=admin");
+			optionsBuilder.UseNpgsql("Host=192.168.99.100;Database=micrm_db;Username=admin;Password=admin");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
