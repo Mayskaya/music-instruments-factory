@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -19,36 +20,76 @@ namespace MusicInstrumentsCrm.Controllers
 		}
 
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Model>> GetModels()
 		{
-			return new string[] {"value1", "value2"};
+			return await modelRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetModel")]
+		public async Task<IActionResult> GetModel(int id)
 		{
-			return "value";
+			Model model = await modelRepository.FindByIdAsync(id);
+			if (model == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(model);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Model model)
 		{
+			if (model == null)
+			{
+				return BadRequest();
+			}
+
+			if (model.ModelName == null
+			    || model.Mark == null)
+			{
+				return BadRequest();
+			}
+
+			Model added = await modelRepository.CreateAsync(model);
+			return CreatedAtRoute("GetModel", new {id = added.Id}, model);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Model model)
 		{
+			if (model == null || model.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Model existing = await modelRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await modelRepository.UpdateAsync(model);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Model existing = await modelRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await modelRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

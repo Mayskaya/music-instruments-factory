@@ -86,10 +86,8 @@ namespace MusicInstrumentsCrm.Controllers
 			{
 				return new OkResult();
 			}
-			else
-			{
-				return BadRequest();
-			}
+
+			return BadRequest();
 		}
 	}
 }

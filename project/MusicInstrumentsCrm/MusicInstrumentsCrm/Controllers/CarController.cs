@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 namespace MusicInstrumentsCrm.Controllers
@@ -17,36 +18,77 @@ namespace MusicInstrumentsCrm.Controllers
 			this.carRepository = carRepository;
 		}
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Car>> GetCars()
 		{
-			return new string[] {"value1", "value2"};
+			return await carRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetCar")]
+		public async Task<IActionResult> GetCar(int id)
 		{
-			return "value";
+			Car car = await carRepository.FindByIdAsync(id);
+			if (car == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(car);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Car car)
 		{
+			if (car == null)
+			{
+				return BadRequest();
+			}
+
+			if (car.Serial == null
+			    || car.Model == null
+			    || car.Region == null)
+			{
+				return BadRequest();
+			}
+
+			Car added = await carRepository.CreateAsync(car);
+			return CreatedAtRoute("GetCar", new {id = added.Id}, car);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Car car)
 		{
+			if (car == null || car.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Car existing = await carRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await carRepository.UpdateAsync(car);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Car existing = await carRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await carRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

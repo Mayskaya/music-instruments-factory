@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -19,36 +20,75 @@ namespace MusicInstrumentsCrm.Controllers
 		}
 
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Address>> GetAddresss()
 		{
-			return new string[] {"value1", "value2"};
+			return await addressRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetAddress")]
+		public async Task<IActionResult> GetAddress(int id)
 		{
-			return "value";
+			Address address = await addressRepository.FindByIdAsync(id);
+			if (address == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(address);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Address address)
 		{
+			if (address == null)
+			{
+				return BadRequest();
+			}
+
+			if (address.FullAddress == null)
+			{
+				return BadRequest();
+			}
+
+			Address added = await addressRepository.CreateAsync(address);
+			return CreatedAtRoute("GetAddress", new {id = added.Id}, address);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Address address)
 		{
+			if (address == null || address.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Address existing = await addressRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await addressRepository.UpdateAsync(address);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Address existing = await addressRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await addressRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -18,37 +19,83 @@ namespace MusicInstrumentsCrm.Controllers
 			this.staffRepository = staffRepository;
 		}
 
-
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Staff>> GetStaffs()
 		{
-			return new string[] {"value1", "value2"};
+			return await staffRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetStaff")]
+		public async Task<IActionResult> GetStaff(int id)
 		{
-			return "value";
+			Staff staff = await staffRepository.FindByIdAsync(id);
+			if (staff == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(staff);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Staff staff)
 		{
+			if (staff == null)
+			{
+				return BadRequest();
+			}
+
+			Staff added = await staffRepository.CreateAsync(staff);
+			if (staff.FirstName == null 
+			    || staff.LastName == null
+			    || staff.Patronymic == null
+			    || staff.PassportSerial == null
+			    || staff.PassportNumber == null
+			    || staff.Phone == null
+			    || staff.Inn == null
+			    || staff.Snils == null 
+			    || staff.User == null)
+			{
+				return BadRequest();
+			}
+
+			return CreatedAtRoute("GetStaff", new {id = added.Id}, staff);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Staff staff)
 		{
+			if (staff == null || staff.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Staff existing = await staffRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await staffRepository.UpdateAsync(staff);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Staff existing = await staffRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await staffRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

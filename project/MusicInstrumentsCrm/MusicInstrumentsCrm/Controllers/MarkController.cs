@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -18,36 +19,76 @@ namespace MusicInstrumentsCrm.Controllers
 			this.markRepository = markRepository;
 		}
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Mark>> GetMarks()
 		{
-			return new string[] {"value1", "value2"};
+			return await markRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetMark")]
+		public async Task<IActionResult> GetMark(int id)
 		{
-			return "value";
+			Mark mark = await markRepository.FindByIdAsync(id);
+			if (mark == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(mark);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Mark mark)
 		{
+			if (mark == null)
+			{
+				return BadRequest();
+			}
+
+			if (mark.Name == null
+			    || mark.Country == null)
+			{
+				return BadRequest();
+			}
+
+			Mark added = await markRepository.CreateAsync(mark);
+			return CreatedAtRoute("GetMark", new {id = added.Id}, mark);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Mark mark)
 		{
+			if (mark == null || mark.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Mark existing = await markRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await markRepository.UpdateAsync(mark);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Mark existing = await markRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await markRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -18,37 +19,77 @@ namespace MusicInstrumentsCrm.Controllers
 			this.offerRepository = offerRepository;
 		}
 
-
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Offer>> GetOffers()
 		{
-			return new string[] {"value1", "value2"};
+			return await offerRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetOffer")]
+		public async Task<IActionResult> GetOffer(int id)
 		{
-			return "value";
+			Offer offer = await offerRepository.FindByIdAsync(id);
+			if (offer == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(offer);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Offer offer)
 		{
+			if (offer == null)
+			{
+				return BadRequest();
+			}
+
+			offer.Code = Guid.NewGuid().ToString();
+
+			if (offer.Seller == null || offer.Buyer == null)
+			{
+				return BadRequest();
+			}
+
+			Offer added = await offerRepository.CreateAsync(offer);
+			return CreatedAtRoute("GetOffer", new {id = added.Id}, offer);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Offer offer)
 		{
+			if (offer == null || offer.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Offer existing = await offerRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await offerRepository.UpdateAsync(offer);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Offer existing = await offerRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await offerRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

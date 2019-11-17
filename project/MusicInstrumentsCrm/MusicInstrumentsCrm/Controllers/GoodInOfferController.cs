@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -19,36 +20,75 @@ namespace MusicInstrumentsCrm.Controllers
 		}
 
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<GoodInOffer>> GetGoodInOffers()
 		{
-			return new string[] {"value1", "value2"};
+			return await goodInOfferRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetGoodInOffer")]
+		public async Task<IActionResult> GetGoodInOffer(int id)
 		{
-			return "value";
+			GoodInOffer goodInOffer = await goodInOfferRepository.FindByIdAsync(id);
+			if (goodInOffer == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(goodInOffer);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] GoodInOffer goodInOffer)
 		{
+			if (goodInOffer == null)
+			{
+				return BadRequest();
+			}
+
+			if (goodInOffer.Good == null || goodInOffer.Offer == null)
+			{
+				return BadRequest();
+			}
+
+			GoodInOffer added = await goodInOfferRepository.CreateAsync(goodInOffer);
+			return CreatedAtRoute("GetGoodInOffer", new {id = added.Id}, goodInOffer);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] GoodInOffer goodInOffer)
 		{
+			if (goodInOffer == null || goodInOffer.Id != id)
+			{
+				return BadRequest();
+			}
+
+			GoodInOffer existing = await goodInOfferRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await goodInOfferRepository.UpdateAsync(goodInOffer);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			GoodInOffer existing = await goodInOfferRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await goodInOfferRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

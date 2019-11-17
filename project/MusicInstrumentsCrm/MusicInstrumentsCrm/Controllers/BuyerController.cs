@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -18,36 +19,75 @@ namespace MusicInstrumentsCrm.Controllers
 			this.buyerRepository = buyerRepository;
 		}
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Buyer>> GetBuyers()
 		{
-			return new string[] {"value1", "value2"};
+			return await buyerRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetBuyer")]
+		public async Task<IActionResult> GetBuyer(int id)
 		{
-			return "value";
+			Buyer buyer = await buyerRepository.FindByIdAsync(id);
+			if (buyer == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(buyer);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Buyer buyer)
 		{
+			if (buyer == null)
+			{
+				return BadRequest();
+			}
+
+			if (buyer.LastName == null || buyer.FirstName == null || buyer.Email == null)
+			{
+				return BadRequest();
+			}
+
+			Buyer added = await buyerRepository.CreateAsync(buyer);
+			return CreatedAtRoute("GetBuyer", new {id = added.Id}, buyer);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Buyer buyer)
 		{
+			if (buyer == null || buyer.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Buyer existing = await buyerRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await buyerRepository.UpdateAsync(buyer);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Buyer existing = await buyerRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await buyerRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

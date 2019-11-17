@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -18,37 +19,75 @@ namespace MusicInstrumentsCrm.Controllers
 			this.factoryRepository = factoryRepository;
 		}
 
-
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Factory>> GetFactories()
 		{
-			return new string[] {"value1", "value2"};
+			return await factoryRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetFactory")]
+		public async Task<IActionResult> GetFactory(int id)
 		{
-			return "value";
+			Factory factory = await factoryRepository.FindByIdAsync(id);
+			if (factory == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(factory);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Factory factory)
 		{
+			if (factory == null)
+			{
+				return BadRequest();
+			}
+
+			if (factory.Name == null || factory.Address == null)
+			{
+				return BadRequest();
+			}
+
+			Factory added = await factoryRepository.CreateAsync(factory);
+			return CreatedAtRoute("GetFactory", new {id = added.Id}, factory);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Factory factory)
 		{
+			if (factory == null || factory.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Factory existing = await factoryRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await factoryRepository.UpdateAsync(factory);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Factory existing = await factoryRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await factoryRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

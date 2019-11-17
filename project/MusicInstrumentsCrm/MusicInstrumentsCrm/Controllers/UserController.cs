@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -11,43 +12,83 @@ namespace MusicInstrumentsCrm.Controllers
 	[Route("api/v1/[controller]")]
 	public class UserController : Controller
 	{
-		private readonly IUserRepository userController;
+		private readonly IUserRepository userRepository;
 
-		public UserController(IUserRepository userController)
+		public UserController(IUserRepository userRepository)
 		{
-			this.userController = userController;
+			this.userRepository = userRepository;
 		}
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<User>> GetUsers()
 		{
-			return new string[] {"value1", "value2"};
+			return await userRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetUser")]
+		public async Task<IActionResult> GetUser(int id)
 		{
-			return "value";
+			User user = await userRepository.FindByIdAsync(id);
+			if (user == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(user);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] User user)
 		{
+			if (user == null)
+			{
+				return BadRequest();
+			}
+
+			if (user.Password == null
+			    || user.Login == null)
+			{
+				return BadRequest();
+			}
+
+			User added = await userRepository.CreateAsync(user);
+			return CreatedAtRoute("GetUser", new {id = added.Id}, user);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] User user)
 		{
+			if (user == null || user.Id != id)
+			{
+				return BadRequest();
+			}
+
+			User existing = await userRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await userRepository.UpdateAsync(user);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			User existing = await userRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await userRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

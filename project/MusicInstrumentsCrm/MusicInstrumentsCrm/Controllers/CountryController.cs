@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -18,36 +19,75 @@ namespace MusicInstrumentsCrm.Controllers
 			this.countryRepository = countryRepository;
 		}
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Country>> GetCountrys()
 		{
-			return new string[] {"value1", "value2"};
+			return await countryRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetCountry")]
+		public async Task<IActionResult> GetCountry(int id)
 		{
-			return "value";
+			Country country = await countryRepository.FindByIdAsync(id);
+			if (country == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(country);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Country country)
 		{
+			if (country == null)
+			{
+				return BadRequest();
+			}
+
+			if (country.Name == null)
+			{
+				return BadRequest();
+			}
+
+			Country added = await countryRepository.CreateAsync(country);
+			return CreatedAtRoute("GetCountry", new {id = added.Id}, country);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Country country)
 		{
+			if (country == null || country.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Country existing = await countryRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await countryRepository.UpdateAsync(country);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Country existing = await countryRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await countryRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }

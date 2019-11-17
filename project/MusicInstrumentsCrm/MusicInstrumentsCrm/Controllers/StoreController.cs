@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
 
@@ -18,36 +19,75 @@ namespace MusicInstrumentsCrm.Controllers
 			this.storeRepository = storeRepository;
 		}
 
-		// GET: api/<controller>
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public async Task<IEnumerable<Store>> GetStores()
 		{
-			return new string[] {"value1", "value2"};
+			return await storeRepository.FindAllAsync();
 		}
 
-		// GET api/<controller>/5
-		[HttpGet("{id}")]
-		public string Get(int id)
+		[HttpGet("{id}", Name = "GetStore")]
+		public async Task<IActionResult> GetStore(int id)
 		{
-			return "value";
+			Store store = await storeRepository.FindByIdAsync(id);
+			if (store == null)
+			{
+				return NotFound();
+			}
+
+			return new ObjectResult(store);
 		}
 
-		// POST api/<controller>
 		[HttpPost]
-		public void Post([FromBody] string value)
+		public async Task<IActionResult> Create([FromBody] Store store)
 		{
+			if (store == null)
+			{
+				return BadRequest();
+			}
+
+			if (store.Name == null || store.Address == null )
+			{
+				return BadRequest();
+			}
+
+			Store added = await storeRepository.CreateAsync(store);
+			return CreatedAtRoute("GetStore", new {id = added.Id}, store);
 		}
 
-		// PUT api/<controller>/5
 		[HttpPut("{id}")]
-		public void Put(int id, [FromBody] string value)
+		public async Task<IActionResult> Update(int id, [FromBody] Store store)
 		{
+			if (store == null || store.Id != id)
+			{
+				return BadRequest();
+			}
+
+			Store existing = await storeRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			await storeRepository.UpdateAsync(store);
+			return new OkResult();
 		}
 
-		// DELETE api/<controller>/5
 		[HttpDelete("{id}")]
-		public void Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
+			Store existing = await storeRepository.FindByIdAsync(id);
+			if (existing == null)
+			{
+				return NotFound();
+			}
+
+			bool deleted = await storeRepository.DeleteAsync(existing);
+			if (deleted)
+			{
+				return new OkResult();
+			}
+
+			return BadRequest();
 		}
 	}
 }
