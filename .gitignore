@@ -3,6 +3,7 @@
 
 # Visual Studio (Code) env files
 .vs
+.vscode
 
 # Output directories
 bin
