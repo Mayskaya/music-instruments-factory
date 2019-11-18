@@ -5,7 +5,6 @@ import { Router, BrowserRouter, Route } from 'react-router-dom';
 export default class Navbar extends React.Component<{}, {}> {
     public render() {
         return (
-            <BrowserRouter>
                 <div className="Navbar">
                     <table className="table-navbar">
                         <NavbarElement name='Good' />
@@ -25,7 +24,6 @@ export default class Navbar extends React.Component<{}, {}> {
                         <NavbarElement name='Country' />
                         <NavbarElement name='Address' />
                     </table>
-                </div>
-        </BrowserRouter>);
+                </div>);
     }
 }

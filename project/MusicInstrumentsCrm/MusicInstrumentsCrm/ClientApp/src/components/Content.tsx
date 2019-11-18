@@ -24,7 +24,6 @@ export default class Content extends React.Component<{}, {}> {
   }
   public render() {
     return (
-      <BrowserRouter>
         <div className="Content">
           <button className="btn-content">Add</button>
           <button className="btn-content">Delete</button>
@@ -44,8 +43,7 @@ export default class Content extends React.Component<{}, {}> {
             <Route path='/Store' component={StoreView} />
             <Route path='/SupplyInStore' component={SupplyInStoreView} />
             <Route path='/User' component={UserView} />
-        </div>
-      </BrowserRouter>);
+        </div>);
 
   }
 }

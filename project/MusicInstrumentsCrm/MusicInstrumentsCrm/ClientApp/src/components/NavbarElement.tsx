@@ -15,11 +15,9 @@ export interface NavbarElementProps {
 export default class NavbarElement extends React.Component<NavbarElementProps, {}>{
     public render() {
         return (
-            <BrowserRouter>
                 <tr>
                     <td><NavLink to={`/${this.props.name}`} className='nav-link'>{this.props.name}</NavLink></td>
                 </tr>
-             </BrowserRouter>
         );
     }
 }
