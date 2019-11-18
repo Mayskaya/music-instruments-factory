@@ -5,10 +5,10 @@ export default class ModelView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>model_name</td>
-                    <td>mark</td>
-                    <td>year</td>
+                    <td>ID</td>
+                    <td>Название модели</td>
+                    <td>Марка</td>
+                    <td>Год</td>
                 </tr>
                 <tr>
                     <td></td>

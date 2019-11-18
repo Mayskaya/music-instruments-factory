@@ -5,15 +5,14 @@ export default class StaffView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>first_name</td>
-                    <td>last_name</td>
-                    <td>patronymic</td>
-                    <td>passport_serial</td>
-                    <td>passport_number</td>
-                    <td>inn</td>
-                    <td>snils</td>
-                    <td>crm_user</td>
+                    <td>ID</td>
+                    <td>Имя</td>
+                    <td>Фамилия</td>
+                    <td>Отчество</td>
+                    <td>Серия паспорта</td>
+                    <td>Номер паспорта</td>
+                    <td>ИНН</td>
+                    <td>СНИЛС</td>
                 </tr>
                 <tr>
                     <td></td>

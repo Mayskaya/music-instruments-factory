@@ -1,5 +1,12 @@
 import React from 'react';
-import Navbar from './Navbar';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    NavLink,
+    BrowserRouter
+} from 'react-router-dom';
 
 export interface NavbarElementProps {
     name: string;
@@ -8,9 +15,11 @@ export interface NavbarElementProps {
 export default class NavbarElement extends React.Component<NavbarElementProps, {}>{
     public render() {
         return (
-            <tr>
-                <td><a href="/" className='nav-link'>{this.props.name}</a></td>
-            </tr>
+            <BrowserRouter>
+                <tr>
+                    <td><NavLink to={`/${this.props.name}`} className='nav-link'>{this.props.name}</NavLink></td>
+                </tr>
+             </BrowserRouter>
         );
     }
 }

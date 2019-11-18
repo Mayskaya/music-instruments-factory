@@ -5,9 +5,9 @@ export default class MarkView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>name</td>
-                    <td>country</td>
+                    <td>ID</td>
+                    <td>Название</td>
+                    <td>Страна</td>
                 </tr>
                 <tr>
                     <td></td>

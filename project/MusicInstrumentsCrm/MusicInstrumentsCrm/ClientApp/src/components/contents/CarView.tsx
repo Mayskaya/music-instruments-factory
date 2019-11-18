@@ -5,10 +5,10 @@ export default class CarView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>serial</td>
-                    <td>region</td>
-                    <td>mark_model</td>
+                    <td>ID</td>
+                    <td>Номер</td>
+                    <td>Регион</td>
+                    <td>Марка модель</td>
                 </tr>
                 <tr>
                     <td></td>

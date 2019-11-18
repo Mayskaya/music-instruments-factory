@@ -5,8 +5,8 @@ export default class AddressView extends React.Component<{}, {}> {
         return (
             <table className="table-content">
                 <tr>
-                    <td>id</td>
-                    <td>full_address</td>
+                    <td>ID</td>
+                    <td>Полный адрес</td>
                 </tr>
                 <tr>
                     <td></td>

@@ -5,8 +5,8 @@ export default class CountryView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>name</td>
+                    <td>ID</td>
+                    <td>Название</td>
                 </tr>
                 <tr>
                     <td></td>

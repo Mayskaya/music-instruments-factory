@@ -5,10 +5,10 @@ export default class GoodInOfferView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>good</td>
-                    <td>offer</td>
-                    <td>count</td>
+                    <td>ID</td>
+                    <td>Товар</td>
+                    <td>Заказ</td>
+                    <td>Количество</td>
                 </tr>
                 <tr>
                     <td></td>

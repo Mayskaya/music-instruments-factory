@@ -5,10 +5,10 @@ export default class SupplyInStoreView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>good</td>
-                    <td>store</td>
-                    <td>date</td>
+                    <td>ID</td>
+                    <td>Товар</td>
+                    <td>Магазин</td>
+                    <td>Дата поставки</td>
                 </tr>
                 <tr>
                     <td></td>

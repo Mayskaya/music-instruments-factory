@@ -5,10 +5,10 @@ export default class DeliveryView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>car</td>
-                    <td>address</td>
-                    <td>courier</td>
+                    <td>ID</td>
+                    <td>Машина</td>
+                    <td>Адрес</td>
+                    <td>Курьер</td>
                 </tr>
                 <tr>
                     <td></td>

@@ -5,16 +5,14 @@ export default class OfferView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>code</td>
-                    <td>buyer</td>
-                    <td>seller</td>
-                    <td>store</td>
-                    <td>delivery</td>
-                    <td>sum</td>
+                    <td>ID</td>
+                    <td>Код заказа</td>
+                    <td>Покупатель</td>
+                    <td>Продавец</td>
+                    <td>Доставка</td>
+                    <td>Сумма заказа</td>
                 </tr>
                 <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

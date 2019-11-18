@@ -5,12 +5,12 @@ export default class UserView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>login</td>
-                    <td>password</td>
-                    <td>creation_date</td>
-                    <td>last_login</td>
-                    <td>active</td>
+                    <td>ID</td>
+                    <td>Логин</td>
+                    <td>Пароль</td>
+                    <td>Дата создания</td>
+                    <td>Дата последнего входа в систему</td>
+                    <td>Активен</td>
                 </tr>
                 <tr>
                     <td></td>

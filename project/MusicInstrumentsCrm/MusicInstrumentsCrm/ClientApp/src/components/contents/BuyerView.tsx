@@ -5,13 +5,12 @@ export default class BuyerView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>first_name</td>
-                    <td>last_name</td>
-                    <td>patronymic</td>
-                    <td>email</td>
-                    <td>phone</td>
-                    <td>crm_user</td>
+                    <td>ID</td>
+                    <td>Имя</td>
+                    <td>Фамилия</td>
+                    <td>Отчество</td>
+                    <td>Эл. почта</td>
+                    <td>Телефон</td>
                 </tr>
                 <tr>
                     <td></td>

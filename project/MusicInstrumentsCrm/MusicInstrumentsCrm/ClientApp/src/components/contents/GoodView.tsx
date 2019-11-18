@@ -5,12 +5,12 @@ export default class GoodView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>name</td>
-                    <td>description</td>
-                    <td>good_type</td>
-                    <td>factory</td>
-                    <td>price</td>
+                    <td>ID</td>
+                    <td>Название</td>
+                    <td>Описание</td>
+                    <td>Тип</td>
+                    <td>Производитель</td>
+                    <td>Цена</td>
                 </tr>
                 <tr>
                     <td></td>

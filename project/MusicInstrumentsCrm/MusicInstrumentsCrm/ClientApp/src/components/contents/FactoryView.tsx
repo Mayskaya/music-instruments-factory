@@ -5,11 +5,13 @@ export default class FactoryView extends React.Component<{}, {}> {
         return (
             <table>
                 <tr>
-                    <td>id</td>
-                    <td>address</td>
-                    <td>foundation_date</td>
+                    <td>ID</td>
+                    <td>Адрес</td>
+                    <td>Название</td>
+                    <td>Год основания</td>
                 </tr>
                 <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>
