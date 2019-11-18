@@ -24,26 +24,26 @@ export default class Content extends React.Component<{}, {}> {
   }
   public render() {
     return (
-        <div className="Content">
-          <button className="btn-content">Add</button>
-          <button className="btn-content">Delete</button>
-            <Route path='/Good' component={GoodView} />
-            <Route path='/GoodType' component={GoodTypeView} />
-            <Route path='/Address' component={AddressView} />
-            <Route path='/Buyer' component={BuyerView} />
-            <Route path='/Car' component={CarView} />
-            <Route path='/Country' component={CountryView} />
-            <Route path='/Delivery' component={DeliveryView} />
-            <Route path='/Factory' component={FactoryView} />
-            <Route path='/GoodInOffer' component={GoodInOfferView} />
-            <Route path='/Mark' component={MarkView} />
-            <Route path='/Model' component={ModelView} />
-            <Route path='/Offer' component={OfferView} />
-            <Route path='/Staff' component={StaffView} />
-            <Route path='/Store' component={StoreView} />
-            <Route path='/SupplyInStore' component={SupplyInStoreView} />
-            <Route path='/User' component={UserView} />
-        </div>);
+      <div className="Content">
+        <button className="btn-content">Add</button>
+        <button className="btn-content">Delete</button>
+        <Route path='/Good' component={GoodView} />
+        <Route path='/GoodType' component={GoodTypeView} />
+        <Route path='/Address' component={AddressView} />
+        <Route path='/Buyer' component={BuyerView} />
+        <Route path='/Car' component={CarView} />
+        <Route path='/Country' component={CountryView} />
+        <Route path='/Delivery' component={DeliveryView} />
+        <Route path='/Factory' component={FactoryView} />
+        <Route path='/GoodInOffer' component={GoodInOfferView} />
+        <Route path='/Mark' component={MarkView} />
+        <Route path='/Model' component={ModelView} />
+        <Route path='/Offer' component={OfferView} />
+        <Route path='/Staff' component={StaffView} />
+        <Route path='/Store' component={StoreView} />
+        <Route path='/SupplyInStore' component={SupplyInStoreView} />
+        <Route path='/User' component={UserView} />
+      </div>);
 
   }
 }
