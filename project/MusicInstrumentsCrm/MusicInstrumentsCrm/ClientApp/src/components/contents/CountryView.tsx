@@ -3,10 +3,10 @@ import React from 'react';
 export default class CountryView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Название</td>
+                    <th>ID</th>
+                    <th>Название</th>
                 </tr>
                 <tr>
                     <td></td>

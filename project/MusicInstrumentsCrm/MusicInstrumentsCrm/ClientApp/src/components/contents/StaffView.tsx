@@ -3,19 +3,18 @@ import React from 'react';
 export default class StaffView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Имя</td>
-                    <td>Фамилия</td>
-                    <td>Отчество</td>
-                    <td>Серия паспорта</td>
-                    <td>Номер паспорта</td>
-                    <td>ИНН</td>
-                    <td>СНИЛС</td>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Отчество</th>
+                    <th>Серия паспорта</th>
+                    <th>Номер паспорта</th>
+                    <th>ИНН</th>
+                    <th>СНИЛС</th>
                 </tr>
                 <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

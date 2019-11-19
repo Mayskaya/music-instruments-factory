@@ -3,12 +3,12 @@ import React from 'react';
 export default class DeliveryView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Машина</td>
-                    <td>Адрес</td>
-                    <td>Курьер</td>
+                    <th>ID</th>
+                    <th>Машина</th>
+                    <th>Адрес</th>
+                    <th>Курьер</th>
                 </tr>
                 <tr>
                     <td></td>

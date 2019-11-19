@@ -3,14 +3,14 @@ import React from 'react';
 export default class GoodView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Название</td>
-                    <td>Описание</td>
-                    <td>Тип</td>
-                    <td>Производитель</td>
-                    <td>Цена</td>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Описание</th>
+                    <th>Тип</th>
+                    <th>Производитель</th>
+                    <th>Цена</th>
                 </tr>
                 <tr>
                     <td></td>

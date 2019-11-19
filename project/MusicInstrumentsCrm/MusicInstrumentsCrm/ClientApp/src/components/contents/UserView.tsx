@@ -3,14 +3,14 @@ import React from 'react';
 export default class UserView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Логин</td>
-                    <td>Пароль</td>
-                    <td>Дата создания</td>
-                    <td>Дата последнего входа в систему</td>
-                    <td>Активен</td>
+                    <th>ID</th>
+                    <th>Логин</th>
+                    <th>Пароль</th>
+                    <th>Дата создания</th>
+                    <th>Дата последнего входа в систему</th>
+                    <th>Активен</th>
                 </tr>
                 <tr>
                     <td></td>

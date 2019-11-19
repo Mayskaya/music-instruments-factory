@@ -3,12 +3,12 @@ import React from 'react';
 export default class StoreView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Название</td>
-                    <td>Адрес</td>
-                    <td>Год открытия</td>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Адрес</th>
+                    <th>Год открытия</th>
                 </tr>
                 <tr>
                     <td></td>

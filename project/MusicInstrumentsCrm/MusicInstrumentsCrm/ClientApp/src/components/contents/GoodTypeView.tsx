@@ -3,10 +3,10 @@ import React from 'react';
 export default class GoodTypeView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Название типа</td>
+                    <th>ID</th>
+                    <th>Название типа</th>
                 </tr>
                 <tr>
                     <td></td>

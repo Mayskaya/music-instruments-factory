@@ -3,11 +3,11 @@ import React from 'react';
 export default class MarkView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Название</td>
-                    <td>Страна</td>
+                    <th>ID</th>
+                    <th>Название</th>
+                    <th>Страна</th>
                 </tr>
                 <tr>
                     <td></td>

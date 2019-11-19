@@ -3,12 +3,12 @@ import React from 'react';
 export default class FactoryView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Адрес</td>
-                    <td>Название</td>
-                    <td>Год основания</td>
+                    <th>ID</th>
+                    <th>Адрес</th>
+                    <th>Название</th>
+                    <th>Год основания</th>
                 </tr>
                 <tr>
                     <td></td>

@@ -3,12 +3,12 @@ import React from 'react';
 export default class GoodInOfferView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Товар</td>
-                    <td>Заказ</td>
-                    <td>Количество</td>
+                    <th>ID</th>
+                    <th>Товар</th>
+                    <th>Заказ</th>
+                    <th>Количество</th>
                 </tr>
                 <tr>
                     <td></td>

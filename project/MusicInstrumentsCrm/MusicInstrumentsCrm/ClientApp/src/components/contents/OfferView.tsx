@@ -3,14 +3,14 @@ import React from 'react';
 export default class OfferView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Код заказа</td>
-                    <td>Покупатель</td>
-                    <td>Продавец</td>
-                    <td>Доставка</td>
-                    <td>Сумма заказа</td>
+                    <th>ID</th>
+                    <th>Код заказа</th>
+                    <th>Покупатель</th>
+                    <th>Продавец</th>
+                    <th>Доставка</th>
+                    <th>Сумма заказа</th>
                 </tr>
                 <tr>
                     <td></td>

@@ -4,9 +4,53 @@ export default class AddressView extends React.Component<{}, {}> {
     public render() {
         return (
             <table className="table-content">
+                <tr >
+                    <th>ID</th>
+                    <th>Полный адрес</th>
+                </tr>
                 <tr>
-                    <td>ID</td>
-                    <td>Полный адрес</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
                 </tr>
                 <tr>
                     <td></td>

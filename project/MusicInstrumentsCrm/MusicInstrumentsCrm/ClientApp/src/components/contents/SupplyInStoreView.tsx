@@ -3,12 +3,12 @@ import React from 'react';
 export default class SupplyInStoreView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Товар</td>
-                    <td>Магазин</td>
-                    <td>Дата поставки</td>
+                    <th>ID</th>
+                    <th>Товар</th>
+                    <th>Магазин</th>
+                    <th>Дата поставки</th>
                 </tr>
                 <tr>
                     <td></td>

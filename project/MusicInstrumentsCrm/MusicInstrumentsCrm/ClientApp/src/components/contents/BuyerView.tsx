@@ -3,17 +3,16 @@ import React from 'react';
 export default class BuyerView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Имя</td>
-                    <td>Фамилия</td>
-                    <td>Отчество</td>
-                    <td>Эл. почта</td>
-                    <td>Телефон</td>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Фамилия</th>
+                    <th>Отчество</th>
+                    <th>Эл. почта</th>
+                    <th>Телефон</th>
                 </tr>
                 <tr>
-                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

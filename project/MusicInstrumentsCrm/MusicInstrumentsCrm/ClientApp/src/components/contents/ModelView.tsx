@@ -3,12 +3,12 @@ import React from 'react';
 export default class ModelView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Название модели</td>
-                    <td>Марка</td>
-                    <td>Год</td>
+                    <th>ID</th>
+                    <th>Название модели</th>
+                    <th>Марка</th>
+                    <th>Год</th>
                 </tr>
                 <tr>
                     <td></td>

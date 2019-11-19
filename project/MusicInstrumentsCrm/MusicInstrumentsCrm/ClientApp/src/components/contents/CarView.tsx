@@ -3,12 +3,12 @@ import React from 'react';
 export default class CarView extends React.Component<{}, {}> {
     public render() {
         return (
-            <table>
+            <table className="table-content">
                 <tr>
-                    <td>ID</td>
-                    <td>Номер</td>
-                    <td>Регион</td>
-                    <td>Марка модель</td>
+                    <th>ID</th>
+                    <th>Номер</th>
+                    <th>Регион</th>
+                    <th>Марка модель</th>
                 </tr>
                 <tr>
                     <td></td>
