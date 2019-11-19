@@ -7,7 +7,7 @@ CREATE TABLE Staff
     patronymic      VARCHAR(50) NOT NULL,
     passport_serial VARCHAR(4)  NOT NULL,
     passport_number VARCHAR(6)  NOT NULL,
-    phone           VARCHAR(6)  NOT NULL,
+    phone           VARCHAR(12)  NOT NULL,
     inn             VARCHAR(10) NOT NULL,
     snils           VARCHAR(14) NOT NULL,
     crm_user        INTEGER     NOT NULL

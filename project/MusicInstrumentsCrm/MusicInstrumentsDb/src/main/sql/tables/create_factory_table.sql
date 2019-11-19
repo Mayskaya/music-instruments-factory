@@ -4,7 +4,7 @@ CREATE TABLE Factory
     id              INTEGER     NOT NULL,
     name            VARCHAR(50) NOT NULL,
     address         INTEGER     NOT NULL,
-    foundation_date VARCHAR(50) NOT NULL
+    foundation_date TIMESTAMP NOT NULL
 );
 
 ALTER TABLE Factory

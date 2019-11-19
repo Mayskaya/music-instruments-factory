@@ -13,7 +13,7 @@ CREATE TABLE Buyer
     last_name  VARCHAR(50)  NOT NULL,
     patronymic VARCHAR(50)  NULL,
     email      VARCHAR(255) NOT NULL,
-    phone      VARCHAR(50)  NULL,
+    phone      VARCHAR(12)  NULL,
     crm_user   INTEGER      NULL
 );
 
@@ -47,7 +47,8 @@ CREATE TABLE Factory
 (
     id              INTEGER     NOT NULL,
     address         INTEGER     NOT NULL,
-    foundation_date VARCHAR(50) NOT NULL
+    name            VARCHAR(50) NOT NULL,
+    foundation_date TIMESTAMP   NOT NULL
 );
 
 /*GoodInOffer table*/
@@ -114,7 +115,7 @@ CREATE TABLE Staff
     patronymic      VARCHAR(50) NOT NULL,
     passport_serial VARCHAR(4)  NOT NULL,
     passport_number VARCHAR(6)  NOT NULL,
-    phone           VARCHAR(50) NOT NULL,
+    phone           VARCHAR(12) NOT NULL,
     inn             VARCHAR(10) NOT NULL,
     snils           VARCHAR(14) NOT NULL,
     crm_user        INTEGER     NOT NULL
