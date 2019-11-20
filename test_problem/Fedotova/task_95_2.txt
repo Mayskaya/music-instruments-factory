@@ -1,0 +1,8 @@
+-- Вывести всю рыбную продукцию со скидкой меньше или 20%
+SELECT * FROM product p, producttype pt WHERE p.product_type = pt.id AND pt.name = 'РЫБА' AND p.discount <= 20 ORDER BY p.price DESC;
+
+-- Вывести все продукты от компании AXE, стоимость которых превышают среднюю цену всего асортимента компании Axe
+SELECT * FROM product p, producer prod, (SELECT avg(price) AS avg_price_axe FROM product p, producer prod WHERE p.producer = prod.id AND prod.name = 'Axe') avg_price_axe WHERE p.producer = prod.id AND prod.name='Axe' AND avg_price_axe.avg_price_axe < p.price;
+
+-- Вывести все продукты, стоимость которых меньше или равна средней цены всех продуктов
+SELECT * FROM product p WHERE p.price < avg(p.price) ORDER BY p.name;

@@ -1,0 +1,8 @@
+-- Выбрать все песни, которые вошли в альбомы вышедшие с 1995 по 2005
+SELECT * FROM song s, album a WHERE s.album = a.id AND a.year BETWEEN 1995 AND 2005;
+
+-- Выбрать все песни жанра метал
+SELECT * FROM song s, genre g WHERE s.genre = g.id AND g.name = 'МЕТАЛ' ORDER BY s.duration DESC;
+
+-- Выбрать всех авторов, у которых более двух песен
+SELECT * FROM author a, (SELECT author, count(song) AS song_coount FROM SongAuthor sa_inner GROUP BY author) sa WHERE sa.author = a.id AND sa.song_count >= 2;

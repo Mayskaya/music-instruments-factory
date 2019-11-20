@@ -1,0 +1,8 @@
+-- Вывести все молочные продукты со скидкой больше или 5%
+SELECT * FROM product p, producttype pt WHERE p.product_type = pt.id AND pt.name = 'МОЛОЧНЫЕ ПРОДУКТЫ' AND p.discount >= 5 ORDER BY p.price DESC;
+
+-- Вывести все продукты от компании От Палыча, стоимость которых больше или равна 500 р
+SELECT * FROM product p, producer prod WHERE p.producer = prod.id AND prod.name = 'ОТ ПАЛЫЧА' AND p.price >=500;
+
+-- Вывести все продукты, стоимость которых больше средней цены всех продуктов
+SELECT * FROM product p WHERE p.price > avg(p.price) ORDER BY p.name;

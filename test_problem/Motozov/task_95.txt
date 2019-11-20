@@ -1,0 +1,8 @@
+-- Выбрать все песни, которые вошли в альбомы 80ых годов
+SELECT * FROM song s, album a WHERE s.album = a.id AND a.year BETWEEN 1980 AND 1990 ORDER BY a.year;
+
+-- Выбрать все песни жанра индастриал рок
+SELECT * FROM song s, genre g WHERE s.genre = g.id AND g.name = 'ИНДАСТРИАЛ РОК';
+
+-- Выбрать все песни, у которых два автора
+SELECT * FROM song s, (SELECT song, count(author) AS author_count FROM SongAuthor sa_inner GROUP BY song) sa WHERE sa.song = s.id AND sa.author_count = 2;
