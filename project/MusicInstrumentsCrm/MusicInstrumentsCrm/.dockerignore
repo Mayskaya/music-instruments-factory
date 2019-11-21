@@ -1,0 +1,6 @@
+# .NET output directories
+/bin
+/obj
+
+# Node.js dependecies
+**/node_modules/*
