@@ -7,22 +7,22 @@ export default class Navbar extends React.Component<{}, {}> {
         return (
             <div className="Navbar">
                 <table className="table-navbar">
+                    <NavbarElement name='Address' />
+                    <NavbarElement name='Buyer' />
+                    <NavbarElement name='Car' />
+                    <NavbarElement name='Country' />
+                    <NavbarElement name='Delivery' />
+                    <NavbarElement name='Factory' />
                     <NavbarElement name='Good' />
                     <NavbarElement name='GoodType' />
                     <NavbarElement name='GoodInOffer' />
-                    <NavbarElement name='Factory' />
-                    <NavbarElement name='Offer' />
-                    <NavbarElement name='SupplyInStore' />
-                    <NavbarElement name='Store' />
-                    <NavbarElement name='Buyer' />
-                    <NavbarElement name='Staff' />
-                    <NavbarElement name='Delivery' />
-                    <NavbarElement name='Car' />
                     <NavbarElement name='Mark' />
                     <NavbarElement name='Model' />
+                    <NavbarElement name='Offer' />
+                    <NavbarElement name='Staff' />
+                    <NavbarElement name='Store' />
+                    <NavbarElement name='SupplyInStore' />
                     <NavbarElement name='User' />
-                    <NavbarElement name='Country' />
-                    <NavbarElement name='Address' />
                 </table>
             </div>);
     }

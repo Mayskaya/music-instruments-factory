@@ -5,7 +5,7 @@ export default class ModelView extends React.Component<{}, {}> {
     public render() {
         return (
             <div className="content-view">
-                <Link to="/index/MdelAdd"><button className="btn-content">Add</button></Link>
+                <Link to="/index/ModelAdd"><button className="btn-content">Add</button></Link>
                 <button className="btn-content">Delete</button>
                 <table className="table-content">
                     <tr>

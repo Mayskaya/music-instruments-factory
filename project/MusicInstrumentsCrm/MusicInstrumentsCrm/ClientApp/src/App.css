@@ -170,3 +170,29 @@
   border-radius: 10px;
 }
 
+
+.form-add {
+  display: flex;
+  flex-direction: column;
+
+  padding: 20px;
+  font-size: 26px;
+
+  color: #004c40;
+}
+
+.form-add label{
+  padding-bottom: 20px;
+  align-items: center;
+}
+
+.form-add span{
+  display: inline-block;
+  width: 220px;
+}
+
+.form-add input{
+  width: 200px;
+  height: 20px;
+  /* align-items: center; */
+}

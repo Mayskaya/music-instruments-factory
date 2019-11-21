@@ -5,7 +5,7 @@ export default class BuyerView extends React.Component<{}, {}> {
     public render() {
         return (
             <div className="content-view">
-                <Link to="/index/ByuerAdd"><button className="btn-content">Add</button></Link>
+                <Link to="/index/BuyerAdd"><button className="btn-content">Add</button></Link>
                 <button className="btn-content">Delete</button>
 
                 <table className="table-content">
