@@ -24,6 +24,8 @@
 
 .user-name{
   list-style-type: none;
+  text-decoration: none;
+  color: #004c40;
 }
 
 .Navbar{
@@ -116,5 +118,51 @@
 
 .tr, td{
   border: 1px solid #004c40;
+}
+
+.Auth{
+  margin: 0;
+  background-color: #e8f5e9;
+
+  width: 100%;
+  height: 100vh;
+}
+
+.auth-form{
+  padding-top: 30vh;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-field{
+  padding: 10px;
+
+  color: #004c40;
+  font-weight: 600 ;
+}
+.login-field span{
+  padding-right: 10px;
+
+  display: inline-block;
+  width: 60px;
+
+}
+
+.login-field input{
+  font-size: 22px;
+  padding-left: 10px;
+}
+
+.login-btn{
+  padding: 5px 10px;
+  margin: 20px 20px;
+
+  font-size: 20px;
+  color: #004c40;
+  background-color: #b2fab4;
+  border: 2px solid #004c40;
+  border-radius: 10px;
 }
 

@@ -4,7 +4,9 @@ import Header from './components/Header';
 import Navbar from './components/Navbar';
 import Content from './components/Content';
 import Footer from './components/Footer';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
+import Auth from './components/Auth';
+import MainPage from './components/MainPage';
 
 
 export default class App extends React.Component<{}, {}> {
@@ -12,10 +14,8 @@ export default class App extends React.Component<{}, {}> {
     return (
       <BrowserRouter>
         <div className="App">
-          <Header />
-          <Navbar />
-          <Content />
-          <Footer />
+          <Route path='/auth' component={Auth}></Route>
+          <Route path='/index' component={MainPage}></Route>
         </div>
       </BrowserRouter>
     );

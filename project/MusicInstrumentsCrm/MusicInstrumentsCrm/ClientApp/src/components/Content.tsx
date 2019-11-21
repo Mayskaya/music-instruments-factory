@@ -27,22 +27,22 @@ export default class Content extends React.Component<{}, {}> {
       <div className="Content">
         <button className="btn-content">Add</button>
         <button className="btn-content">Delete</button>
-        <Route path='/Good' component={GoodView} />
-        <Route path='/GoodType' component={GoodTypeView} />
-        <Route path='/Address' component={AddressView} />
-        <Route path='/Buyer' component={BuyerView} />
-        <Route path='/Car' component={CarView} />
-        <Route path='/Country' component={CountryView} />
-        <Route path='/Delivery' component={DeliveryView} />
-        <Route path='/Factory' component={FactoryView} />
-        <Route path='/GoodInOffer' component={GoodInOfferView} />
-        <Route path='/Mark' component={MarkView} />
-        <Route path='/Model' component={ModelView} />
-        <Route path='/Offer' component={OfferView} />
-        <Route path='/Staff' component={StaffView} />
-        <Route path='/Store' component={StoreView} />
-        <Route path='/SupplyInStore' component={SupplyInStoreView} />
-        <Route path='/User' component={UserView} />
+        <Route path='/index/Good' component={GoodView} />
+        <Route path='/index/GoodType' component={GoodTypeView} />
+        <Route path='/index/Address' component={AddressView} />
+        <Route path='/index/Buyer' component={BuyerView} />
+        <Route path='/index/Car' component={CarView} />
+        <Route path='/index/Country' component={CountryView} />
+        <Route path='/index/Delivery' component={DeliveryView} />
+        <Route path='/index/Factory' component={FactoryView} />
+        <Route path='/index/GoodInOffer' component={GoodInOfferView} />
+        <Route path='/index/Mark' component={MarkView} />
+        <Route path='/index/Model' component={ModelView} />
+        <Route path='/index/Offer' component={OfferView} />
+        <Route path='/index/Staff' component={StaffView} />
+        <Route path='/index/Store' component={StoreView} />
+        <Route path='/index/SupplyInStore' component={SupplyInStoreView} />
+        <Route path='/index/User' component={UserView} />
       </div>);
 
   }
