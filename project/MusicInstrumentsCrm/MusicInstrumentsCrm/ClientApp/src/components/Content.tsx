@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Router } from 'react-router';
 import GoodView from './contents/GoodView';
 import GoodTypeView from './contents/GoodTypeView';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Link } from 'react-router-dom';
 import AddressView from './contents/AddressView';
 import BuyerView from './contents/BuyerView';
 import CarView from './contents/CarView';
@@ -25,8 +25,7 @@ export default class Content extends React.Component<{}, {}> {
   public render() {
     return (
       <div className="Content">
-        <button className="btn-content">Add</button>
-        <button className="btn-content">Delete</button>
+
         <Route path='/index/Good' component={GoodView} />
         <Route path='/index/GoodType' component={GoodTypeView} />
         <Route path='/index/Address' component={AddressView} />
@@ -43,6 +42,8 @@ export default class Content extends React.Component<{}, {}> {
         <Route path='/index/Store' component={StoreView} />
         <Route path='/index/SupplyInStore' component={SupplyInStoreView} />
         <Route path='/index/User' component={UserView} />
+
+
       </div>);
 
   }

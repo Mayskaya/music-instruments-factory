@@ -4,8 +4,7 @@ import {
     Switch,
     Route,
     Link,
-    NavLink,
-    BrowserRouter
+    NavLink
 } from 'react-router-dom';
 
 export interface NavbarElementProps {
