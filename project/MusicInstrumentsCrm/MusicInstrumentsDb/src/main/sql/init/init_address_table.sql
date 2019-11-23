@@ -1,4 +1,4 @@
-INSERT INTO micrm_db.public.Address(id, full_address)
+INSERT INTO Address(id, full_address)
 VALUES
   (1, ''),
   (2, ''),

@@ -1,4 +1,4 @@
-INSERT INTO micrm_db.public.Buyer(id,first_name,last_name,patronymic,email,phone,crm_user)
+INSERT INTO Buyer(id,first_name,last_name,patronymic,email,phone,crm_user)
 VALUES
   (1, 'Артем', 'Мотозов', 'Владимирович', 'motozov.a.v@gmail.com', '+79853338076', 3),
   (2, 'Алина', 'Федотова', 'Александровна', 'fedotova.a.a@gmail.com', '+78005553535', 8),

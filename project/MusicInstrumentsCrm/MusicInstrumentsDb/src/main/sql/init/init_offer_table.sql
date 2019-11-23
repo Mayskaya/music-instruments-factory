@@ -1,4 +1,4 @@
-INSERT INTO micrm_db.public.Offer(id,code,buyer,seller,store,delivery,sum)
+INSERT INTO Offer(id,code,buyer,seller,store,delivery,sum)
 VALUES
   (1, 'd0948d5e-7854-4750-8147-213bb7285f38', 1, 1, 1, NULL, 100.00),
   (2, '1ccb7f63-6ed0-4197-8579-f5f38e6b637f', 2, 2, 2, 1, 100.00),

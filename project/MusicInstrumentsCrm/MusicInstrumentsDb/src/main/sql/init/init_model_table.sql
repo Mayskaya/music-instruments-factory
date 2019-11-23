@@ -1,4 +1,4 @@
-INSERT INTO micrm_db.public.Model(id, model_name, mark, year)
+INSERT INTO Model(id, model_name, mark, year)
 VALUES
   (1, 'Solaris', 1, '1970-01-01 00:00:00.000Z'),
   (2, 'Kodiaq', 2, '1970-01-01 00:00:00.000Z'),

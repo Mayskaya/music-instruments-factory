@@ -1,22 +1,24 @@
-version: '3.1'
+version: '3.7'
 
 services:
-  #  app:
-  #    container_name: micrm_web
-  #    build: ../MusicInstrumentsCrm/MusicInstrumentsCrm/Docker/Dockerfile
-  #    depends_on: 
-  #      - db 
+  app:
+    container_name: micrm-app-central
+    image: micrm-app
+    build:
+      context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on: 
+      - db 
 
   db:
-    container_name: micrm_db_1
+    container_name: micrm-db-central
     image: micrm_db
     build:
-      dockerfile: ../MusicInstrumentsCrm/MusicInstrumentsDb/Dockerfile
-      context: .
+      context: ../MusicInstrumentsCrm/MusicInstrumentsDb
+      dockerfile: Dockerfile
+      target: init
     ports:
       - 5432:5432
-    volumes:
-      - ./volumes/var/lib/postgresql:/var/lib/postgresql
-      - ./volumes/var/log/postgresql:/var/log/postgresql
-      - ./volumes/etc/postgresql:/etc/postgresql
     

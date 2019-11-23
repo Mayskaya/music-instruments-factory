@@ -1,0 +1,3 @@
+﻿CREATE ROLE replica_user WITH
+    LOGIN
+    REPLICATION;

@@ -1,4 +1,4 @@
-INSERT INTO micrm_db.public.crmuser( id, login,password,creation_date,last_login,active)
+INSERT INTO CrmUser( id, login,password,creation_date,last_login,active)
 VALUES
   (1, 'admin','admin','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
   (2, 'askuzovatkina','askuzovatkina','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
@@ -14,7 +14,7 @@ VALUES
   (12, 'vpetrov','vpetrov','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
   (13, 'ibutov','ibutov','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
   (14, 'rarkhipov','rarkhipov','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
-  (15, 'malexandr','malexandr','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
+  (15, 'mmeschera','mmeschera','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
   (16, 'episarenko','episarenko','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
   (17, 'mbarabanova','mbarabanova','2019-01-01 00:00:00.00Z',NULL,'TRUE'),
   (18, 'agolceva','agolceva','2019-01-01 00:00:00.00Z',NULL,'TRUE'),

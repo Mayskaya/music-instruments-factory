@@ -1,17 +1,19 @@
-﻿FROM library/postgres:11.5
-
-ARG SHOULD_CONTAIN_INIT_ARG='false'
-ENV SHOULD_CONTAIN_INIT=$SHOULD_CONTAIN_INIT_ARG;
+FROM library/postgres:11.5 AS clear
 
 ENV POSTGRES_USER admin
 ENV POSTGRES_PASSWORD admin
 ENV POSTGRES_DB micrm_db
 
-RUN mkdir /sql-data
-
+RUN mkdir /sql-data && \
+	mkdir /sql-data-init && \
+	mkdir /sql-data-save
+	
 COPY ./src/main/sql/schema.sql /sql-data
-COPY ./src/main/sql/init /sql-data
 COPY ./init-db.sh /docker-entrypoint-initdb.d
 
-RUN if [ "$SHOULD_CONTAIN_INIT" = "false"] ; then rm /sql-data/init-*.sql ; fi
+FROM library/postgres:11.5 AS init
+WORKDIR /docker-entrypoint-initdb.d
+COPY ./src/main/sql/init /sql-data-init
+COPY --from=clear /docker-entrypoint-initdb.d .
+COPY --from=clear /sql-data /sql-data
 

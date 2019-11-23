@@ -1,4 +1,4 @@
-INSERT INTO micrm_db.public.Delivery(id, car, address, courier)
+INSERT INTO Delivery(id, car, address, courier)
 VALUES
   (1,   1, 21, 3),
   (2,   2, 22, 3),

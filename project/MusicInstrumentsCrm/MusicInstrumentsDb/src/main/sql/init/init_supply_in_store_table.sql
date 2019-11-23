@@ -1,4 +1,4 @@
-INSERT INTO micrm_db.public.SupplyInStore(id, good, store, date)
+INSERT INTO SupplyInStore(id, good, store, date)
 VALUES
   (1, 1, 1, '2019-01-01 00:00:00.000Z'),
   (2, 2, 1, '2019-01-02 00:00:00.000Z'),
