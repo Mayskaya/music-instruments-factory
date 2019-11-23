@@ -21,4 +21,47 @@ services:
       target: init
     ports:
       - 5432:5432
-    
+
+# MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
+  app-msk:
+    container_name: micrm-app-msk
+    image: micrm-app
+    build:
+      context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
+      dockerfile: Dockerfile
+    ports:
+      - 8000:80
+    depends_on:
+      - db
+
+  db-msk:
+    container_name: micrm-db-msk
+    image: micrm_db
+    build:
+      context: ../MusicInstrumentsCrm/MusicInstrumentsDb
+      dockerfile: Dockerfile
+      target: init
+    ports:
+      - 5433:5432
+
+# MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN SPB REGION)
+  app-spb:
+    container_name: micrm-app-spb
+    image: micrm-app
+    build:
+      context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
+    depends_on:
+      - db
+
+  db-spb:
+    container_name: micrm-db-spb
+    image: micrm_db
+    build:
+      context: ../MusicInstrumentsCrm/MusicInstrumentsDb
+      dockerfile: Dockerfile
+      target: init
+    ports:
+      - 5434:5432
