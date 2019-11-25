@@ -1,5 +1,5 @@
 ﻿/** CrmUser table*/
-CREATE TABLE CrmUser
+CREATE TABLE "CrmUser"
 (
     id            INTEGER      NOT NULL,
     login         VARCHAR(50)  NOT NULL,
@@ -9,10 +9,10 @@ CREATE TABLE CrmUser
     active        BOOLEAN      NOT NULL
 );
 
-ALTER TABLE CrmUser
-    ADD CONSTRAINT PK_CrmUser
+ALTER TABLE "CrmUser"
+    ADD CONSTRAINT "PK_CrmUser"
         PRIMARY KEY (id);
 
-ALTER TABLE CrmUser
-    ADD CONSTRAINT UQ_CrmUser_login UNIQUE (login);
+ALTER TABLE "CrmUser"
+    ADD CONSTRAINT "UQ_CrmUser_login" UNIQUE (login);
 

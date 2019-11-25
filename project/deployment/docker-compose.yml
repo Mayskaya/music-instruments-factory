@@ -3,7 +3,7 @@ version: '3.7'
 services:
   app:
     container_name: micrm-app-central
-    image: micrm-app
+    image: rienelmot24/micrm-app
     build:
       context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
       dockerfile: Dockerfile
@@ -14,7 +14,7 @@ services:
 
   db:
     container_name: micrm-db-central
-    image: micrm_db
+    image: rienelmot24/rienelmot24/micrm-db
     build:
       context: ../MusicInstrumentsCrm/MusicInstrumentsDb
       dockerfile: Dockerfile
@@ -25,7 +25,7 @@ services:
 # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
   app-msk:
     container_name: micrm-app-msk
-    image: micrm-app
+    image: rienelmot24/micrm-app
     build:
       context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
       dockerfile: Dockerfile
@@ -36,7 +36,7 @@ services:
 
   db-msk:
     container_name: micrm-db-msk
-    image: micrm_db
+    image: rienelmot24/micrm-db
     build:
       context: ../MusicInstrumentsCrm/MusicInstrumentsDb
       dockerfile: Dockerfile
@@ -47,7 +47,7 @@ services:
 # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN SPB REGION)
   app-spb:
     container_name: micrm-app-spb
-    image: micrm-app
+    image: rienelmot24/micrm-app
     build:
       context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
       dockerfile: Dockerfile
@@ -58,7 +58,7 @@ services:
 
   db-spb:
     container_name: micrm-db-spb
-    image: micrm_db
+    image: rienelmot24/micrm-db
     build:
       context: ../MusicInstrumentsCrm/MusicInstrumentsDb
       dockerfile: Dockerfile

@@ -21,7 +21,7 @@ namespace MusicInstrumentsCrm.Controllers
 
 
 		[HttpGet]
-		public async Task<IEnumerable<Address>> GetAddresss()
+		public async Task<IEnumerable<Address>> GetAddresses()
 		{
 			return await addressRepository.FindAllAsync();
 		}

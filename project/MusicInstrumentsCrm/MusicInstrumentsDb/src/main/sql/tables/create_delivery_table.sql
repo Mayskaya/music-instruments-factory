@@ -1,5 +1,5 @@
 ﻿/** Delivery table*/
-CREATE TABLE Delivery
+CREATE TABLE "Delivery"
 (
     id      INTEGER NOT NULL,
     car     INTEGER NOT NULL,
@@ -7,25 +7,25 @@ CREATE TABLE Delivery
     courier INTEGER NOT NULL
 );
 
-ALTER TABLE Delivery
-    ADD CONSTRAINT PK_Delivery
+ALTER TABLE "Delivery"
+    ADD CONSTRAINT "PK_Delivery"
         PRIMARY KEY (id);
 
-CREATE INDEX IXFK_Delivery_Address ON Delivery (address ASC);
+CREATE INDEX "IXFK_Delivery_Address" ON "Delivery" (address ASC);
 
-CREATE INDEX IXFK_Delivery_Car ON Delivery (car ASC);
+CREATE INDEX "IXFK_Delivery_Car" ON "Delivery" (car ASC);
 
-CREATE INDEX IXFK_Delivery_Staff ON Delivery (courier ASC);
+CREATE INDEX "IXFK_Delivery_Staff" ON "Delivery" (courier ASC);
 
-ALTER TABLE Delivery
-    ADD CONSTRAINT FK_Delivery_Address
-        FOREIGN KEY (address) REFERENCES Address (id) ON DELETE No Action ON UPDATE No Action;
+ALTER TABLE "Delivery"
+    ADD CONSTRAINT "FK_Delivery_Address"
+        FOREIGN KEY (address) REFERENCES "Address" (id) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE Delivery
-    ADD CONSTRAINT FK_Delivery_car
-        FOREIGN KEY (car) REFERENCES Car (id) ON DELETE No Action ON UPDATE No Action;
+ALTER TABLE "Delivery"
+    ADD CONSTRAINT "FK_Delivery_car"
+        FOREIGN KEY (car) REFERENCES "Car" (id) ON DELETE No Action ON UPDATE No Action;
 
-ALTER TABLE Delivery
-    ADD CONSTRAINT FK_Delivery_Staff
-        FOREIGN KEY (courier) REFERENCES Staff (id) ON DELETE No Action ON UPDATE No Action;
+ALTER TABLE "Delivery"
+    ADD CONSTRAINT "FK_Delivery_Staff"
+        FOREIGN KEY (courier) REFERENCES "Staff" (id) ON DELETE No Action ON UPDATE No Action;
 

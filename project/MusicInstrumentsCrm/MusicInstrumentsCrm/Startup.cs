@@ -41,7 +41,7 @@ namespace MusicInstrumentsCrm
 			services.AddScoped<ICountryRepository, CountryRepository>();
 
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
 			services.AddDbContext<ApplicationDbContext>(options=>
 			{

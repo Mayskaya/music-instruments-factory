@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 
 namespace MusicInstrumentsCrm
 {
@@ -19,8 +20,9 @@ namespace MusicInstrumentsCrm
 				{
 					logging.ClearProviders();
 					logging.AddConsole();
-					logging.AddFilter("Microsoft", LogLevel.Warning);
-					logging.AddFilter("System", LogLevel.Warning);
+					logging.AddFilter("Microsoft", LogLevel.Information);
+					logging.AddFilter("Microsoft.EntityFrameworkCore", LogLevel.Debug);
+					logging.AddFilter("System", LogLevel.Debug);
 					logging.AddFilter("MusicInstrumentsCrm.Program", LogLevel.Debug);
 				});
 		}

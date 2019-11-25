@@ -1,5 +1,5 @@
 ﻿/** Factory table*/
-CREATE TABLE Factory
+CREATE TABLE "Factory"
 (
     id              INTEGER     NOT NULL,
     name            VARCHAR(50) NOT NULL,
@@ -7,17 +7,17 @@ CREATE TABLE Factory
     foundation_date TIMESTAMP NOT NULL
 );
 
-ALTER TABLE Factory
-    ADD CONSTRAINT PK_Factory
+ALTER TABLE "Factory"
+    ADD CONSTRAINT "PK_Factory"
         PRIMARY KEY (id);
 
-ALTER TABLE Factory
-    ADD CONSTRAINT  UQ_Factory_name
+ALTER TABLE "Factory"
+    ADD CONSTRAINT  "UQ_Factory_name"
         PRIMARY KEY (name);
 
-CREATE INDEX IXFK_Factory_Address ON Factory (address ASC);
+CREATE INDEX "IXFK_Factory_Address" ON "Factory" (address ASC);
 
-ALTER TABLE Factory
-    ADD CONSTRAINT FK_Factory_Address
-        FOREIGN KEY (address) REFERENCES Address (id) ON DELETE No Action ON UPDATE No Action;
+ALTER TABLE "Factory"
+    ADD CONSTRAINT "FK_Factory_Address"
+        FOREIGN KEY (address) REFERENCES "Address" (id) ON DELETE No Action ON UPDATE No Action;
 
