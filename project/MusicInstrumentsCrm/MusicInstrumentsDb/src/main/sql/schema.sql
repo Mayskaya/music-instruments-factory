@@ -83,7 +83,7 @@ CREATE TABLE Mark
 (
     id      INTEGER     NOT NULL,
     name    VARCHAR(50) NOT NULL,
-    country VARCHAR(50) NOT NULL
+    country INTEGER     NOT NULL
 );
 
 /*Model table*/
@@ -126,7 +126,8 @@ CREATE TABLE Store
 (
     id      INTEGER     NOT NULL,
     name    VARCHAR(50) NOT NULL,
-    address INTEGER     NOT NULL
+    address INTEGER     NOT NULL,
+    foundation_date TIMESTAMP   NOT NULL
 );
 
 /*SupplyInStore table*/

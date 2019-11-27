@@ -4,13 +4,14 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace MusicInstrumentsCrm.Repositories
 {
 	public class SupplyInStoreRepository : AbstractCache<SupplyInStore, int>, ISupplyInStoreRepository
 	{
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public SupplyInStoreRepository(ApplicationDbContext db)
 		{
@@ -18,7 +19,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, SupplyInStore>();
+				cache = new ConcurrentDictionary<int, SupplyInStore>(db.SuppliesInStore
+					.ToDictionary(store => store.Id));
 			}
 		}
 

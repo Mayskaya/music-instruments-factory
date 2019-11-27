@@ -1,10 +1,11 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.SqlTypes;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("crmuser", Schema = "public")]
+	[Table("crmuser")]
 	public class User
 	{
 		[Column("id")]

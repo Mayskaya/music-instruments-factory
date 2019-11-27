@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("car", Schema = "public")]
+	[Table("car")]
 	public class Car
 	{
 		[Column("id")]
@@ -17,6 +17,6 @@ namespace MusicInstrumentsCrm.Domain
 		public string Region { get; set; }
 
 		[ForeignKey("mark_model")]
-		public Model Model { get; set; }
+		public virtual Model Model { get; set; }
 	}
 }

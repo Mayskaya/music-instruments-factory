@@ -1,9 +1,10 @@
 ﻿/** Store table*/
 CREATE TABLE "Store"
 (
-    id      INTEGER     NOT NULL,
-    name    VARCHAR(50) NOT NULL,
-    address INTEGER     NOT NULL
+    id              INTEGER     NOT NULL,
+    name            VARCHAR(50) NOT NULL,
+    address         INTEGER     NOT NULL,
+    foundation_date TIMESTAMP   NOT NULL
 );
 
 ALTER TABLE "Store"

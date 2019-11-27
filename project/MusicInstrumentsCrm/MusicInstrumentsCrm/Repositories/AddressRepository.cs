@@ -10,7 +10,7 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class AddressRepository : AbstractCache<Address, int>, IAddressRepository
 	{
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public AddressRepository(ApplicationDbContext db)
 		{
@@ -18,7 +18,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, Address>();
+				cache = new ConcurrentDictionary<int, Address>(db.Addresses
+					.ToDictionary(a => a.Id));
 			}
 		}
 

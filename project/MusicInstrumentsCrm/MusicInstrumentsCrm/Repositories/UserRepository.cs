@@ -10,8 +10,7 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class UserRepository : AbstractCache<User, int>, IUserRepository
 	{
-
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public UserRepository(ApplicationDbContext db)
 		{
@@ -20,7 +19,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, User>();
+				cache = new ConcurrentDictionary<int, User>(db.Users
+					.ToDictionary(u => u.Id));
 			}
 		}
 
@@ -82,6 +82,7 @@ namespace MusicInstrumentsCrm.Repositories
 				{
 					return Task.Run(() => UpdateCache(id, model));
 				}
+
 				return null;
 			});
 		}

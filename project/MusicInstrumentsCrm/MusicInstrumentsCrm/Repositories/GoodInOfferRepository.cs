@@ -5,12 +5,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MusicInstrumentsCrm.Repositories
 {
 	public class GoodInOfferRepository : AbstractCache<GoodInOffer, int>, IGoodInOfferRepository
 	{
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public GoodInOfferRepository(ApplicationDbContext db)
 		{
@@ -18,7 +19,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, GoodInOffer>(db.GoodsInOffers.ToDictionary(gio => gio.Id));
+				cache = new ConcurrentDictionary<int, GoodInOffer>(db.GoodsInOffers
+					.ToDictionary(gio => gio.Id));
 			}
 		}
 

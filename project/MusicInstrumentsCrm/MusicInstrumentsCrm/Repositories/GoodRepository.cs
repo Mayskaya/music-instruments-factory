@@ -3,22 +3,23 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicInstrumentsCrm.Domain;
 
 namespace MusicInstrumentsCrm.Repositories
 {
-	public class GoodRepository : AbstractCache<Good, int>, IGoodRepository 
+	public class GoodRepository : AbstractCache<Good, int>, IGoodRepository
 	{
-
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public GoodRepository(ApplicationDbContext db)
 		{
 			this.db = db ?? throw new ArgumentNullException(nameof(db));
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, Good>(db.Goods.ToDictionary(g => g.Id));
+				cache = new ConcurrentDictionary<int, Good>(db.Goods
+					.ToDictionary(g => g.Id));
 			}
 		}
 
@@ -80,6 +81,7 @@ namespace MusicInstrumentsCrm.Repositories
 				{
 					return Task.Run(() => UpdateCache(id, model));
 				}
+
 				return null;
 			});
 		}

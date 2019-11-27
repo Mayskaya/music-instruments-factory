@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("supplyinstore", Schema = "public")]
+	[Table("supplyinstore")]
 	public class SupplyInStore
 	{
 		[Column("id")]
@@ -15,10 +15,10 @@ namespace MusicInstrumentsCrm.Domain
 		public int Id { get; set; }
 
 		[ForeignKey("good")]
-		public Good Good { get; set; }
+		public virtual Good Good { get; set; }
 
 		[ForeignKey("store")]
-		public Store Store { get; set; }
+		public virtual Store Store { get; set; }
 
 		[Column("date")]
 		public DateTime Date { get; set; }

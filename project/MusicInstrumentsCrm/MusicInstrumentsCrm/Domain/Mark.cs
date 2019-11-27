@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("mark", Schema = "public")]
+	[Table("mark")]
 	public class Mark
 	{
 		[Column("id")]
@@ -18,7 +18,7 @@ namespace MusicInstrumentsCrm.Domain
 		public string Name { get; set; }
 
 		[ForeignKey("country")]
-		public Country Country { get; set; }
+		public virtual Country Country { get; set; }
 
 	}
 }

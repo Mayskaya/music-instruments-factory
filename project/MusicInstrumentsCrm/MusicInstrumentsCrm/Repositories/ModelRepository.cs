@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicInstrumentsCrm.Domain;
 
@@ -9,7 +11,7 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class ModelRepository : AbstractCache<Model, int>, IModelRepository
 	{
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public ModelRepository(ApplicationDbContext db)
 		{
@@ -17,7 +19,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, Model>();
+				cache = new ConcurrentDictionary<int, Model>(db.Models
+					.ToDictionary(m => m.Id));
 			}
 		}
 

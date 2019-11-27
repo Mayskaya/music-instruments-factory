@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("factory", Schema = "public")]
+	[Table("factory")]
 	public class Factory
 	{
 		[Column("id")]
@@ -15,7 +15,7 @@ namespace MusicInstrumentsCrm.Domain
 		public string Name { get; set; }
 
 		[ForeignKey("address")]
-		public Address Address { get; set; }
+		public virtual Address Address { get; set; }
 
 		[Column("foundation_date")]
 		public DateTime FoundationDate { get; set; }

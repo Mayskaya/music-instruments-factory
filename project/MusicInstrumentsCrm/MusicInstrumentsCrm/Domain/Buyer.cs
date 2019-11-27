@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("buyer", Schema = "public")]
+	[Table("buyer")]
 	public class Buyer
 	{
 		[Column("id")]
@@ -25,8 +26,7 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("phone")]
 		public string Phone { get; set; }
 
-		[Column("crm_user")]
-		public User User { get; set; }
-
+		[ForeignKey("crm_user")]
+		public virtual User User { get; set; }
 	}
 }

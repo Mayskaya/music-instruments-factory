@@ -5,13 +5,13 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace MusicInstrumentsCrm.Repositories
 {
 	public class GoodTypeRepository : AbstractCache<GoodType, int>, IGoodTypeRepository
 	{
-
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public GoodTypeRepository(ApplicationDbContext db)
 		{
@@ -19,7 +19,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, GoodType>(db.GoodTypes.ToDictionary(g => g.Id));
+				cache = new ConcurrentDictionary<int, GoodType>(db.GoodTypes
+					.ToDictionary(g => g.Id));
 			}
 		}
 

@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("model", Schema = "public")]
+	[Table("model")]
 	public class Model
 	{
 		[Column("id")]
@@ -18,7 +18,7 @@ namespace MusicInstrumentsCrm.Domain
 		public string ModelName { get; set; }
 
 		[ForeignKey("mark")]
-		public Mark Mark { get; set; }
+		public virtual Mark Mark { get; set; }
 
 		[Column("year")]
 		public DateTime Year { get; set; }

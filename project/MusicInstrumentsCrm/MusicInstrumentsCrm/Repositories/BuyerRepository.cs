@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicInstrumentsCrm.Domain;
 
@@ -10,7 +11,7 @@ namespace MusicInstrumentsCrm.Repositories
 {
 	public class BuyerRepository : AbstractCache<Buyer, int>, IBuyerRepository
 	{
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public BuyerRepository(ApplicationDbContext db)
 		{
@@ -18,7 +19,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, Buyer>();
+				cache = new ConcurrentDictionary<int, Buyer>(db.Buyers
+					.ToDictionary(b => b.Id));
 			}
 		}
 

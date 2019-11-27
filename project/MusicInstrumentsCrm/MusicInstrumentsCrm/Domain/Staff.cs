@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("staff", Schema = "public")]
+	[Table("staff")]
 	public class Staff
 	{
 		[Column("id")]
@@ -35,6 +35,6 @@ namespace MusicInstrumentsCrm.Domain
 		public string Snils { get; set; }
 
 		[ForeignKey("crm_user")]
-		public User User { get; set; }
+		public virtual User User { get; set; }
 	}
 }

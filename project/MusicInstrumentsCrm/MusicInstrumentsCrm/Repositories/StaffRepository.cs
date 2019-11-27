@@ -3,6 +3,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicInstrumentsCrm.Domain;
 
@@ -11,7 +12,7 @@ namespace MusicInstrumentsCrm.Repositories
 	public class StaffRepository : AbstractCache<Staff, int>, IStaffRepository
 	{
 
-		private ApplicationDbContext db;
+		private readonly ApplicationDbContext db;
 
 		public StaffRepository(ApplicationDbContext db)
 		{
@@ -19,7 +20,8 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, Staff>();
+				cache = new ConcurrentDictionary<int, Staff>(db.Staffs
+					.ToDictionary(s => s.Id));
 			}
 		}
 
