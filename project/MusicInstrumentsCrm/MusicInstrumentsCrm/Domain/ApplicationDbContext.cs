@@ -48,7 +48,7 @@ namespace MusicInstrumentsCrm.Domain
 		{
 			optionsBuilder.UseLazyLoadingProxies();
 			string dbAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
-			optionsBuilder.UseNpgsql($"Host={dbAddress}192.168.99.100;Database=micrm_db;Username=admin;Password=admin;Port=5432");
+			optionsBuilder.UseNpgsql($"Host={dbAddress};Database=micrm_db;Username=admin;Password=admin;Port=5432");
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
