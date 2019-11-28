@@ -6,7 +6,7 @@ services:
     image: rienelmot24/micrm-app
     ports:
       - 80:80
-    environemt:
+    environment:
       - MICRM_DB_ADDRESS=db
     depends_on: 
       - db 
@@ -23,7 +23,7 @@ services:
 #     image: rienelmot24/micrm-app
 #     ports:
 #       - 8000:80
-#     environemt:
+#     environment:
 #       - MICRM_DB_ADDRESS=db-msk
 #     depends_on:
 #       - db-msk
@@ -40,7 +40,7 @@ services:
 #     image: rienelmot24/micrm-app
 #     ports:
 #       - 8080:80
-#     environemt:
+#     environment:
 #       - MICRM_DB_ADDRESS=db-spb
 #     depends_on:
 #       - db-spb
