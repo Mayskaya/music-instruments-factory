@@ -1,6 +1,7 @@
 ﻿#!/bin/bash
 
-docker build . --tag=micrm_db_init --build-arg SHOULD_CONTAIN_INIT='true'
+echo 'Building pure micrm-db image (without init data)'
+docker build --target=clear -t rienelmot24/micrm-db .  
 
-echo 'docker build . --tag=micrm_db';
-docker build . --tag=micrm_db
+echo 'Building micrm-db image (with init data)'
+docker build --target=init -t rienelmot24/micrm-db . 
