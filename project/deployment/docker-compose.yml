@@ -4,64 +4,49 @@ services:
   app:
     container_name: micrm-app-central
     image: rienelmot24/micrm-app
-    build:
-      context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
-      dockerfile: Dockerfile
     ports:
       - 80:80
+    environemt:
+      - MICRM_DB_ADDRESS=db
     depends_on: 
       - db 
 
   db:
     container_name: micrm-db-central
-    image: rienelmot24/rienelmot24/micrm-db
-    build:
-      context: ../MusicInstrumentsCrm/MusicInstrumentsDb
-      dockerfile: Dockerfile
-      target: init
+    image: rienelmot24/micrm-db
     ports:
       - 5432:5432
 
-# MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
-  app-msk:
-    container_name: micrm-app-msk
-    image: rienelmot24/micrm-app
-    build:
-      context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
-      dockerfile: Dockerfile
-    ports:
-      - 8000:80
-    depends_on:
-      - db
+# # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
+#   app-msk:
+#     container_name: micrm-app-msk
+#     image: rienelmot24/micrm-app
+#     ports:
+#       - 8000:80
+#     environemt:
+#       - MICRM_DB_ADDRESS=db-msk
+#     depends_on:
+#       - db-msk
 
-  db-msk:
-    container_name: micrm-db-msk
-    image: rienelmot24/micrm-db
-    build:
-      context: ../MusicInstrumentsCrm/MusicInstrumentsDb
-      dockerfile: Dockerfile
-      target: init
-    ports:
-      - 5433:5432
+#   db-msk:
+#     container_name: micrm-db-msk
+#     image: rienelmot24/micrm-db
+#     ports:
+#       - 5433:5432
 
-# MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN SPB REGION)
-  app-spb:
-    container_name: micrm-app-spb
-    image: rienelmot24/micrm-app
-    build:
-      context: ../MusicInstrumentsCrm/MusicInstrumentsCrm
-      dockerfile: Dockerfile
-    ports:
-      - 8080:80
-    depends_on:
-      - db
+# # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN SPB REGION)
+#   app-spb:
+#     container_name: micrm-app-spb
+#     image: rienelmot24/micrm-app
+#     ports:
+#       - 8080:80
+#     environemt:
+#       - MICRM_DB_ADDRESS=db-spb
+#     depends_on:
+#       - db-spb
 
-  db-spb:
-    container_name: micrm-db-spb
-    image: rienelmot24/micrm-db
-    build:
-      context: ../MusicInstrumentsCrm/MusicInstrumentsDb
-      dockerfile: Dockerfile
-      target: init
-    ports:
-      - 5434:5432
+#   db-spb:
+#     container_name: micrm-db-spb
+#     image: rienelmot24/micrm-db
+#     ports:
+#       - 5434:5432
