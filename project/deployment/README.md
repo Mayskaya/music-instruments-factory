@@ -1,4 +1,9 @@
-﻿# Deployment system MiCRM
+﻿# Images in Docker hub
+**MiCRM APP** : `rienelmot24/micrm-app`
+
+**MiCRM DB** : `rienelmot24/micrm-db`
+
+# Deployment system MiCRM
 ```
 docker-compose build
 ```
@@ -13,3 +18,20 @@ docker-compose rm
 ```
 docker-compose up
 ```
+
+# Show all containers
+```
+docker ps -a
+```
+
+# Clear all containers
+```
+docker rm $(docker ps -aq)
+```
+
+# Clear all images
+```
+docker rmi $(docker images -aq)
+```
+
+You can add `-f` flag for force removing
