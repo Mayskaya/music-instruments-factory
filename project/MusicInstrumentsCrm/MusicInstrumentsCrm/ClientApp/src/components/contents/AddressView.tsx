@@ -1,11 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Address from "../../domain/Address";
+import HttpMethod from "../../util/http/HttpMethods";
 
-export interface AddressViewProps {
-    
+
+export interface AddressViewState {
+    addressList: Array<Address>;
 }
 
-export default class AddressView extends React.Component<AddressViewProps, {}> {
+export default class AddressView extends React.Component<{}, AddressViewState> {
+
+    constructor() {
+        super({}, {});
+        this.state = {
+            addressList: new Array()
+        };
+    }
+
+    componentDidMount() {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.GET, 'https://localhost:5001/api/v1/Address');
+        xhr.onload = (evt)=>{
+            let res: Array<Address> = JSON.parse(xhr.responseText);
+            this.setState({addressList: res})
+        };
+        xhr.onerror = (evt)=> {
+            alert("error");
+        };
+        xhr.send();
+    }
+
     public render() {
         return (
             <div className="content-view">
@@ -17,10 +41,14 @@ export default class AddressView extends React.Component<AddressViewProps, {}> {
                         <th>ID</th>
                         <th>Полный адрес</th>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {
+                        this.state.addressList.map((el: Address) => {
+                            return <tr>
+                                <td>{el.id}</td>
+                                <td>{el.fullName}</td>
+                            </tr>
+                        })
+                    }
                 </table>
             </div>
         );
