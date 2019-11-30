@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-export default class AddressView extends React.Component<{}, {}> {
+export interface AddressViewProps {
+    
+}
+
+export default class AddressView extends React.Component<AddressViewProps, {}> {
     public render() {
         return (
             <div className="content-view">

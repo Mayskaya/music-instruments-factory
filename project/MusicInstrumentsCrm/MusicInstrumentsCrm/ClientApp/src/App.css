@@ -105,7 +105,6 @@
   margin-top: 20px;
   padding: 20px;
   width: 65%;
-  /* height: 50%; */
   border: 1px solid black;
 
   border-collapse: collapse;
@@ -176,7 +175,7 @@
   flex-direction: column;
 
   padding: 20px;
-  font-size: 26px;
+  font-size: 20px;
 
   color: #004c40;
 }
@@ -194,5 +193,4 @@
 .form-add input{
   width: 200px;
   height: 20px;
-  /* align-items: center; */
 }
