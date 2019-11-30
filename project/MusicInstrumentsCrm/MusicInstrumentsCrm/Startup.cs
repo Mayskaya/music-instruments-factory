@@ -24,23 +24,29 @@ namespace MusicInstrumentsCrm
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			
-			services.AddScoped<IGoodRepository, GoodRepository>();
-			services.AddScoped<IGoodTypeRepository, GoodTypeRepository>();
-			services.AddScoped<IGoodInOfferRepository, GoodInOfferRepository>();
-			services.AddScoped<IFactoryRepository, FactoryRepository>();
-			services.AddScoped<IOfferRepository, OfferRepository>();
-			services.AddScoped<ISupplyInStoreRepository, SupplyInStoreRepository>();
-			services.AddScoped<IStoreRepository, StoreRepository>();
-			services.AddScoped<IBuyerRepository, BuyerRepository>();
-			services.AddScoped<IStaffRepository, StaffRepository>();
-			services.AddScoped<IDeliveryRepository, DeliveryRepository>();
-			services.AddScoped<ICarRepository, CarRepository>();
-			services.AddScoped<IMarkRepository, MarkRepository>();
-			services.AddScoped<IModelRepository, ModelRepository>();
-			services.AddScoped<IUserRepository, UserRepository>();
-			services.AddScoped<IAddressRepository, AddressRepository>();
-			services.AddScoped<ICountryRepository, CountryRepository>();
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+			services.AddDbContext<ApplicationDbContext>(options =>
+			{
+				options.UseNpgsql(Configuration.GetConnectionString("ApplicationDbContext"));
+			}, ServiceLifetime.Singleton);
+
+			services.AddSingleton<IGoodRepository, GoodRepository>();
+			services.AddSingleton<IGoodTypeRepository, GoodTypeRepository>();
+			services.AddSingleton<IGoodInOfferRepository, GoodInOfferRepository>();
+			services.AddSingleton<IFactoryRepository, FactoryRepository>();
+			services.AddSingleton<IOfferRepository, OfferRepository>();
+			services.AddSingleton<ISupplyInStoreRepository, SupplyInStoreRepository>();
+			services.AddSingleton<IStoreRepository, StoreRepository>();
+			services.AddSingleton<IBuyerRepository, BuyerRepository>();
+			services.AddSingleton<IStaffRepository, StaffRepository>();
+			services.AddSingleton<IDeliveryRepository, DeliveryRepository>();
+			services.AddSingleton<ICarRepository, CarRepository>();
+			services.AddSingleton<IMarkRepository, MarkRepository>();
+			services.AddSingleton<IModelRepository, ModelRepository>();
+			services.AddSingleton<IUserRepository, UserRepository>();
+			services.AddSingleton<IAddressRepository, AddressRepository>();
+			services.AddSingleton<ICountryRepository, CountryRepository>();
 
 			services.AddCors(options =>
 			{
@@ -54,18 +60,8 @@ namespace MusicInstrumentsCrm
 					});
 			});
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-			services.AddDbContext<ApplicationDbContext>(options=>
-			{
-				options.UseNpgsql(Configuration.GetConnectionString("ApplicationDbContext"));
-			});
-
 			// In production, the React files will be served from this directory
-			services.AddSpaStaticFiles(configuration =>
-			{
-				configuration.RootPath = "ClientApp/build";
-			});
+			services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/build"; });
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -74,6 +70,7 @@ namespace MusicInstrumentsCrm
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
+				app.UseCors(SpecificOrigins);
 			}
 			else
 			{
@@ -85,8 +82,6 @@ namespace MusicInstrumentsCrm
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
 
-			app.UseCors(SpecificOrigins);
-			
 			app.UseMvc(routes =>
 			{
 				routes.MapRoute(
