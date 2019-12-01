@@ -1,7 +1,35 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import GoodType from "../../domain/GoodType";
+import HttpMethod from "../../util/http/HttpMethods";
 
-export default class GoodTypeView extends React.Component<{}, {}> {
+
+export interface GoodTypeViewState {
+    goodTypeList: Array<GoodType>;
+}
+
+export default class GoodTypeView extends React.Component<{}, GoodTypeViewState> {
+
+    constructor() {
+        super({}, {});
+        this.state = {
+            goodTypeList: new Array()
+        };
+    }
+
+    componentDidMount() {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.GET, 'http://localhost/api/v1/GoodType');
+        xhr.onload = (evt)=>{
+            let res: Array<GoodType> = JSON.parse(xhr.responseText);
+            this.setState({goodTypeList: res})
+        };
+        xhr.onerror = (evt)=> {
+            alert("error");
+        };
+        xhr.send();
+    }
+
     public render() {
         return (
             <div className="content-view">
@@ -12,10 +40,14 @@ export default class GoodTypeView extends React.Component<{}, {}> {
                         <th>ID</th>
                         <th>Название типа</th>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {
+                        this.state.goodTypeList.map((el: GoodType) => {
+                            return <tr>
+                                <td>{el.id}</td>
+                                <td>{el.typeName}</td>
+                            </tr>
+                        })
+                    }
                 </table></div>
         );
     }

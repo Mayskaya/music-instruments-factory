@@ -3,11 +3,13 @@ import DefaultValues from "../util/DefaultValues";
 
 export default class Factory {
     private _id: number;
+    private _name: string;
     private _address: Address;
     private _foudationDate: Date;
 
     constructor(id: number, address: Address, foudationDate: Date) {
         this._id = id;
+        this._name = name;
         this._address = address;
         this._foudationDate = foudationDate;
     }
@@ -26,6 +28,22 @@ export default class Factory {
      */
     public set id(value: number) {
         this._id = value;
+    }
+
+    /**
+     * Getter name
+     * @return {string}
+     */
+    public get name(): string {
+        return this._name;
+    }
+
+    /**
+     * Setter name
+     * @param {string} value
+     */
+    public set name(value: string) {
+        this._name = value;
     }
 
     /**

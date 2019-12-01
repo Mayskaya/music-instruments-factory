@@ -1,7 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Car from "../../domain/Car";
+import HttpMethod from "../../util/http/HttpMethods";
 
-export default class CarView extends React.Component<{}, {}> {
+export interface CarViewState {
+    carList: Array<Car>;
+}
+
+export default class CarView extends React.Component<{}, CarViewState> {
+
+    constructor() {
+        super({}, {});
+        this.state = {
+            carList: new Array()
+        };
+    }
+
+    componentDidMount() {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Car');
+        xhr.onload = (evt)=>{
+            let res: Array<Car> = JSON.parse(xhr.responseText);
+            this.setState({carList: res})
+        };
+        xhr.onerror = (evt)=> {
+            alert("error");
+        };
+        xhr.send();
+    }
+
     public render() {
         return (
             <div className="content-view">
@@ -14,12 +41,16 @@ export default class CarView extends React.Component<{}, {}> {
                         <th>Регион</th>
                         <th>Марка, модель</th>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
+                    {
+                        this.state.carList.map((el: Car) => {
+                            return <tr>
+                                <td>{el.id}</td>
+                                <td>{el.serial}</td>
+                                <td>{el.region}</td>
+                                <td>{`${el.markModel.mark.name} ${el.markModel.modelName}`}</td>
+                            </tr>
+                        })
+                    }
                 </table></div>
         );
     }

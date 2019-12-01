@@ -19,7 +19,7 @@ export default class AddressView extends React.Component<{}, AddressViewState> {
 
     componentDidMount() {
         let xhr = new XMLHttpRequest();
-        xhr.open(HttpMethod.GET, 'https://localhost:5001/api/v1/Address');
+        xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Address');
         xhr.onload = (evt)=>{
             let res: Array<Address> = JSON.parse(xhr.responseText);
             this.setState({addressList: res})
