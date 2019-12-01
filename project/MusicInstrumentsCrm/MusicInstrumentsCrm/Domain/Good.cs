@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("good")]
+	[Table("Good")]
 	public class Good
 	{
 		[Column("id")]

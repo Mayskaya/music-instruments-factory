@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("car")]
+	[Table("Car")]
 	public class Car
 	{
 		[Column("id")]

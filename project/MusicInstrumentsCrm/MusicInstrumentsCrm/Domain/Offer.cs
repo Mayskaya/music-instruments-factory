@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("offer")]
+	[Table("Offer")]
 	public class Offer
 	{
 		[Column("id")]
@@ -24,7 +24,7 @@ namespace MusicInstrumentsCrm.Domain
 		public virtual Staff Seller { get; set; }
 
 		[ForeignKey("store")]
-		public virtual Store Store {get;set;}
+		public virtual Store Store { get;set;}
 
 		[ForeignKey("delivery")]
 		public virtual Delivery Delivery { get; set; }

@@ -11,10 +11,6 @@ ALTER TABLE "Factory"
     ADD CONSTRAINT "PK_Factory"
         PRIMARY KEY (id);
 
-ALTER TABLE "Factory"
-    ADD CONSTRAINT  "UQ_Factory_name"
-        PRIMARY KEY (name);
-
 CREATE INDEX "IXFK_Factory_Address" ON "Factory" (address ASC);
 
 ALTER TABLE "Factory"

@@ -36,6 +36,12 @@ namespace MusicInstrumentsCrm.Domain
 
 		public DbSet<User> Users { get; set; }
 
+		public DbSet<Role> Roles { get; set; }
+
+		public DbSet<RolePermission> RolesPermissions { get; set; }
+
+		public DbSet<Permission> Permissions { get; set; }
+
 		public DbSet<Address> Addresses { get; set; }
 
 		public DbSet<Country> Countries { get; set; }
@@ -44,31 +50,34 @@ namespace MusicInstrumentsCrm.Domain
 		{
 		}
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{
-			optionsBuilder.UseLazyLoadingProxies();
-			string dbAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
-			optionsBuilder.UseNpgsql($"Host={dbAddress};Database=micrm_db;Username=admin;Password=admin;Port=5432");
-		}
-
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Good>().ToTable("good");
-			modelBuilder.Entity<GoodType>().ToTable("goodtype");
-			modelBuilder.Entity<GoodInOffer>().ToTable("goodinoffer");
-			modelBuilder.Entity<Factory>().ToTable("factory");
-			modelBuilder.Entity<Offer>().ToTable("offer");
-			modelBuilder.Entity<SupplyInStore>().ToTable("supplyinstore");
-			modelBuilder.Entity<Store>().ToTable("store");
-			modelBuilder.Entity<Buyer>().ToTable("buyer");
-			modelBuilder.Entity<Staff>().ToTable("staff");
-			modelBuilder.Entity<Delivery>().ToTable("delivery");
-			modelBuilder.Entity<Car>().ToTable("car");
-			modelBuilder.Entity<Mark>().ToTable("mark");
-			modelBuilder.Entity<Model>().ToTable("model");
-			modelBuilder.Entity<User>().ToTable("crmuser");
-			modelBuilder.Entity<Address>().ToTable("address");
-			modelBuilder.Entity<Country>().ToTable("country");
+			modelBuilder.Entity<Good>().ToTable("Good");
+			modelBuilder.Entity<GoodType>().ToTable("GoodType");
+			modelBuilder.Entity<GoodInOffer>().ToTable("GoodInOffer");
+			modelBuilder.Entity<Factory>().ToTable("Factory");
+			modelBuilder.Entity<Offer>().ToTable("Offer");
+			modelBuilder.Entity<SupplyInStore>().ToTable("SupplyInStore");
+			modelBuilder.Entity<Store>().ToTable("Store");
+			modelBuilder.Entity<Buyer>().ToTable("Buyer");
+			modelBuilder.Entity<Staff>().ToTable("Staff");
+			modelBuilder.Entity<Delivery>().ToTable("Delivery");
+			modelBuilder.Entity<Car>().ToTable("Car");
+			modelBuilder.Entity<Mark>().ToTable("Mark");
+			modelBuilder.Entity<Model>().ToTable("Model");
+			modelBuilder.Entity<User>().ToTable("CrmUser");
+			modelBuilder.Entity<Address>().ToTable("Address");
+			modelBuilder.Entity<Country>().ToTable("Country");
+			modelBuilder.Entity<Role>().ToTable("Role");
+			modelBuilder.Entity<Permission>().ToTable("Permission");
+//			modelBuilder.Entity<RolePermission>()
+//				.HasOne(rp => rp.Role)
+//				.WithMany(r=>r.Permissions)
+//				.HasForeignKey(rp=>rp.)
+
+			modelBuilder.Entity<RolePermission>().ToTable("RolePermission")
+				.Property(p => p.ValueType)
+				.HasConversion<string>();
 		}
 	}
 }

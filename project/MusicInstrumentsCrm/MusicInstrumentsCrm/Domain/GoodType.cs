@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("goodtype")]
+	[Table("GoodType")]
 
 	public class GoodType
 	{

@@ -18,5 +18,5 @@ CREATE INDEX "IXFK_Car_Mark" ON "Car" (mark_model ASC);
 
 ALTER TABLE "Car"
     ADD CONSTRAINT "FK_Car_Mark"
-        FOREIGN KEY (mark_model) REFERENCES Model (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
+        FOREIGN KEY (mark_model) REFERENCES "Model" (id) ON DELETE NO ACTION ON UPDATE NO ACTION;
 

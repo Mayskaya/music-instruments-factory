@@ -1,5 +1,8 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
@@ -26,10 +29,14 @@ namespace MusicInstrumentsCrm
 		{
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-			services.AddDbContext<ApplicationDbContext>(options =>
-			{
-				options.UseNpgsql(Configuration.GetConnectionString("ApplicationDbContext"));
-			}, ServiceLifetime.Singleton);
+			services.AddDbContext<ApplicationDbContext>(
+				options =>
+				{
+					string dbAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
+					options.UseNpgsql($"Host={dbAddress};Database=micrm_db;Username=admin;Password=admin;Port=5432")
+						.UseLazyLoadingProxies();
+				},
+				ServiceLifetime.Singleton);
 
 			services.AddSingleton<IGoodRepository, GoodRepository>();
 			services.AddSingleton<IGoodTypeRepository, GoodTypeRepository>();
@@ -47,6 +54,7 @@ namespace MusicInstrumentsCrm
 			services.AddSingleton<IUserRepository, UserRepository>();
 			services.AddSingleton<IAddressRepository, AddressRepository>();
 			services.AddSingleton<ICountryRepository, CountryRepository>();
+			services.AddSingleton<IRoleRepository, RoleRepository>();
 
 			services.AddCors(options =>
 			{

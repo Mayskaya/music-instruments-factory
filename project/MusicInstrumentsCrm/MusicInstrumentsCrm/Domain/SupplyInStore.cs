@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("supplyinstore")]
+	[Table("SupplyInStore")]
 	public class SupplyInStore
 	{
 		[Column("id")]

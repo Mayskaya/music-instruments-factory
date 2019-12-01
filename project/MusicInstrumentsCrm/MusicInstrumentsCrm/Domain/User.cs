@@ -2,11 +2,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.SqlTypes;
+using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	[Table("crmuser")]
-	public class User
+	[Table("CrmUser")]
+	public class User 
 	{
 		[Column("id")]
 		[Key]
@@ -16,6 +18,7 @@ namespace MusicInstrumentsCrm.Domain
 		public string Login { get; set; }
 
 		[Column("password")]
+		[JsonIgnore]
 		public string Password { get; set; }
 
 		[Column("creation_date")]
@@ -26,5 +29,9 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("active")]
 		public bool Active { get; set; }
+		
+		[ForeignKey("role")]
+		[JsonIgnore]
+		public virtual Role Role { get; set; }
 	}
 }
