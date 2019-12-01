@@ -1,13 +1,13 @@
 using System;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
 
@@ -27,17 +27,30 @@ namespace MusicInstrumentsCrm
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
 			services.AddDbContext<ApplicationDbContext>(
 				options =>
 				{
 					string dbAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
-					options.UseNpgsql($"Host={dbAddress};Database=micrm_db;Username=admin;Password=admin;Port=5432")
+					options.UseNpgsql($"Host=192.168.99.100;Database=micrm_db;Username=admin;Password=admin;Port=5432")
 						.UseLazyLoadingProxies();
-				},
-				ServiceLifetime.Singleton);
+				}
+				/*,
+				ServiceLifetime.Scoped*/);
 
+			services.AddDefaultIdentity<User>()
+				.AddEntityFrameworkStores<ApplicationDbContext>();
+
+			services.AddIdentityServer()
+				.AddApiAuthorization<User, ApplicationDbContext>();
+
+			services.AddAuthentication()
+				.AddIdentityServerJwt();
+			
+			services.AddControllersWithViews();
+			services.AddRazorPages();
+			
 			services.AddSingleton<IGoodRepository, GoodRepository>();
 			services.AddSingleton<IGoodTypeRepository, GoodTypeRepository>();
 			services.AddSingleton<IGoodInOfferRepository, GoodInOfferRepository>();
@@ -54,7 +67,6 @@ namespace MusicInstrumentsCrm
 			services.AddSingleton<IUserRepository, UserRepository>();
 			services.AddSingleton<IAddressRepository, AddressRepository>();
 			services.AddSingleton<ICountryRepository, CountryRepository>();
-			services.AddSingleton<IRoleRepository, RoleRepository>();
 
 			services.AddCors(options =>
 			{
@@ -73,7 +85,7 @@ namespace MusicInstrumentsCrm
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
 		{
 			if (env.IsDevelopment())
 			{
@@ -91,12 +103,12 @@ namespace MusicInstrumentsCrm
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
 
-			app.UseMvc(routes =>
-			{
-				routes.MapRoute(
-					name: "default",
-					template: "{controller}/{action=Index}/{id?}");
-			});
+//			app.UseMvc(routes =>
+               //			{
+               //				routes.MapRoute(
+               //					name: "default",
+               //					template: "{controller}/{action=Index}/{id?}");
+               //			});
 
 			app.UseSpa(spa =>
 			{

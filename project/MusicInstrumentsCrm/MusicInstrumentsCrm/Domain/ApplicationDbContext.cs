@@ -3,10 +3,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.EntityFramework.Entities;
+using IdentityServer4.EntityFramework.Interfaces;
+using IdentityServer4.EntityFramework.Options;
+using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.Extensions.Options;
 
 namespace MusicInstrumentsCrm.Domain
 {
-	public class ApplicationDbContext : DbContext
+	public class ApplicationDbContext : ApiAuthorizationDbContext<User>
 	{
 		public DbSet<Good> Goods { get; set; }
 
@@ -34,50 +39,36 @@ namespace MusicInstrumentsCrm.Domain
 
 		public DbSet<Model> Models { get; set; }
 
-		public DbSet<User> Users { get; set; }
-
-		public DbSet<Role> Roles { get; set; }
-
-		public DbSet<RolePermission> RolesPermissions { get; set; }
-
-		public DbSet<Permission> Permissions { get; set; }
+		public DbSet<User> MyUsers { get; set; }
 
 		public DbSet<Address> Addresses { get; set; }
 
 		public DbSet<Country> Countries { get; set; }
 
-		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+		public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
+			: base(options, operationalStoreOptions)
 		{
 		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Good>().ToTable("Good");
-			modelBuilder.Entity<GoodType>().ToTable("GoodType");
-			modelBuilder.Entity<GoodInOffer>().ToTable("GoodInOffer");
-			modelBuilder.Entity<Factory>().ToTable("Factory");
-			modelBuilder.Entity<Offer>().ToTable("Offer");
-			modelBuilder.Entity<SupplyInStore>().ToTable("SupplyInStore");
-			modelBuilder.Entity<Store>().ToTable("Store");
-			modelBuilder.Entity<Buyer>().ToTable("Buyer");
-			modelBuilder.Entity<Staff>().ToTable("Staff");
-			modelBuilder.Entity<Delivery>().ToTable("Delivery");
-			modelBuilder.Entity<Car>().ToTable("Car");
-			modelBuilder.Entity<Mark>().ToTable("Mark");
-			modelBuilder.Entity<Model>().ToTable("Model");
-			modelBuilder.Entity<User>().ToTable("CrmUser");
-			modelBuilder.Entity<Address>().ToTable("Address");
-			modelBuilder.Entity<Country>().ToTable("Country");
-			modelBuilder.Entity<Role>().ToTable("Role");
-			modelBuilder.Entity<Permission>().ToTable("Permission");
-//			modelBuilder.Entity<RolePermission>()
-//				.HasOne(rp => rp.Role)
-//				.WithMany(r=>r.Permissions)
-//				.HasForeignKey(rp=>rp.)
-
-			modelBuilder.Entity<RolePermission>().ToTable("RolePermission")
-				.Property(p => p.ValueType)
-				.HasConversion<string>();
+			base.OnModelCreating(modelBuilder);
+//			modelBuilder.Entity<Good>().ToTable("Good");
+//			modelBuilder.Entity<GoodType>().ToTable("GoodType");
+//			modelBuilder.Entity<GoodInOffer>().ToTable("GoodInOffer");
+//			modelBuilder.Entity<Factory>().ToTable("Factory");
+//			modelBuilder.Entity<Offer>().ToTable("Offer");
+//			modelBuilder.Entity<SupplyInStore>().ToTable("SupplyInStore");
+//			modelBuilder.Entity<Store>().ToTable("Store");
+//			modelBuilder.Entity<Buyer>().ToTable("Buyer");
+//			modelBuilder.Entity<Staff>().ToTable("Staff");
+//			modelBuilder.Entity<Delivery>().ToTable("Delivery");
+//			modelBuilder.Entity<Car>().ToTable("Car");
+//			modelBuilder.Entity<Mark>().ToTable("Mark");
+//			modelBuilder.Entity<Model>().ToTable("Model");
+//			modelBuilder.Entity<User>().ToTable("CrmUser");
+//			modelBuilder.Entity<Address>().ToTable("Address");
+//			modelBuilder.Entity<Country>().ToTable("Country");
 		}
 	}
 }

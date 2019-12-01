@@ -19,18 +19,18 @@ namespace MusicInstrumentsCrm.Repositories
 
 			if (cache == null)
 			{
-				cache = new ConcurrentDictionary<int, User>(db.Users
-					.ToDictionary(u => u.Id));
+				cache = new ConcurrentDictionary<int, User>(db.MyUsers
+					.ToDictionary(u => u.MyId));
 			}
 		}
 
 		public async Task<User> CreateAsync(User model)
 		{
-			EntityEntry<User> added = await db.Users.AddAsync(model);
+			EntityEntry<User> added = await db.MyUsers.AddAsync(model);
 			int affected = await db.SaveChangesAsync();
 			if (affected == 1)
 			{
-				return cache.AddOrUpdate(model.Id, model, UpdateCache);
+				return cache.AddOrUpdate(model.MyId, model, UpdateCache);
 			}
 
 			return null;
@@ -40,8 +40,8 @@ namespace MusicInstrumentsCrm.Repositories
 		{
 			return await Task.Run(() =>
 			{
-				User user = db.Users.Find(id);
-				db.Users.Remove(user);
+				User user = db.MyUsers.Find(id);
+				db.MyUsers.Remove(user);
 				int affected = db.SaveChanges();
 				if (affected == 1)
 				{
@@ -54,7 +54,7 @@ namespace MusicInstrumentsCrm.Repositories
 
 		public async Task<bool> DeleteAsync(User model)
 		{
-			return await Task.Run(() => DeleteAsync(model.Id));
+			return await Task.Run(() => DeleteAsync(model.MyId));
 		}
 
 		public async Task<IEnumerable<User>> FindAllAsync()
@@ -76,7 +76,7 @@ namespace MusicInstrumentsCrm.Repositories
 		{
 			return await Task.Run(() =>
 			{
-				db.Users.Update(model);
+				db.MyUsers.Update(model);
 				int affected = db.SaveChanges();
 				if (affected == 1)
 				{
@@ -89,7 +89,7 @@ namespace MusicInstrumentsCrm.Repositories
 
 		public async Task<User> UpdateAsync(User model)
 		{
-			return await Task.Run(() => UpdateAsync(model.Id, model));
+			return await Task.Run(() => UpdateAsync(model.MyId, model));
 		}
 	}
 }

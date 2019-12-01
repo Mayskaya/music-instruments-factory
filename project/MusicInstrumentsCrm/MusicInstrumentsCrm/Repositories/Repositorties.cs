@@ -81,9 +81,4 @@ namespace MusicInstrumentsCrm.Repositories
 	{
 
 	}
-
-	public interface IRoleRepository : IAsyncRepository<Role, int>
-	{
-		
-	}
 }
