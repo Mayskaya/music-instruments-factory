@@ -5,13 +5,13 @@ export default class Car {
     private _id: number;
     private _serial: string;
     private _region: string;
-    private _markModel: Model;
+    private _model: Model;
 
-    constructor(id: number, serial: string, region: string, markModel: Model) {
+    constructor(id: number, serial: string, region: string, model: Model) {
         this._id = id;
         this._serial = serial;
         this._region = region;
-        this._markModel = markModel;
+        this._model = model;
     }
 
     /**
@@ -63,19 +63,19 @@ export default class Car {
     }
 
     /**
-     * Getter markModel
+     * Getter model
      * @return {Model}
      */
-    public get markModel(): Model {
-        return this._markModel;
+    public get model(): Model {
+        return this._model;
     }
 
     /**
-     * Setter markModel
+     * Setter model
      * @param {Model} value
      */
-    public set markModel(value: Model) {
-        this._markModel = value;
+    public set model(value: Model) {
+        this._model = value;
     }
 
 }

@@ -47,7 +47,7 @@ export default class CarView extends React.Component<{}, CarViewState> {
                                 <td>{el.id}</td>
                                 <td>{el.serial}</td>
                                 <td>{el.region}</td>
-                                <td>{`${el.markModel.mark.name} ${el.markModel.modelName}`}</td>
+                                <td>{`${el.model.mark.name} ${el.model.modelName}`}</td>
                             </tr>
                         })
                     }
