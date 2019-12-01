@@ -70,13 +70,14 @@ namespace MusicInstrumentsCrm
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UseCors(SpecificOrigins);
 			}
 			else
 			{
 				app.UseExceptionHandler("/Error");
 				app.UseHsts();
 			}
+
+			app.UseCors(SpecificOrigins);
 
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
