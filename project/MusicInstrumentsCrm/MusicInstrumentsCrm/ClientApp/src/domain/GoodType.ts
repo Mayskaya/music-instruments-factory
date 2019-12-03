@@ -1,5 +1,3 @@
-import DefaultValues from "../util/DefaultValues";
-
 export default class GoodType {
     private _id: number;
     private _typeName: string;

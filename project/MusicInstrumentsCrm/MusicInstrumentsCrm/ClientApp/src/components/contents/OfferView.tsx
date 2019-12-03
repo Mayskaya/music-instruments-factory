@@ -1,19 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Offer from "../../domain/Offer";
 import HttpMethod from "../../util/http/HttpMethods";
-import { string } from 'prop-types';
 import { Strings } from '../../util/Strings';
 
+export interface OfferViewProps extends RouteComponentProps {
+
+}
 
 export interface OfferViewState {
     offerList: Array<Offer>;
 }
 
-export default class OfferView extends React.Component<{}, OfferViewState> {
+export default class OfferView extends React.Component<OfferViewProps, OfferViewState> {
 
-    constructor() {
-        super({}, {});
+    constructor(props: OfferViewProps) {
+        super(props, {});
         this.state = {
             offerList: new Array()
         };
@@ -22,12 +24,12 @@ export default class OfferView extends React.Component<{}, OfferViewState> {
     componentDidMount() {
         let xhr = new XMLHttpRequest();
         xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Offer');
-        xhr.onload = (evt)=>{
+        xhr.onload = (evt) => {
             // debugger;
             let res: Array<Offer> = JSON.parse(xhr.responseText);
-            this.setState({offerList: res})
+            this.setState({ offerList: res })
         };
-        xhr.onerror = (evt)=> {
+        xhr.onerror = (evt) => {
             alert("error");
         };
         xhr.send();
@@ -38,7 +40,7 @@ export default class OfferView extends React.Component<{}, OfferViewState> {
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            window.history.pushState({}, "", `/index/Offer/${id}`);
+            this.props.history.push(`/index/Offer/${id}`);
         }
     }
 
@@ -59,8 +61,8 @@ export default class OfferView extends React.Component<{}, OfferViewState> {
                     {
                         this.state.offerList.map((el: Offer) => {
                             let del: string;
-                            if(el.delivery!=null){del = el.delivery.address.fullName}else{del = 'null'}
-                            return <tr data-id={el.id} onClick={this.handleRowClick}>
+                            if (el.delivery != null) { del = el.delivery.address.fullName } else { del = 'null' }
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.code}</td>
                                 <td>{`${el.buyer.lastName} ${el.buyer.firstName}`}</td>

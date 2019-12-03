@@ -1,18 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Address from "../../domain/Address";
 import HttpMethod from "../../util/http/HttpMethods";
 import { Strings } from '../../util/Strings';
+
+export interface AddressViewProps extends RouteComponentProps {
+}
 
 
 export interface AddressViewState {
     addressList: Array<Address>;
 }
 
-export default class AddressView extends React.Component<{}, AddressViewState> {
+export default class AddressView extends React.Component<AddressViewProps, AddressViewState> {
 
-    constructor() {
-        super({}, {});
+    constructor(props: AddressViewProps) {
+        super(props, {});
         this.state = {
             addressList: new Array()
         };
@@ -21,11 +24,11 @@ export default class AddressView extends React.Component<{}, AddressViewState> {
     componentDidMount() {
         let xhr = new XMLHttpRequest();
         xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Address');
-        xhr.onload = (evt)=>{
+        xhr.onload = (evt) => {
             let res: Array<Address> = JSON.parse(xhr.responseText);
-            this.setState({addressList: res})
+            this.setState({ addressList: res })
         };
-        xhr.onerror = (evt)=> {
+        xhr.onerror = (evt) => {
             alert("error");
         };
         xhr.send();
@@ -36,7 +39,7 @@ export default class AddressView extends React.Component<{}, AddressViewState> {
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            window.history.pushState({}, "", `/index/Address/${id}`);
+            this.props.history.push(`/index/Address/view/${id}`);
         }
     }
 
@@ -52,7 +55,7 @@ export default class AddressView extends React.Component<{}, AddressViewState> {
                     </tr>
                     {
                         this.state.addressList.map((el: Address) => {
-                            return <tr data-id={el.id} onClick={this.handleRowClick}>
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.fullName}</td>
                             </tr>

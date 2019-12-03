@@ -1,19 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import User from "../../domain/User";
 import HttpMethod from "../../util/http/HttpMethods";
 import { Strings } from '../../util/Strings';
 
+export interface UserViewProps extends RouteComponentProps {
+
+}
 
 export interface UserViewState {
     userList: Array<User>;
 }
 
+export default class UserView extends React.Component<UserViewProps, UserViewState> {
 
-export default class UserView extends React.Component<{}, UserViewState> {
-
-    constructor() {
-        super({}, {});
+    constructor(props: UserViewProps) {
+        super(props, {});
         this.state = {
             userList: new Array()
         };
@@ -37,7 +39,7 @@ export default class UserView extends React.Component<{}, UserViewState> {
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            window.history.pushState({}, "", `/index/User/${id}`);
+            this.props.history.push(`/index/User/${id}`);
         }
     }
 
@@ -57,7 +59,7 @@ export default class UserView extends React.Component<{}, UserViewState> {
                     </tr>
                     {
                         this.state.userList.map((el: User) => {
-                            return <tr data-id={el.id} onClick={this.handleRowClick}>
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.login}</td>
                                 <td>{el.password}</td>

@@ -1,5 +1,4 @@
 import Model from "./Model";
-import DefaultValues from "../util/DefaultValues";
 
 export default class Car {
     private _id: number;

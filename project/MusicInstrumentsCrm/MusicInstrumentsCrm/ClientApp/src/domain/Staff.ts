@@ -1,5 +1,4 @@
 import User from "./User";
-import DefaultValues from "../util/DefaultValues";
 
 export default class Staff {
     private _id: number;

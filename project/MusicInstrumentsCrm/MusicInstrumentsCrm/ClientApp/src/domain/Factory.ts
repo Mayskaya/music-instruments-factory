@@ -1,5 +1,4 @@
 import Address from "./Address";
-import DefaultValues from "../util/DefaultValues";
 
 export default class Factory {
     private _id: number;

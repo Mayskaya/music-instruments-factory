@@ -16,31 +16,30 @@ export default class GoodEdit extends React.Component<GoodEditProps, GoodEditSta
     }
 
     public render() {
-        return (
-            <div className="GoodEdit">
-                <form className="form-add">
-                    <label>
-                        <span>Название</span>
-                        <span></span>
-                    </label>
-                    <label>
-                        <span>Описание</span>
-                        <span></span>
-                    </label>
-                    <label>
-                        <span>Тип</span>
-                        <span></span>
-                    </label>
-                    <label>
-                        <span>Производитель</span>
-                        <span></span>
-                    </label>
-                    <label>
-                        <span>Цена</span>
-                        <span></span>
-                    </label>
-                </form>
-            </div>
+        return (<div className="GoodEdit">
+            <form className="form-add">
+                <label>
+                    <span>Название</span>
+                    <span></span>
+                </label>
+                <label>
+                    <span>Описание</span>
+                    <span></span>
+                </label>
+                <label>
+                    <span>Тип</span>
+                    <span></span>
+                </label>
+                <label>
+                    <span>Производитель</span>
+                    <span></span>
+                </label>
+                <label>
+                    <span>Цена</span>
+                    <span></span>
+                </label>
+            </form>
+        </div>
         );
     }
 }

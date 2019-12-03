@@ -1,18 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import GoodInOffer from "../../domain/GoodInOffer";
 import HttpMethod from "../../util/http/HttpMethods";
 import { Strings } from '../../util/Strings';
 
+export interface GoodInOfferViewProps extends RouteComponentProps {
+
+}
 
 export interface GoodInOfferViewState {
     goodInOfferList: Array<GoodInOffer>;
 }
 
-export default class GoodInOfferView extends React.Component<{}, GoodInOfferViewState> {
+export default class GoodInOfferView extends React.Component<GoodInOfferViewProps, GoodInOfferViewState> {
 
-    constructor() {
-        super({}, {});
+    constructor(props: GoodInOfferViewProps) {
+        super(props, {});
         this.state = {
             goodInOfferList: new Array()
         };
@@ -21,11 +24,11 @@ export default class GoodInOfferView extends React.Component<{}, GoodInOfferView
     componentDidMount() {
         let xhr = new XMLHttpRequest();
         xhr.open(HttpMethod.GET, 'http://localhost/api/v1/GoodInOffer');
-        xhr.onload = (evt)=>{
+        xhr.onload = (evt) => {
             let res: Array<GoodInOffer> = JSON.parse(xhr.responseText);
-            this.setState({goodInOfferList: res})
+            this.setState({ goodInOfferList: res })
         };
-        xhr.onerror = (evt)=> {
+        xhr.onerror = (evt) => {
             alert("error");
         };
         xhr.send();
@@ -36,7 +39,7 @@ export default class GoodInOfferView extends React.Component<{}, GoodInOfferView
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            window.history.pushState({}, "", `/index/GoodInOffer/${id}`);
+            this.props.history.push(`/index/GoodInOffer/${id}`);
         }
     }
 
@@ -54,7 +57,7 @@ export default class GoodInOfferView extends React.Component<{}, GoodInOfferView
                     </tr>
                     {
                         this.state.goodInOfferList.map((el: GoodInOffer) => {
-                            return <tr data-id={el.id} onClick={this.handleRowClick}>
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.good.name}</td>
                                 <td>{el.offer.code}</td>
