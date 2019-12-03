@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Store from "../../domain/Store";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface StoreViewState {
@@ -29,6 +30,15 @@ export default class StoreView extends React.Component<{}, StoreViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Store/${id}`);
+        }
+    }
     
     public render() {
         return (
@@ -44,7 +54,7 @@ export default class StoreView extends React.Component<{}, StoreViewState> {
                     </tr>
                     {
                         this.state.storeList.map((el: Store) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.name}</td>
                                 <td>{el.address.fullName}</td>

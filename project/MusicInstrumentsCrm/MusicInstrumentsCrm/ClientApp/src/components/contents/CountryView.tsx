@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Country from "../../domain/Country";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface CountryViewState {
@@ -29,6 +30,15 @@ export default class CountryView extends React.Component<{}, CountryViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Country/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -42,7 +52,7 @@ export default class CountryView extends React.Component<{}, CountryViewState> {
                     </tr>
                     {
                         this.state.countryList.map((el: Country) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.name}</td>
                             </tr>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Buyer from "../../domain/Buyer";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 export interface BuyerViewState {
     buyerList: Array<Buyer>;
@@ -28,6 +29,15 @@ export default class BuyerView extends React.Component<{}, BuyerViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Buyer/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -46,7 +56,7 @@ export default class BuyerView extends React.Component<{}, BuyerViewState> {
                     </tr>
                     {
                         this.state.buyerList.map((el: Buyer) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.firstName}</td>
                                 <td>{el.lastName}</td>

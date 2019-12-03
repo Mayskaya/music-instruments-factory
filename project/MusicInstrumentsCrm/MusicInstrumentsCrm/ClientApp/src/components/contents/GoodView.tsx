@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Good from "../../domain/Good";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface GoodViewState {
@@ -29,6 +30,15 @@ export default class GoodView extends React.Component<{}, GoodViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Good/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -46,7 +56,7 @@ export default class GoodView extends React.Component<{}, GoodViewState> {
                     </tr>
                     {
                         this.state.goodList.map((el: Good) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.name}</td>
                                 <td>{el.description}</td>

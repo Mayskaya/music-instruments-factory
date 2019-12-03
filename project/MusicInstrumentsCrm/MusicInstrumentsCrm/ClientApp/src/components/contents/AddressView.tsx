@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Address from "../../domain/Address";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface AddressViewState {
@@ -29,13 +30,21 @@ export default class AddressView extends React.Component<{}, AddressViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Address/${id}`);
+        }
+    }
 
     public render() {
         return (
             <div className="content-view">
                 <Link to="/index/AddressAdd"><button className="btn-content">Add</button></Link>
                 <button className="btn-content">Delete</button>
-
                 <table className="table-content">
                     <tr >
                         <th>ID</th>
@@ -43,7 +52,7 @@ export default class AddressView extends React.Component<{}, AddressViewState> {
                     </tr>
                     {
                         this.state.addressList.map((el: Address) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.fullName}</td>
                             </tr>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Delivery from "../../domain/Delivery";
 import Address from '../../domain/Address';
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface DeliveryViewState {
@@ -34,6 +35,15 @@ export default class DeliveryView extends React.Component<{}, DeliveryViewState>
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Delivery/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -49,7 +59,7 @@ export default class DeliveryView extends React.Component<{}, DeliveryViewState>
                     </tr>
                     {
                         this.state.deliveryList.map((el: Delivery) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{`${el.car.serial} ${el.car.region}`}</td>
                                 <td>{el.address.fullName}</td>

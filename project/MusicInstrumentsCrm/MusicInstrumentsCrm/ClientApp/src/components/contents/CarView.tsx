@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Car from "../../domain/Car";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 export interface CarViewState {
     carList: Array<Car>;
@@ -28,6 +29,15 @@ export default class CarView extends React.Component<{}, CarViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Car/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -43,7 +53,7 @@ export default class CarView extends React.Component<{}, CarViewState> {
                     </tr>
                     {
                         this.state.carList.map((el: Car) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.serial}</td>
                                 <td>{el.region}</td>

@@ -35,6 +35,23 @@ import StoreAdd from './contents/add/StoreAdd';
 import SupplyInStoreAdd from './contents/add/SupplyInStoreAdd';
 import UserAdd from './contents/add/UserAdd';
 
+import AddressEdit from './contents/edit/AddressEdit';
+import GoodEdit from './contents/edit/GoodEdit';
+import GoodTypeEdit from './contents/edit/GoodTypeEdit';
+import GoodInOfferEdit from './contents/edit/GoodInOfferEdit';
+import BuyerEdit from './contents/edit/BuyerEdit';
+import CarEdit from './contents/edit/CarEdit';
+import CountryEdit from './contents/edit/CountryEdit';
+import FactoryEdit from './contents/edit/FactoryEdit';
+import DeliveryEdit from './contents/edit/DeliveryEdit';
+import MarkEdit from './contents/edit/MarkEdit';
+import ModelEdit from './contents/edit/ModelEdit';
+import OfferEdit from './contents/edit/OfferEdit';
+import StaffEdit from './contents/edit/StaffEdit';
+import StoreEdit from './contents/edit/StoreEdit';
+import SupplyInStoreEdit from './contents/edit/SupplyInStoreEdit';
+import UserEdit from './contents/edit/UserEdit';
+
 export default class Content extends React.Component<{}, {}> {
   static map(arg0: (route: any, i: any) => JSX.Element) {
     throw new Error("Method not implemented.");
@@ -42,23 +59,22 @@ export default class Content extends React.Component<{}, {}> {
   public render() {
     return (
       <div className="Content">
-
-        <Route path='/index/Good' component={GoodView} />
-        <Route path='/index/GoodType' component={GoodTypeView} />
-        <Route path='/index/Address' component={AddressView} />
-        <Route path='/index/Buyer' component={BuyerView} />
-        <Route path='/index/Car' component={CarView} />
-        <Route path='/index/Country' component={CountryView} />
-        <Route path='/index/Delivery' component={DeliveryView} />
-        <Route path='/index/Factory' component={FactoryView} />
-        <Route path='/index/GoodInOffer' component={GoodInOfferView} />
-        <Route path='/index/Mark' component={MarkView} />
-        <Route path='/index/Model' component={ModelView} />
-        <Route path='/index/Offer' component={OfferView} />
-        <Route path='/index/Staff' component={StaffView} />
-        <Route path='/index/Store' component={StoreView} />
-        <Route path='/index/SupplyInStore' component={SupplyInStoreView} />
-        <Route path='/index/User' component={UserView} />
+        <Route path='/index/Good' component={GoodView} exact={true}/>
+        <Route path='/index/GoodType' component={GoodTypeView} exact={true}/>
+        <Route path='/index/Address' component={AddressView} exact={true}/>
+        <Route path='/index/Buyer' component={BuyerView} exact={true}/>
+        <Route path='/index/Car' component={CarView} exact={true}/>
+        <Route path='/index/Country' component={CountryView} exact={true}/>
+        <Route path='/index/Delivery' component={DeliveryView} exact={true}/>
+        <Route path='/index/Factory' component={FactoryView} exact={true}/>
+        <Route path='/index/GoodInOffer' component={GoodInOfferView} exact={true}/>
+        <Route path='/index/Mark' component={MarkView} exact={true}/>
+        <Route path='/index/Model' component={ModelView} exact={true}/>
+        <Route path='/index/Offer' component={OfferView} exact={true}/>
+        <Route path='/index/Staff' component={StaffView} exact={true}/>
+        <Route path='/index/Store' component={StoreView} exact={true}/>
+        <Route path='/index/SupplyInStore' component={SupplyInStoreView} exact={true}/>
+        <Route path='/index/User' component={UserView} exact={true}/>
 
         <Route path='/index/GoodAdd' component={GoodAdd} />
         <Route path='/index/GoodTypeAdd' component={GoodTypeAdd} />
@@ -76,6 +92,24 @@ export default class Content extends React.Component<{}, {}> {
         <Route path='/index/StoreAdd' component={StoreAdd} />
         <Route path='/index/SupplyInStoreAdd' component={SupplyInStoreAdd} />
         <Route path='/index/UserAdd' component={UserAdd} />
+
+        <Route path='/index/Good/:id' component={GoodEdit} />
+        <Route path='/index/GoodType/:id' component={GoodTypeEdit} />
+        <Route path='/index/Address/:id' component={AddressEdit} />
+        <Route path='/index/Buyer/:id' component={BuyerEdit} />
+        <Route path='/index/Car/:id' component={CarEdit} />
+        <Route path='/index/Country/:id' component={CountryEdit} />
+        <Route path='/index/Delivery/:id' component={DeliveryEdit} />
+        <Route path='/index/Factory/:id' component={FactoryEdit} />
+        <Route path='/index/GoodInOffer/:id' component={GoodInOfferEdit} />
+        <Route path='/index/Mark/:id' component={MarkEdit} />
+        <Route path='/index/Model/:id' component={ModelEdit} />
+        <Route path='/index/Offer/:id' component={OfferEdit} />
+        <Route path='/index/Staff/:id' component={StaffEdit} />
+        <Route path='/index/Store/:id' component={StoreEdit} />
+        <Route path='/index/SupplyInStore/:id' component={SupplyInStoreEdit} />
+        <Route path='/index/User/:id' component={UserEdit} />
+        
       </div>);
 
   }

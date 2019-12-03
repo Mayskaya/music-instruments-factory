@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SupplyInStore from "../../domain/SupplyInStore";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface SupplyInStoreViewState {
@@ -29,6 +30,15 @@ export default class SupplyInStoreView extends React.Component<{}, SupplyInStore
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/SupplyInStore/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -44,7 +54,7 @@ export default class SupplyInStoreView extends React.Component<{}, SupplyInStore
                     </tr>
                     {
                         this.state.supplyInStoreList.map((el: SupplyInStore) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.good.name}</td>
                                 <td>{el.store.name}</td>

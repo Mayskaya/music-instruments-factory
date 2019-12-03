@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Model from "../../domain/Model";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface ModelViewState {
@@ -29,6 +30,15 @@ export default class ModelView extends React.Component<{}, ModelViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Model/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -44,7 +54,7 @@ export default class ModelView extends React.Component<{}, ModelViewState> {
                     </tr>
                     {
                         this.state.modelList.map((el: Model) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.modelName}</td>
                                 <td>{el.mark.name}</td>

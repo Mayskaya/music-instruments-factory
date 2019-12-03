@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Mark from "../../domain/Mark";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface MarkViewState {
@@ -29,6 +30,15 @@ export default class MarkView extends React.Component<{}, MarkViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Mark/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -43,7 +53,7 @@ export default class MarkView extends React.Component<{}, MarkViewState> {
                     </tr>
                     {
                         this.state.markList.map((el: Mark) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.name}</td>
                                 <td>{el.country.name}</td>

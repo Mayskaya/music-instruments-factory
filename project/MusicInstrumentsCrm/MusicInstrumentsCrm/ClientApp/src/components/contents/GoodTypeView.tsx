@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import GoodType from "../../domain/GoodType";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface GoodTypeViewState {
@@ -29,6 +30,15 @@ export default class GoodTypeView extends React.Component<{}, GoodTypeViewState>
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/GoodType/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -42,7 +52,7 @@ export default class GoodTypeView extends React.Component<{}, GoodTypeViewState>
                     </tr>
                     {
                         this.state.goodTypeList.map((el: GoodType) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.typeName}</td>
                             </tr>

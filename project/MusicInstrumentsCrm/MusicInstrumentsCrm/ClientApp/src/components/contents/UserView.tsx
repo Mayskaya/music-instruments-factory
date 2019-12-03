@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import User from "../../domain/User";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface UserViewState {
@@ -30,6 +31,15 @@ export default class UserView extends React.Component<{}, UserViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/User/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -47,7 +57,7 @@ export default class UserView extends React.Component<{}, UserViewState> {
                     </tr>
                     {
                         this.state.userList.map((el: User) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.login}</td>
                                 <td>{el.password}</td>

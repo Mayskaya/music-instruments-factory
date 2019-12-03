@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import GoodInOffer from "../../domain/GoodInOffer";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
 
 export interface GoodInOfferViewState {
@@ -29,6 +30,15 @@ export default class GoodInOfferView extends React.Component<{}, GoodInOfferView
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/GoodInOffer/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -44,7 +54,7 @@ export default class GoodInOfferView extends React.Component<{}, GoodInOfferView
                     </tr>
                     {
                         this.state.goodInOfferList.map((el: GoodInOffer) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.good.name}</td>
                                 <td>{el.offer.code}</td>

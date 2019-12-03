@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Offer from "../../domain/Offer";
 import HttpMethod from "../../util/http/HttpMethods";
 import { string } from 'prop-types';
+import { Strings } from '../../util/Strings';
 
 
 export interface OfferViewState {
@@ -31,6 +32,15 @@ export default class OfferView extends React.Component<{}, OfferViewState> {
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            window.history.pushState({}, "", `/index/Offer/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -50,7 +60,7 @@ export default class OfferView extends React.Component<{}, OfferViewState> {
                         this.state.offerList.map((el: Offer) => {
                             let del: string;
                             if(el.delivery!=null){del = el.delivery.address.fullName}else{del = 'null'}
-                            return <tr>
+                            return <tr data-id={el.id} onClick={this.handleRowClick}>
                                 <td>{el.id}</td>
                                 <td>{el.code}</td>
                                 <td>{`${el.buyer.lastName} ${el.buyer.firstName}`}</td>

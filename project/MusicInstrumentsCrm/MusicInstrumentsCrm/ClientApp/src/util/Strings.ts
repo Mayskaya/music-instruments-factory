@@ -17,7 +17,7 @@ export class Strings {
 		return Strings.isNullOrEmpty(str) ? null : str;
 	}
 
-	public static isNullOrEmpty(str: string) : boolean{
+	public static isNullOrEmpty(str: string | null) : boolean{
 		return str == null || Strings.isEmpty(str);
     }
     
