@@ -23,7 +23,7 @@ export default class GoodView extends React.Component<GoodViewProps, GoodViewSta
 
     componentDidMount() {
         let xhr = new XMLHttpRequest();
-        xhr.open(HttpMethod.GET, '/api/v1/Good');
+        xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Good');
         xhr.onload = (evt) => {
             let res: Array<Good> = JSON.parse(xhr.responseText);
             this.setState({ goodList: res })
