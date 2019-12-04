@@ -16,7 +16,9 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("region")]
 		public string Region { get; set; }
 
-		[ForeignKey("mark_model")]
+		[Column("model")]
+		public int ModelId { get; set; }
+		
 		public virtual Model Model { get; set; }
 	}
 }

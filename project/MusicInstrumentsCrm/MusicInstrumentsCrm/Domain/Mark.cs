@@ -16,8 +16,10 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("name")]
 		public string Name { get; set; }
+		
+		[Column("country")]
+		public int CountryId { get; set; }
 
-		[ForeignKey("country")]
 		public virtual Country Country { get; set; }
 
 	}

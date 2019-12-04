@@ -9,7 +9,11 @@ namespace MusicInstrumentsCrm.Domain
 {
 	public class User : IdentityUser
 	{
-		public int MyId { get; set; }
 
+		public DateTime CreationDate { get; set; }
+
+		public DateTime? LastLogin { get; set; }
+
+		public bool Active { get; set; }
 	}
 }

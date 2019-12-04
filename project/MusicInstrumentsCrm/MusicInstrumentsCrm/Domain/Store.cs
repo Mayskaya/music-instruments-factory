@@ -14,7 +14,9 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("name")]
 		public string Name { get; set; }
 		
-		[ForeignKey("address")]
+		[Column("address")]
+		public int AddressId { get; set; }
+		
 		public virtual Address Address { get; set; }
 
 		[Column("foundation_date")]

@@ -22,11 +22,15 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("description")]
 		[Required]
 		public string Description { get; set; }
+		
+		[Column("good_type")]
+		public int GoodTypeId { get; set; }
 
-		[ForeignKey("good_type")]
 		public virtual GoodType GoodType { get; set; }
 
-		[ForeignKey("factory")]
+		[Column("factory")]
+		public int FactoryId { get; set; }
+		
 		public virtual Factory Factory { get; set; }
 
 		[Column("price")]

@@ -33,8 +33,10 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("snils")]
 		public string Snils { get; set; }
+		
+		[Column("user")]
+		public string UserId { get; set; }
 
-		[ForeignKey("crm_user")]
 		public virtual User User { get; set; }
 	}
 }

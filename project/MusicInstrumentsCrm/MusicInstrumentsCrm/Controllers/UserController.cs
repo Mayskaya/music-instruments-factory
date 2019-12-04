@@ -52,13 +52,13 @@ namespace MusicInstrumentsCrm.Controllers
 //			}
 
 			User added = await userRepository.CreateAsync(user);
-			return CreatedAtRoute("GetUser", new {id = added.MyId}, user);
+			return CreatedAtRoute("GetUser", new {id = 0}, user);
 		}
 
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] User user)
 		{
-			if (user == null || user.MyId != id)
+			if (user == null)
 			{
 				return BadRequest();
 			}

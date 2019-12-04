@@ -17,12 +17,12 @@ namespace MusicInstrumentsCrmTests.Controller
 		public async Task TestGetGoodType()
 		{
 			var mockRepository = new Mock<IGoodTypeRepository>();
-			mockRepository.Setup((repo)=> repo.FindAllAsync())
+			mockRepository.Setup((repo) => repo.FindAllAsync())
 				.ReturnsAsync(GetTestGoodTypes());
 
 			var controller = new GoodTypeController(mockRepository.Object);
 			var result = await controller.GetGoodType(1);
-			
+
 //			var goodType = Assert.IsType<ObjectResult>(result);
 
 //			var model = Assert.IsAssignableFrom<IEnumerable<GoodType>>(goodType.Value);

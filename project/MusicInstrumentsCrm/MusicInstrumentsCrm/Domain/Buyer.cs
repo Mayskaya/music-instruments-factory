@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -26,7 +27,11 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("phone")]
 		public string Phone { get; set; }
 
-		[ForeignKey("crm_user")]
+		[Column("user")]
+		public string? UserId { get; set; }
+		
 		public virtual User User { get; set; }
+
+		public virtual IList<Offer> Offers { get; set; }
 	}
 }

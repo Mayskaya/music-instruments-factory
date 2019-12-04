@@ -16,17 +16,25 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("code")]
 		public string Code { get; set; }
+		
+		[Column("buyer")]
+		public int BuyerId { get; set; }
 
-		[ForeignKey("buyer")]
 		public virtual Buyer Buyer { get; set; }
 
-		[ForeignKey("seller")]
+		[Column("seller")]
+		public int StaffId { get; set; }
+		
 		public virtual Staff Seller { get; set; }
+		
+		[Column("store")]
+		public int? StoreId { get; set; }
 
-		[ForeignKey("store")]
 		public virtual Store Store { get;set;}
 
-		[ForeignKey("delivery")]
+		[Column("delivery")]
+		public int? DeliveryId { get; set; }
+		
 		public virtual Delivery Delivery { get; set; }
 
 		[Column("sum")]

@@ -14,10 +14,14 @@ namespace MusicInstrumentsCrm.Domain
 		[Key]
 		public int Id { get; set; }
 
-		[ForeignKey("good")]
+		[Column("good")]
+		public int GoodId { get; set; }
+		
 		public virtual Good Good { get; set; }
 
-		[ForeignKey("offer")]
+		[Column("offer")]
+		public int OfferId { get; set; }
+		
 		public virtual Offer Offer { get; set; }
 
 		[Column("count")]

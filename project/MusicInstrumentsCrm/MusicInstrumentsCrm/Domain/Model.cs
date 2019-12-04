@@ -16,8 +16,10 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("model_name")]
 		public string ModelName { get; set; }
+		
+		[Column("mark")]
+		public int MarkId { get; set; }
 
-		[ForeignKey("mark")]
 		public virtual Mark Mark { get; set; }
 
 		[Column("year")]

@@ -9,14 +9,20 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("id")]
 		[Key]
 		public int Id { get; set; }
+		
+		[Column("car")]
+		public int CarId { get; set; }
 
-		[ForeignKey("car")]
 		public virtual Car Car { get; set; }
 
-		[ForeignKey("address")]
+		[Column("address")]
+		public int AddressId { get; set; }
+		
 		public virtual Address Address { get; set; }
 
-		[ForeignKey("courier")]
+		[Column("courier")]
+		public int CourierId { get; set; }
+		
 		public virtual Staff Courier { get; set; }
 	}
 }

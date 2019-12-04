@@ -13,6 +13,41 @@ namespace MusicInstrumentsCrm.Domain
 {
 	public class ApplicationDbContext : ApiAuthorizationDbContext<User>
 	{
+		public class Tables
+		{
+			public static string Address => "Address";
+
+			public static string Buyer => "Buyer";
+
+			public static string Car => "Car";
+
+			public static string Country => "Country";
+
+			public static string Delivery => "Delivery";
+
+			public static string Factory => "Factory";
+
+			public static string Good => "Good";
+
+			public static string GoodInOffer => "GoodInOffer";
+
+			public static string GoodType => "GoodType";
+
+			public static string Mark => "Mark";
+
+			public static string Model => "Model";
+
+			public static string Offer => "Offer";
+
+			public static string Staff => "Staff";
+
+			public static string Store => "Store";
+
+			public static string SupplyInStore => "SupplyInStore";
+
+			public static string User => "AspNetUserRoles";
+		}
+
 		public DbSet<Good> Goods { get; set; }
 
 		public DbSet<GoodType> GoodTypes { get; set; }
@@ -53,22 +88,6 @@ namespace MusicInstrumentsCrm.Domain
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			base.OnModelCreating(modelBuilder);
-//			modelBuilder.Entity<Good>().ToTable("Good");
-//			modelBuilder.Entity<GoodType>().ToTable("GoodType");
-//			modelBuilder.Entity<GoodInOffer>().ToTable("GoodInOffer");
-//			modelBuilder.Entity<Factory>().ToTable("Factory");
-//			modelBuilder.Entity<Offer>().ToTable("Offer");
-//			modelBuilder.Entity<SupplyInStore>().ToTable("SupplyInStore");
-//			modelBuilder.Entity<Store>().ToTable("Store");
-//			modelBuilder.Entity<Buyer>().ToTable("Buyer");
-//			modelBuilder.Entity<Staff>().ToTable("Staff");
-//			modelBuilder.Entity<Delivery>().ToTable("Delivery");
-//			modelBuilder.Entity<Car>().ToTable("Car");
-//			modelBuilder.Entity<Mark>().ToTable("Mark");
-//			modelBuilder.Entity<Model>().ToTable("Model");
-//			modelBuilder.Entity<User>().ToTable("CrmUser");
-//			modelBuilder.Entity<Address>().ToTable("Address");
-//			modelBuilder.Entity<Country>().ToTable("Country");
 		}
 	}
 }
