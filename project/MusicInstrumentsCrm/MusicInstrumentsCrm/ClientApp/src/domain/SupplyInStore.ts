@@ -1,7 +1,5 @@
 import Good from "./Good";
 import Store from "./Store";
-import DefaultValues from "../util/DefaultValues";
-
 
 export default class SupplyInStore {
     private _id: number;

@@ -1,7 +1,5 @@
 import Good from "./Good";
 import Offer from "./Offer";
-import DefaultValues from "../util/DefaultValues";
-
 
 export default class GoodInOffer {
     private _id: number;

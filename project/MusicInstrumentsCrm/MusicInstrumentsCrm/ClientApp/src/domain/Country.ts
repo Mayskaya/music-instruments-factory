@@ -1,5 +1,3 @@
-import DefaultValues from "../util/DefaultValues";
-
 export default class Country {
     private _id: number;
     private _name: string;

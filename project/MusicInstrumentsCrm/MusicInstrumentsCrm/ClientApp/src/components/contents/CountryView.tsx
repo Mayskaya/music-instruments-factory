@@ -1,17 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Country from "../../domain/Country";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
+export interface CountryViewProps extends RouteComponentProps {
+
+}
 
 export interface CountryViewState {
     countryList: Array<Country>;
 }
 
-export default class CountryView extends React.Component<{}, CountryViewState> {
+export default class CountryView extends React.Component<CountryViewProps, CountryViewState> {
 
-    constructor() {
-        super({}, {});
+    constructor(props: CountryViewProps) {
+        super(props, {});
         this.state = {
             countryList: new Array()
         };
@@ -20,14 +24,23 @@ export default class CountryView extends React.Component<{}, CountryViewState> {
     componentDidMount() {
         let xhr = new XMLHttpRequest();
         xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Country');
-        xhr.onload = (evt)=>{
+        xhr.onload = (evt) => {
             let res: Array<Country> = JSON.parse(xhr.responseText);
-            this.setState({countryList: res})
+            this.setState({ countryList: res })
         };
-        xhr.onerror = (evt)=> {
+        xhr.onerror = (evt) => {
             alert("error");
         };
         xhr.send();
+    }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            this.props.history.push(`/index/Country/${id}`);
+        }
     }
 
     public render() {
@@ -42,7 +55,7 @@ export default class CountryView extends React.Component<{}, CountryViewState> {
                     </tr>
                     {
                         this.state.countryList.map((el: Country) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.name}</td>
                             </tr>

@@ -1,5 +1,3 @@
-import DefaultValues from "../util/DefaultValues";
-
 export default class User {
     private _id: number;
     private _login: string;

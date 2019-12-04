@@ -1,5 +1,4 @@
 import Mark from "./Mark";
-import DefaultValues from "../util/DefaultValues";
 
 
 export default class Model {

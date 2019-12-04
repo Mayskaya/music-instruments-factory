@@ -1,8 +1,5 @@
 ﻿import Factory from "./Factory";
 import GoodType from "./GoodType";
-import { Strings } from "../util/Strings";
-import DefaultValues from "../util/DefaultValues";
-
 
 export default class Good {
     private _id: number;

@@ -1,17 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Mark from "../../domain/Mark";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
+export interface MarkViewProps extends RouteComponentProps {
+
+}
 
 export interface MarkViewState {
     markList: Array<Mark>;
 }
 
-export default class MarkView extends React.Component<{}, MarkViewState> {
+export default class MarkView extends React.Component<MarkViewProps, MarkViewState> {
 
-    constructor() {
-        super({}, {});
+    constructor(props: MarkViewProps) {
+        super(props, {});
         this.state = {
             markList: new Array()
         };
@@ -20,14 +24,23 @@ export default class MarkView extends React.Component<{}, MarkViewState> {
     componentDidMount() {
         let xhr = new XMLHttpRequest();
         xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Mark');
-        xhr.onload = (evt)=>{
+        xhr.onload = (evt) => {
             let res: Array<Mark> = JSON.parse(xhr.responseText);
-            this.setState({markList: res})
+            this.setState({ markList: res })
         };
-        xhr.onerror = (evt)=> {
+        xhr.onerror = (evt) => {
             alert("error");
         };
         xhr.send();
+    }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            this.props.history.push(`/index/Mark/${id}`);
+        }
     }
 
     public render() {
@@ -43,7 +56,7 @@ export default class MarkView extends React.Component<{}, MarkViewState> {
                     </tr>
                     {
                         this.state.markList.map((el: Mark) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.name}</td>
                                 <td>{el.country.name}</td>

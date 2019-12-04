@@ -1,5 +1,4 @@
 import Country from "./Country";
-import DefaultValues from "../util/DefaultValues";
 
 export default class Mark {
     private _id: number;

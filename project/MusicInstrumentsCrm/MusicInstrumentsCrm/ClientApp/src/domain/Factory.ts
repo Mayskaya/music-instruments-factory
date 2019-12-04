@@ -1,17 +1,16 @@
 import Address from "./Address";
-import DefaultValues from "../util/DefaultValues";
 
 export default class Factory {
     private _id: number;
     private _name: string;
     private _address: Address;
-    private _foudationDate: Date;
+    private _foundationDate: Date;
 
-    constructor(id: number, address: Address, foudationDate: Date) {
+    constructor(id: number, address: Address, foundationDate: Date) {
         this._id = id;
         this._name = name;
         this._address = address;
-        this._foudationDate = foudationDate;
+        this._foundationDate = foundationDate;
     }
 
     /**
@@ -66,16 +65,16 @@ export default class Factory {
      * Getter foudationDate
      * @return {Date}
      */
-    public get foudationDate(): Date {
-        return this._foudationDate;
+    public get foundationDate(): Date {
+        return this._foundationDate;
     }
 
     /**
      * Setter foudationDate
      * @param {Date} value
      */
-    public set foudationDate(value: Date) {
-        this._foudationDate = value;
+    public set foundationDate(value: Date) {
+        this._foundationDate = value;
     }
 
 }

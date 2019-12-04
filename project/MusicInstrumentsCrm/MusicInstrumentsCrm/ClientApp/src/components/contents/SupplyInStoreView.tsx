@@ -1,17 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import SupplyInStore from "../../domain/SupplyInStore";
 import HttpMethod from "../../util/http/HttpMethods";
+import { Strings } from '../../util/Strings';
 
+export interface SupplyInStoreViewProps extends RouteComponentProps {
+
+}
 
 export interface SupplyInStoreViewState {
     supplyInStoreList: Array<SupplyInStore>;
 }
 
-export default class SupplyInStoreView extends React.Component<{}, SupplyInStoreViewState> {
+export default class SupplyInStoreView extends React.Component<SupplyInStoreViewProps, SupplyInStoreViewState> {
 
-    constructor() {
-        super({}, {});
+    constructor(props: SupplyInStoreViewProps) {
+        super(props, {});
         this.state = {
             supplyInStoreList: new Array()
         };
@@ -29,6 +33,15 @@ export default class SupplyInStoreView extends React.Component<{}, SupplyInStore
         };
         xhr.send();
     }
+    handleRowClick(event: React.MouseEvent) {
+        let id: string | null = null;
+        if (event.currentTarget != null) {
+            id = event.currentTarget.getAttribute('data-id');
+        }
+        if (!Strings.isNullOrEmpty(id)) {
+            this.props.history.push(`/index/SupplyInStore/${id}`);
+        }
+    }
 
     public render() {
         return (
@@ -44,7 +57,7 @@ export default class SupplyInStoreView extends React.Component<{}, SupplyInStore
                     </tr>
                     {
                         this.state.supplyInStoreList.map((el: SupplyInStore) => {
-                            return <tr>
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.good.name}</td>
                                 <td>{el.store.name}</td>

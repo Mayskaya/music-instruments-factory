@@ -1,17 +1,19 @@
 import React from 'react';
-import { string } from 'prop-types';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-var user:string;
+var user: string;
 
 export default class Header extends React.Component<{}, {}> {
-    user="admin";
+  user = "admin";
   public render() {
-    return (<div className="Header">
+    return (
+      <div className="Header">
         <header className="header-app">
-                <li className="header-name">MiCRM</li>
-                <li className="user-name"><Link to='/Auth'>{this.user}</Link></li>
+          <li className="header-name">MiCRM</li>
+          <li className="user-name">
+            <Link to='/Auth'>{this.user}</Link>
+          </li>
         </header>
-    </div>);
+      </div>);
   }
 }
