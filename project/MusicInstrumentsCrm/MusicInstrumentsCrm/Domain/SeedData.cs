@@ -488,6 +488,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "admin";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "admin");
+			newUser.Email = "admin@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -500,6 +501,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "askuzovatkina";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "askuzovatkina");
+			newUser.Email = "skuzovatkina.a.a@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -511,6 +513,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "amotozov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "amotozov");
+			newUser.Email = "motozov.a.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -522,6 +525,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "yklimova";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "yklimova");
+			newUser.Email = "klimova.y.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -533,6 +537,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "yavakov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "yavakov");
+			newUser.Email = "avakov.y.i@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -544,6 +549,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "ezelentsova";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "ezelentsova");
+			newUser.Email = "zelentsova.e.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -555,6 +561,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "sberdov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "sberdov");
+			newUser.Email = "berdov.s.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -566,6 +573,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "afedotova";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "afedotova");
+			newUser.Email = "fedotova.a.a@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -577,6 +585,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "akozlov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "akozlov");
+			newUser.Email = "kozlov.a.m@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -588,6 +597,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "promanov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "promanov");
+			newUser.Email = "romanov.p.s@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -599,6 +609,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "bbelov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "bbelov");
+			newUser.Email = "bbelov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -610,6 +621,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "vpetrov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "vpetrov");
+			newUser.Email = "vpetrov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -621,6 +633,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "ibutov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "ibutov");
+			newUser.Email = "ibutov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -632,6 +645,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "rarkhipov";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "rarkhipov");
+			newUser.Email = "rarkhipov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -643,6 +657,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "mmeschera";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "mmeschera");
+			newUser.Email = "mmeschera@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -654,6 +669,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "episarenko";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "episarenko");
+			newUser.Email = "episarenko@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -665,6 +681,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "mbarabanova";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "mbarabanova");
+			newUser.Email = "mbarabanova@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -676,6 +693,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "agolceva";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "agolceva");
+			newUser.Email = "agolceva@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -687,6 +705,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "ahapersky";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "ahapersky");
+			newUser.Email = "ahapersky@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
@@ -698,6 +717,7 @@ namespace MusicInstrumentsCrm.Domain
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "sgibson";
 			newUser.PasswordHash = hasher.HashPassword(newUser, "sgibson");
+			newUser.Email = "sgibson@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
