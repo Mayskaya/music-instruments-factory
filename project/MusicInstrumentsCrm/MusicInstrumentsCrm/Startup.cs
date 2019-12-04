@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +16,10 @@ namespace MusicInstrumentsCrm
 {
 	public class Startup
 	{
+		private readonly SeedData seedData;
+
+		private readonly string SpecificOrigins = "_specificOrigins";
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -24,10 +27,6 @@ namespace MusicInstrumentsCrm
 		}
 
 		public IConfiguration Configuration { get; }
-
-		private readonly string SpecificOrigins = "_specificOrigins";
-
-		private readonly SeedData seedData;
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -37,7 +36,7 @@ namespace MusicInstrumentsCrm
 			services.AddDbContext<ApplicationDbContext>(
 				options =>
 				{
-					string dbAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
+					var dbAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
 					options.UseNpgsql(
 							$"Host={dbAddress ?? "192.168.99.100"};Database=micrm_db;Username=admin;Password=admin;Port=5432")
 						.UseLazyLoadingProxies();
@@ -87,22 +86,22 @@ namespace MusicInstrumentsCrm
 			services.AddControllersWithViews();
 			services.AddRazorPages();
 
-			services.AddSingleton<IGoodRepository, GoodRepository>();
-			services.AddSingleton<IGoodTypeRepository, GoodTypeRepository>();
-			services.AddSingleton<IGoodInOfferRepository, GoodInOfferRepository>();
-			services.AddSingleton<IFactoryRepository, FactoryRepository>();
-			services.AddSingleton<IOfferRepository, OfferRepository>();
-			services.AddSingleton<ISupplyInStoreRepository, SupplyInStoreRepository>();
-			services.AddSingleton<IStoreRepository, StoreRepository>();
-			services.AddSingleton<IBuyerRepository, BuyerRepository>();
-			services.AddSingleton<IStaffRepository, StaffRepository>();
-			services.AddSingleton<IDeliveryRepository, DeliveryRepository>();
-			services.AddSingleton<ICarRepository, CarRepository>();
-			services.AddSingleton<IMarkRepository, MarkRepository>();
-			services.AddSingleton<IModelRepository, ModelRepository>();
-			services.AddSingleton<IUserRepository, UserRepository>();
-			services.AddSingleton<IAddressRepository, AddressRepository>();
-			services.AddSingleton<ICountryRepository, CountryRepository>();
+			services.AddScoped<IGoodRepository, GoodRepository>();
+			services.AddScoped<IGoodTypeRepository, GoodTypeRepository>();
+			services.AddScoped<IGoodInOfferRepository, GoodInOfferRepository>();
+			services.AddScoped<IFactoryRepository, FactoryRepository>();
+			services.AddScoped<IOfferRepository, OfferRepository>();
+			services.AddScoped<ISupplyInStoreRepository, SupplyInStoreRepository>();
+			services.AddScoped<IStoreRepository, StoreRepository>();
+			services.AddScoped<IBuyerRepository, BuyerRepository>();
+			services.AddScoped<IStaffRepository, StaffRepository>();
+			services.AddScoped<IDeliveryRepository, DeliveryRepository>();
+			services.AddScoped<ICarRepository, CarRepository>();
+			services.AddScoped<IMarkRepository, MarkRepository>();
+			services.AddScoped<IModelRepository, ModelRepository>();
+			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IAddressRepository, AddressRepository>();
+			services.AddScoped<ICountryRepository, CountryRepository>();
 
 			services.AddCors(options =>
 			{
@@ -123,7 +122,6 @@ namespace MusicInstrumentsCrm
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
 		{
-
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
@@ -137,6 +135,12 @@ namespace MusicInstrumentsCrm
 
 			app.UseCors(SpecificOrigins);
 
+			app.UseRouting();
+			app.UseEndpoints(endpoints =>
+			{
+				endpoints.MapControllers();
+				endpoints.MapRazorPages();
+			});
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
@@ -147,10 +151,7 @@ namespace MusicInstrumentsCrm
 			{
 				spa.Options.SourcePath = "ClientApp";
 
-				if (env.IsDevelopment())
-				{
-					spa.UseReactDevelopmentServer(npmScript: "start");
-				}
+				if (env.IsDevelopment()) spa.UseReactDevelopmentServer("start");
 			});
 		}
 	}

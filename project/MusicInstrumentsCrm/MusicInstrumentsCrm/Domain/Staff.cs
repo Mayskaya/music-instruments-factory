@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MusicInstrumentsCrm.Domain
 {
@@ -33,8 +34,9 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("snils")]
 		public string Snils { get; set; }
-		
+
 		[Column("user")]
+		[JsonIgnore]
 		public string UserId { get; set; }
 
 		public virtual User User { get; set; }

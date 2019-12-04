@@ -1,51 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Interfaces;
-using IdentityServer4.EntityFramework.Options;
+﻿using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace MusicInstrumentsCrm.Domain
 {
 	public class ApplicationDbContext : ApiAuthorizationDbContext<User>
 	{
-		public class Tables
+		public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
+			: base(options, operationalStoreOptions)
 		{
-			public static string Address => "Address";
-
-			public static string Buyer => "Buyer";
-
-			public static string Car => "Car";
-
-			public static string Country => "Country";
-
-			public static string Delivery => "Delivery";
-
-			public static string Factory => "Factory";
-
-			public static string Good => "Good";
-
-			public static string GoodInOffer => "GoodInOffer";
-
-			public static string GoodType => "GoodType";
-
-			public static string Mark => "Mark";
-
-			public static string Model => "Model";
-
-			public static string Offer => "Offer";
-
-			public static string Staff => "Staff";
-
-			public static string Store => "Store";
-
-			public static string SupplyInStore => "SupplyInStore";
-
-			public static string User => "AspNetUserRoles";
 		}
 
 		public DbSet<Good> Goods { get; set; }
@@ -79,11 +43,6 @@ namespace MusicInstrumentsCrm.Domain
 		public DbSet<Address> Addresses { get; set; }
 
 		public DbSet<Country> Countries { get; set; }
-
-		public ApplicationDbContext(DbContextOptions options, IOptions<OperationalStoreOptions> operationalStoreOptions)
-			: base(options, operationalStoreOptions)
-		{
-		}
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{

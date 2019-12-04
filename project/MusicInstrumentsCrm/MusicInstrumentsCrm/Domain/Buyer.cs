@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MusicInstrumentsCrm.Domain
 {
@@ -28,10 +27,9 @@ namespace MusicInstrumentsCrm.Domain
 		public string Phone { get; set; }
 
 		[Column("user")]
+		[JsonIgnore]
 		public string? UserId { get; set; }
-		
-		public virtual User User { get; set; }
 
-		public virtual IList<Offer> Offers { get; set; }
+		public virtual User User { get; set; }
 	}
 }

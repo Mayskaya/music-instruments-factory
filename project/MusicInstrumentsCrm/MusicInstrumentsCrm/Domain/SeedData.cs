@@ -11,16 +11,15 @@ namespace MusicInstrumentsCrm.Domain
 {
 	public class SeedData
 	{
-		private PasswordHasher<User> hasher = new PasswordHasher<User>();
+		private readonly PasswordHasher<User> hasher = new PasswordHasher<User>();
 
-		private IDictionary<string, string> users = new Dictionary<string, string>();
-
+		private readonly IDictionary<string, string> users = new Dictionary<string, string>();
 		private ApplicationDbContext applicationDbContext;
 
 		public async Task Initialize(IServiceProvider serviceProvider)
 		{
-			RoleManager<IdentityRole> roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-			UserManager<User> userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+			var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
 			await InitializeUserAsync(userManager);
 			await InitializeRolesAsync(roleManager);
@@ -29,36 +28,36 @@ namespace MusicInstrumentsCrm.Domain
 			Log.Information("Seeding address");
 			if (!applicationDbContext.Addresses.Any())
 			{
-				applicationDbContext.Addresses.Add(new Address {Id = 1, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 2, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 3, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 4, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 5, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 6, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 7, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 8, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 9, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 10, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 11, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 12, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 13, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 14, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 15, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 16, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 17, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 18, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 19, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 20, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 21, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 22, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 23, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 24, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 25, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 26, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 27, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 28, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 29, FullAddress = "",});
-				applicationDbContext.Addresses.Add(new Address {Id = 30, FullAddress = "",});
+				applicationDbContext.Addresses.Add(new Address {Id = 1, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 2, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 3, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 4, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 5, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 6, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 7, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 8, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 9, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 10, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 11, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 12, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 13, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 14, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 15, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 16, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 17, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 18, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 19, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 20, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 21, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 22, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 23, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 24, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 25, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 26, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 27, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 28, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 29, FullAddress = ""});
+				applicationDbContext.Addresses.Add(new Address {Id = 30, FullAddress = ""});
 				applicationDbContext.SaveChanges();
 			}
 
@@ -319,16 +318,26 @@ namespace MusicInstrumentsCrm.Domain
 
 			if (!applicationDbContext.Models.Any())
 			{
-				applicationDbContext.Models.Add(new Model {Id = 1, ModelName = "Solaris", MarkId = 1, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 2, ModelName = "Kodiaq", MarkId = 2, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 3, ModelName = "Thunder", MarkId = 3, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 4, ModelName = "Helter", MarkId = 4, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 5, ModelName = "14", MarkId = 5, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 6, ModelName = "Granta", MarkId = 6, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 7, ModelName = "Civic", MarkId = 7, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 8, ModelName = "Logan", MarkId = 8, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 9, ModelName = "Sportage", MarkId = 9, Year = DateTime.UnixEpoch});
-				applicationDbContext.Models.Add(new Model {Id = 10, ModelName = "Fusion", MarkId = 10, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 1, ModelName = "Solaris", MarkId = 1, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 2, ModelName = "Kodiaq", MarkId = 2, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 3, ModelName = "Thunder", MarkId = 3, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 4, ModelName = "Helter", MarkId = 4, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 5, ModelName = "14", MarkId = 5, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 6, ModelName = "Granta", MarkId = 6, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 7, ModelName = "Civic", MarkId = 7, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 8, ModelName = "Logan", MarkId = 8, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 9, ModelName = "Sportage", MarkId = 9, Year = DateTime.UnixEpoch});
+				applicationDbContext.Models.Add(new Model
+					{Id = 10, ModelName = "Fusion", MarkId = 10, Year = DateTime.UnixEpoch});
 				applicationDbContext.SaveChanges();
 			}
 
