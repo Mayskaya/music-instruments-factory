@@ -12,7 +12,7 @@ interface FactoryEditState {
 export default class FactoryEdit extends React.Component<FactoryEditProps, FactoryEditState> {
 
     constructor(props: FactoryEditProps) {
-        super(props);
+        super(props, {});
         this.setState({ id: props.match.params.id });
     }
 
@@ -22,21 +22,15 @@ export default class FactoryEdit extends React.Component<FactoryEditProps, Facto
                 <form className="form-add">
                     <label>
                         <span>Адрес</span>
-                        <span>
-                            
-                        </span>
+                        <span></span>
                     </label>
                     <label>
                         <span>Название</span>
-                        <span>
-                            
-                        </span>
+                        <span></span>
                     </label>
                     <label>
                         <span>Год основания</span>
-                        <span>
-                            
-                        </span>
+                        <span></span>
                     </label>
                 </form>
             </div>

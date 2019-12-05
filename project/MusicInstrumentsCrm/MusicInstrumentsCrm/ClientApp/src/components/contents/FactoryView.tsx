@@ -4,7 +4,6 @@ import Factory from "../../domain/Factory";
 import HttpMethod from "../../util/http/HttpMethods";
 import { Strings } from '../../util/Strings';
 
-
 export interface FactoryViewState {
     factoryList: Array<Factory>;
 }

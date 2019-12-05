@@ -109,7 +109,6 @@ export default class Content extends React.Component<{}, {}> {
         <Route path='/index/Store/:id' component={StoreEdit} />
         <Route path='/index/SupplyInStore/:id' component={SupplyInStoreEdit} />
         <Route path='/index/User/:id' component={UserEdit} />
-        
       </div>);
 
   }
