@@ -1,7 +1,6 @@
 import Car from "./Car";
 import Address from "./Address";
 import Staff from "./Staff";
-import DefaultValues from "../util/DefaultValues";
 
 export default class Delivery {
     private _id: number;

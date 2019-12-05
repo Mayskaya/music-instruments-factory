@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MusicInstrumentsCrm.Domain
 {
@@ -17,16 +14,28 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("code")]
 		public string Code { get; set; }
 
-		[ForeignKey("buyer")]
+		[Column("buyer")]
+		[JsonIgnore]
+		public int BuyerId { get; set; }
+
 		public virtual Buyer Buyer { get; set; }
 
-		[ForeignKey("seller")]
+		[Column("seller")]
+		[JsonIgnore]
+		public int StaffId { get; set; }
+
 		public virtual Staff Seller { get; set; }
 
-		[ForeignKey("store")]
-		public virtual Store Store { get;set;}
+		[Column("store")]
+		[JsonIgnore]
+		public int? StoreId { get; set; }
 
-		[ForeignKey("delivery")]
+		public virtual Store Store { get; set; }
+
+		[Column("delivery")]
+		[JsonIgnore]
+		public int? DeliveryId { get; set; }
+
 		public virtual Delivery Delivery { get; set; }
 
 		[Column("sum")]

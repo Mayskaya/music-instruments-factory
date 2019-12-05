@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MusicInstrumentsCrm.Domain
 {
@@ -16,7 +17,10 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("region")]
 		public string Region { get; set; }
 
-		[ForeignKey("mark_model")]
+		[Column("model")]
+		[JsonIgnore]
+		public int ModelId { get; set; }
+
 		public virtual Model Model { get; set; }
 	}
 }

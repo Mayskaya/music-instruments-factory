@@ -1,7 +1,6 @@
 import Buyer from "./Buyer";
 import Staff from "./Staff";
 import Delivery from "./Delivery";
-import DefaultValues from "../util/DefaultValues";
 
 
 export default class Offer {

@@ -1,21 +1,23 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Delivery from "../../domain/Delivery";
 import Address from '../../domain/Address';
 import HttpMethod from "../../util/http/HttpMethods";
 import { Strings } from '../../util/Strings';
 
+export interface DeliveryViewProps extends RouteComponentProps {
+
+}
 
 export interface DeliveryViewState {
     deliveryList: Array<Delivery>;
     addressList: Array<Address>;
 }
 
+export default class DeliveryView extends React.Component<DeliveryViewProps, DeliveryViewState> {
 
-export default class DeliveryView extends React.Component<{}, DeliveryViewState> {
-
-    constructor() {
-        super({}, {});
+    constructor(props: DeliveryViewProps) {
+        super(props, {});
         this.state = {
             deliveryList: new Array(),
             addressList: new Array()
@@ -41,7 +43,7 @@ export default class DeliveryView extends React.Component<{}, DeliveryViewState>
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            window.history.pushState({}, "", `/index/Delivery/${id}`);
+            this.props.history.push(`/index/Delivery/${id}`);
         }
     }
 
@@ -59,7 +61,7 @@ export default class DeliveryView extends React.Component<{}, DeliveryViewState>
                     </tr>
                     {
                         this.state.deliveryList.map((el: Delivery) => {
-                            return <tr data-id={el.id} onClick={this.handleRowClick}>
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{`${el.car.serial} ${el.car.region}`}</td>
                                 <td>{el.address.fullName}</td>

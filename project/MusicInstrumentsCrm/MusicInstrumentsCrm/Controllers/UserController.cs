@@ -45,20 +45,20 @@ namespace MusicInstrumentsCrm.Controllers
 				return BadRequest();
 			}
 
-			if (user.Password == null
-			    || user.Login == null)
-			{
-				return BadRequest();
-			}
+//			if (user.Password == null
+//			    || user.Login == null)
+//			{
+//				return BadRequest();
+//			}
 
 			User added = await userRepository.CreateAsync(user);
-			return CreatedAtRoute("GetUser", new {id = added.Id}, user);
+			return CreatedAtRoute("GetUser", new {id = 0}, user);
 		}
 
 		[HttpPut("{id}")]
 		public async Task<IActionResult> Update(int id, [FromBody] User user)
 		{
-			if (user == null || user.Id != id)
+			if (user == null)
 			{
 				return BadRequest();
 			}

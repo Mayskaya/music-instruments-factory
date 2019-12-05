@@ -1,19 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Staff from "../../domain/Staff";
 import HttpMethod from "../../util/http/HttpMethods";
 import { Strings } from '../../util/Strings';
 
+export interface StaffViewProps extends RouteComponentProps {
+
+}
 
 export interface StaffViewState {
     staffList: Array<Staff>;
 }
 
+export default class StaffView extends React.Component<StaffViewProps, StaffViewState> {
 
-export default class StaffView extends React.Component<{}, StaffViewState> {
-
-    constructor() {
-        super({}, {});
+    constructor(props: StaffViewProps) {
+        super(props, {});
         this.state = {
             staffList: new Array()
         };
@@ -22,11 +24,11 @@ export default class StaffView extends React.Component<{}, StaffViewState> {
     componentDidMount() {
         let xhr = new XMLHttpRequest();
         xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Staff');
-        xhr.onload = (evt)=>{
+        xhr.onload = (evt) => {
             let res: Array<Staff> = JSON.parse(xhr.responseText);
-            this.setState({staffList: res})
+            this.setState({ staffList: res })
         };
-        xhr.onerror = (evt)=> {
+        xhr.onerror = (evt) => {
             alert("error");
         };
         xhr.send();
@@ -37,7 +39,7 @@ export default class StaffView extends React.Component<{}, StaffViewState> {
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            window.history.pushState({}, "", `/index/Staff/${id}`);
+            this.props.history.push(`/index/Staff/${id}`);
         }
     }
 
@@ -59,7 +61,7 @@ export default class StaffView extends React.Component<{}, StaffViewState> {
                     </tr>
                     {
                         this.state.staffList.map((el: Staff) => {
-                            return <tr data-id={el.id} onClick={this.handleRowClick}> 
+                            return <tr data-id={el.id} onClick={(evt) => { this.handleRowClick(evt); }}>
                                 <td>{el.id}</td>
                                 <td>{el.firstName}</td>
                                 <td>{el.lastName}</td>

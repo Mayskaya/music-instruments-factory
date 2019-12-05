@@ -1,6 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MusicInstrumentsCrm.Domain
 {
@@ -26,7 +26,10 @@ namespace MusicInstrumentsCrm.Domain
 		[Column("phone")]
 		public string Phone { get; set; }
 
-		[ForeignKey("crm_user")]
+		[Column("user")]
+		[JsonIgnore]
+		public string? UserId { get; set; }
+
 		public virtual User User { get; set; }
 	}
 }

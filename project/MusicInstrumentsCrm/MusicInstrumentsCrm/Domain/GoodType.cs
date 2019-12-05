@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MusicInstrumentsCrm.Domain
 {
 	[Table("GoodType")]
-
 	public class GoodType
 	{
 		[Column("id")]
@@ -13,6 +12,5 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("type_name")]
 		public string TypeName { get; set; }
-
 	}
 }

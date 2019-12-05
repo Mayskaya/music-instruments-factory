@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace MusicInstrumentsCrm.Domain
 {
@@ -10,13 +11,21 @@ namespace MusicInstrumentsCrm.Domain
 		[Key]
 		public int Id { get; set; }
 
-		[ForeignKey("car")]
+		[Column("car")]
+		public int CarId { get; set; }
+
 		public virtual Car Car { get; set; }
 
-		[ForeignKey("address")]
+		[Column("address")]
+		[JsonIgnore]
+		public int AddressId { get; set; }
+
 		public virtual Address Address { get; set; }
 
-		[ForeignKey("courier")]
+		[Column("courier")]
+		[JsonIgnore]
+		public int CourierId { get; set; }
+
 		public virtual Staff Courier { get; set; }
 	}
 }
