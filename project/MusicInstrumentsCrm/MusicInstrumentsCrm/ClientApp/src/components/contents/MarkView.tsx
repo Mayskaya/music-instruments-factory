@@ -39,7 +39,7 @@ export default class MarkView extends React.Component<MarkViewProps, MarkViewSta
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Mark/${id}`);
+            this.props.history.push(`/index/Mark/edit/${id}`);
         }
     }
 

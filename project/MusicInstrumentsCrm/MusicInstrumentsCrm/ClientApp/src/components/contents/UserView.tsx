@@ -39,7 +39,7 @@ export default class UserView extends React.Component<UserViewProps, UserViewSta
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/User/${id}`);
+            this.props.history.push(`/index/User/edit/${id}`);
         }
     }
 

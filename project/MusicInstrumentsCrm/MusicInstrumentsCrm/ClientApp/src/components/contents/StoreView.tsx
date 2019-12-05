@@ -39,7 +39,7 @@ export default class StoreView extends React.Component<StoreViewProps, StoreView
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Store/${id}`);
+            this.props.history.push(`/index/Store/edit/${id}`);
         }
     }
 

@@ -40,7 +40,7 @@ export default class OfferView extends React.Component<OfferViewProps, OfferView
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Offer/${id}`);
+            this.props.history.push(`/index/Offer/edit/${id}`);
         }
     }
 

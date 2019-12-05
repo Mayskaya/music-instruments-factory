@@ -39,7 +39,7 @@ export default class StaffView extends React.Component<StaffViewProps, StaffView
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Staff/${id}`);
+            this.props.history.push(`/index/Staff/edit/${id}`);
         }
     }
 

@@ -43,7 +43,7 @@ export default class DeliveryView extends React.Component<DeliveryViewProps, Del
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Delivery/${id}`);
+            this.props.history.push(`/index/Delivery/edit/${id}`);
         }
     }
 

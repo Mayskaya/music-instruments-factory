@@ -39,7 +39,7 @@ export default class ModelView extends React.Component<ModelViewProps, ModelView
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Model/${id}`);
+            this.props.history.push(`/index/Model/edit/${id}`);
         }
     }
 

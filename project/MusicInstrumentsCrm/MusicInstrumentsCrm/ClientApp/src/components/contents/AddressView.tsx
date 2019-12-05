@@ -39,7 +39,7 @@ export default class AddressView extends React.Component<AddressViewProps, Addre
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Address/view/${id}`);
+            this.props.history.push(`/index/Address/edit/${id}`);
         }
     }
 

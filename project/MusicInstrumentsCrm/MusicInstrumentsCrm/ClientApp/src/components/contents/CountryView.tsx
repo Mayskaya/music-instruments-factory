@@ -39,7 +39,7 @@ export default class CountryView extends React.Component<CountryViewProps, Count
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Country/${id}`);
+            this.props.history.push(`/index/Country/edit/${id}`);
         }
     }
 

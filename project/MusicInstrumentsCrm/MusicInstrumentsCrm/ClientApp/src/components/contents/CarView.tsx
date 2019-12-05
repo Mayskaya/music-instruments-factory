@@ -39,7 +39,7 @@ export default class CarView extends React.Component<CarViewProps, CarViewState>
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Car/${id}`);
+            this.props.history.push(`/index/Car/edit/${id}`);
         }
     }
 

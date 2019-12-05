@@ -39,7 +39,7 @@ export default class BuyerView extends React.Component<BuyerViewProps, BuyerView
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Buyer/${id}`);
+            this.props.history.push(`/index/Buyer/edit/${id}`);
         }
     }
 

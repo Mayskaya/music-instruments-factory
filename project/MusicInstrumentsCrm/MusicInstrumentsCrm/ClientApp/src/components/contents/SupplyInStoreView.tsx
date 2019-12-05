@@ -39,7 +39,7 @@ export default class SupplyInStoreView extends React.Component<SupplyInStoreView
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/SupplyInStore/${id}`);
+            this.props.history.push(`/index/SupplyInStore/edit/${id}`);
         }
     }
 

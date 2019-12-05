@@ -39,7 +39,7 @@ export default class FactoryView extends React.Component<FactoryViewProps, Facto
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/Factory/${id}`);
+            this.props.history.push(`/index/Factory/edit/${id}`);
         }
     }
 

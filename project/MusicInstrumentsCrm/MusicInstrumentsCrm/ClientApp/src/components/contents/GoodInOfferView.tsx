@@ -39,7 +39,7 @@ export default class GoodInOfferView extends React.Component<GoodInOfferViewProp
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/GoodInOffer/${id}`);
+            this.props.history.push(`/index/GoodInOffer/edit/${id}`);
         }
     }
 

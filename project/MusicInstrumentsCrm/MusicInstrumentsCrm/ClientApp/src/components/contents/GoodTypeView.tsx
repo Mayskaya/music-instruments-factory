@@ -39,7 +39,7 @@ export default class GoodTypeView extends React.Component<GoodTypeViewProps, Goo
             id = event.currentTarget.getAttribute('data-id');
         }
         if (!Strings.isNullOrEmpty(id)) {
-            this.props.history.push(`/index/GoodType/${id}`);
+            this.props.history.push(`/index/GoodType/edit/${id}`);
         }
     }
 
