@@ -15,7 +15,8 @@ COPY . ./
 # Copy everything else and build
 RUN dotnet tool install --global dotnet-ef --version 3.0.0 && \
 	dotnet restore --verbosity normal && \
-	dotnet ef add migrations Init && \
+	export PATH="$PATH:/root/.dotnet/tools" && \
+	dotnet ef migrations add InitApplicationDb && \
 	dotnet publish -c Release -o out
 
 # Build runtime image
