@@ -11,9 +11,8 @@ namespace MusicInstrumentsCrm.Domain
 {
 	public class SeedData
 	{
-		private readonly PasswordHasher<User> hasher = new PasswordHasher<User>();
-
 		private readonly IDictionary<string, string> users = new Dictionary<string, string>();
+
 		private ApplicationDbContext applicationDbContext;
 
 		public async Task Initialize(IServiceProvider serviceProvider)
@@ -21,8 +20,8 @@ namespace MusicInstrumentsCrm.Domain
 			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 			var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
-			await InitializeUserAsync(userManager);
 			await InitializeRolesAsync(roleManager);
+			await InitializeUserAsync(userManager);
 			applicationDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 			applicationDbContext.Database.EnsureCreated();
 			Log.Information("Seeding address");
@@ -401,52 +400,52 @@ namespace MusicInstrumentsCrm.Domain
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 1, Code = "d0948d5e-7854-4750-8147-213bb7285f38", BuyerId = 1, StaffId = 1, StoreId = 1,
-					DeliveryId = null, Summary = new decimal(100.00)
+					DeliveryId = null, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 2, Code = "1ccb7f63-6ed0-4197-8579-f5f38e6b637f", BuyerId = 2, StaffId = 2, StoreId = 2,
-					DeliveryId = 1, Summary = new decimal(100.00)
+					DeliveryId = 1, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 3, Code = "599e0d22-26b2-4477-baff-9c48cd6864fb", BuyerId = 3, StaffId = 4, StoreId = 3,
-					DeliveryId = null, Summary = new decimal(100.00)
+					DeliveryId = null, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 4, Code = "76a0c490-a9ca-447d-9b76-a6819226a168", BuyerId = 4, StaffId = 4, StoreId = 1,
-					DeliveryId = 2, Summary = new decimal(100.00)
+					DeliveryId = 2, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 5, Code = "900a907f-f0b2-43e8-8886-b411166f0d10", BuyerId = 5, StaffId = 5, StoreId = 2,
-					DeliveryId = null, Summary = new decimal(100.00)
+					DeliveryId = null, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 6, Code = "40609788-51d2-486c-bdc9-847c4d999c07", BuyerId = 6, StaffId = 6, StoreId = 3,
-					DeliveryId = 1, Summary = new decimal(100.00)
+					DeliveryId = 1, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 7, Code = "8a3328f3-4bf0-4fea-9780-0fec3f3b5fa7", BuyerId = 7, StaffId = 7, StoreId = 1,
-					DeliveryId = null, Summary = new decimal(100.00)
+					DeliveryId = null, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 8, Code = "a42901b6-bbe0-480b-a912-bc0c3f6b657c", BuyerId = 8, StaffId = 8, StoreId = 2,
-					DeliveryId = 1, Summary = new decimal(100.00)
+					DeliveryId = 1, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 9, Code = "62c299fc-7a6c-45f5-9565-8fb088fbf01b", BuyerId = 9, StaffId = 9, StoreId = 3,
-					DeliveryId = 2, Summary = new decimal(100.00)
+					DeliveryId = 2, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.Offers.Add(new Offer
 				{
 					Id = 10, Code = "89029feb-b04b-44b7-98c8-ba5c5348e81e", BuyerId = 10, StaffId = 10, StoreId = 1,
-					DeliveryId = 3, Summary = new decimal(100.00)
+					DeliveryId = 3, Summary = new decimal(100.00), CreationDate = DateTime.Now
 				});
 				applicationDbContext.SaveChanges();
 			}
@@ -487,242 +486,222 @@ namespace MusicInstrumentsCrm.Domain
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "admin";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "admin");
 			newUser.Email = "admin@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "admin");
 			Thread.Sleep(1000);
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "askuzovatkina";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "askuzovatkina");
 			newUser.Email = "skuzovatkina.a.a@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "askuzovatkina");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "amotozov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "amotozov");
 			newUser.Email = "motozov.a.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "amotozov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "yklimova";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "yklimova");
 			newUser.Email = "klimova.y.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "yklimova");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "yavakov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "yavakov");
 			newUser.Email = "avakov.y.i@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "yavakov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "ezelentsova";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "ezelentsova");
 			newUser.Email = "zelentsova.e.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "ezelentsova");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "sberdov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "sberdov");
 			newUser.Email = "berdov.s.v@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "sberdov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "afedotova";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "afedotova");
 			newUser.Email = "fedotova.a.a@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "afedotova");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "akozlov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "akozlov");
 			newUser.Email = "kozlov.a.m@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "akozlov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "promanov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "promanov");
 			newUser.Email = "romanov.p.s@gmail.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "promanov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "bbelov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "bbelov");
 			newUser.Email = "bbelov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "bbelov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "vpetrov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "vpetrov");
 			newUser.Email = "vpetrov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "vpetrov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "ibutov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "ibutov");
 			newUser.Email = "ibutov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "ibutov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "rarkhipov";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "rarkhipov");
 			newUser.Email = "rarkhipov@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "rarkhipov");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "mmeschera";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "mmeschera");
 			newUser.Email = "mmeschera@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "mmeschera");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "episarenko";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "episarenko");
 			newUser.Email = "episarenko@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "episarenko");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "mbarabanova";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "mbarabanova");
 			newUser.Email = "mbarabanova@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "mbarabanova");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "agolceva";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "agolceva");
 			newUser.Email = "agolceva@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "agolceva");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "ahapersky";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "ahapersky");
 			newUser.Email = "ahapersky@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "ahapersky");
 			users.Add(newUser.UserName, newUser.Id);
 
 			newUser = new User();
 			newUser.Id = Guid.NewGuid().ToString();
 			newUser.UserName = "sgibson";
-			newUser.PasswordHash = hasher.HashPassword(newUser, "sgibson");
 			newUser.Email = "sgibson@micrm.com";
 			newUser.TwoFactorEnabled = false;
 			newUser.Active = true;
 			newUser.CreationDate = DateTime.Now;
 			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser);
+			await userManager.CreateAsync(newUser, "sgibson");
 			users.Add(newUser.UserName, newUser.Id);
 		}
 	}

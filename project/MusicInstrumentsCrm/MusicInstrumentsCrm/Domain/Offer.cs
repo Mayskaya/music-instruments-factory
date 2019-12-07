@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
@@ -40,5 +41,8 @@ namespace MusicInstrumentsCrm.Domain
 
 		[Column("sum")]
 		public decimal Summary { get; set; }
+
+		[Column("creation_date")]
+		public DateTime CreationDate { get; set; }
 	}
 }

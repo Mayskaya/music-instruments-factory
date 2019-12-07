@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using MusicInstrumentsCrm.Domain;
 
 namespace MusicInstrumentsCrm.Repositories
@@ -78,11 +75,8 @@ namespace MusicInstrumentsCrm.Repositories
 			return await Task.Run(() =>
 			{
 				db.MyUsers.Update(model);
-				int affected = db.SaveChanges();
-				if (affected == 1)
-				{
-					return Task.Run(() => UpdateCache(id, model));
-				}
+				var affected = db.SaveChanges();
+				if (affected == 1) return Task.Run(() => UpdateCache(id, model));
 
 				return null;
 			});
