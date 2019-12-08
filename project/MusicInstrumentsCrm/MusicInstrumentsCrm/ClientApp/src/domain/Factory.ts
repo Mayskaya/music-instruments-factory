@@ -6,7 +6,7 @@ export default class Factory {
     private _address: Address;
     private _foundationDate: Date;
 
-    constructor(id: number, address: Address, foundationDate: Date) {
+    constructor(id: number, name: string, address: Address, foundationDate: Date) {
         this._id = id;
         this._name = name;
         this._address = address;

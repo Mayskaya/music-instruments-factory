@@ -65,7 +65,10 @@ export default class CarView extends React.Component<CarViewProps, CarViewState>
                             </tr>
                         })
                     }
-                </table></div>
+                </table>
+                <button className="btn-content">Save</button>
+                <Link to="/index/Car"><button className="btn-content">Cancel</button></Link>
+                </div>
         );
     }
 }
