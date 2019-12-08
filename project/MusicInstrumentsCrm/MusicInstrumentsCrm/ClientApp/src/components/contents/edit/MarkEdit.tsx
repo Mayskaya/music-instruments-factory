@@ -11,13 +11,18 @@ interface MarkEditProps {
 interface MarkEditState {
     id: number;
     mark: Mark;
+    country: Array<Country>;
 }
 
 export default class MarkEdit extends React.Component<MarkEditProps, MarkEditState> {
 
     constructor(props: MarkEditProps) {
         super(props);
-        this.state = { id: props.match.params.id, mark: new Mark(0, '', new Country(0, '')) };
+        this.state = {
+            id: props.match.params.id,
+            mark: new Mark(0, '', new Country(0, '')),
+            country: new Array(),
+        };
     }
 
     componentDidMount() {
@@ -31,6 +36,17 @@ export default class MarkEdit extends React.Component<MarkEditProps, MarkEditSta
             alert("error");
         };
         xhr.send();
+
+        let xhrC = new XMLHttpRequest();
+        xhrC.open(HttpMethod.GET, 'http://localhost/api/v1/Country/');
+        xhrC.onload = (evt) => {
+            let res: Array<Country> = JSON.parse(xhrC.responseText);
+            this.setState({ country: res });
+        };
+        xhrC.onerror = (evt) => {
+            alert("error");
+        };
+        xhrC.send();
     }
 
     public render() {
@@ -44,7 +60,9 @@ export default class MarkEdit extends React.Component<MarkEditProps, MarkEditSta
                     </label>
                     <label>
                         <span>Страна</span>
-                        <input type="text" value={that.state.mark != null ? that.state.mark.country.name : ''}></input>
+                        <select value={this.state.mark.country.name}>
+                            {this.state.country.map((team) => <option key={team.name} value={team.name}>{team.name}</option>)}
+                        </select>
                     </label>
                 </form>
                 <button className="btn-content">Save</button>

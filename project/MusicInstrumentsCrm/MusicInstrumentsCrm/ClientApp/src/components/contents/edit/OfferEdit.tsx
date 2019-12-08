@@ -19,13 +19,22 @@ interface OfferEditProps {
 interface OfferEditState {
     id: number;
     offer: Offer;
+    buyer: Array<Buyer>;
+    seller: Array<Staff>;
+    delivery: Array<Delivery>;
 }
 
 export default class OfferEdit extends React.Component<OfferEditProps, OfferEditState> {
 
     constructor(props: OfferEditProps) {
         super(props);
-        this.state = { id: props.match.params.id, offer: new Offer(0, '', new Buyer(0, '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true)), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true)), new Delivery(0, new Car(0, '', '', new Model(0, '', new Mark(0, '', new Country(0, '')), new Date())), new Address(0, ''), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true))), 0) };
+        this.state = {
+            id: props.match.params.id,
+            offer: new Offer(0, '', new Buyer(0, '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true)), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true)), new Delivery(0, new Car(0, '', '', new Model(0, '', new Mark(0, '', new Country(0, '')), new Date())), new Address(0, ''), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true))), 0),
+            buyer: new Array(),
+            seller: new Array(),
+            delivery: new Array(),
+        };
     }
 
     componentDidMount() {
@@ -39,6 +48,39 @@ export default class OfferEdit extends React.Component<OfferEditProps, OfferEdit
             alert("error");
         };
         xhr.send();
+
+        let xhrB = new XMLHttpRequest();
+        xhrB.open(HttpMethod.GET, 'http://localhost/api/v1/Buyer/');
+        xhrB.onload = (evt) => {
+            let res: Array<Buyer> = JSON.parse(xhrB.responseText);
+            this.setState({ buyer: res });
+        };
+        xhrB.onerror = (evt) => {
+            alert("error");
+        };
+        xhrB.send();
+
+        let xhrS = new XMLHttpRequest();
+        xhrS.open(HttpMethod.GET, 'http://localhost/api/v1/Staff/');
+        xhrS.onload = (evt) => {
+            let res: Array<Staff> = JSON.parse(xhrS.responseText);
+            this.setState({ seller: res });
+        };
+        xhrS.onerror = (evt) => {
+            alert("error");
+        };
+        xhrS.send();
+
+        let xhrD = new XMLHttpRequest();
+        xhrD.open(HttpMethod.GET, 'http://localhost/api/v1/Delivery/');
+        xhrD.onload = (evt) => {
+            let res: Array<Delivery> = JSON.parse(xhrD.responseText);
+            this.setState({ delivery: res });
+        };
+        xhrD.onerror = (evt) => {
+            alert("error");
+        };
+        xhrD.send();
     }
 
     public render() {
@@ -52,29 +94,22 @@ export default class OfferEdit extends React.Component<OfferEditProps, OfferEdit
                     </label>
                     <label>
                         <span>Покупатель</span>
-                    </label>
-                    <label>
-                        <span>Имя</span>
-                        <input type="text" value={that.state.offer != null ? that.state.offer.buyer.firstName : ''}></input>
-                    </label>
-                    <label>
-                        <span>Фамилия</span>
-                        <input type="text" value={that.state.offer != null ? that.state.offer.buyer.lastName : ''}></input>
+                        <select value={`${this.state.offer.buyer.firstName} ${this.state.offer.buyer.lastName}`}>
+                            {this.state.buyer.map((team) => <option value={`${team.firstName} ${team.lastName}`}>{`${team.firstName} ${team.lastName}`}</option>)}
+                        </select>
                     </label>
                     <label>
                         <span>Продавец</span>
-                    </label>
-                    <label>
-                        <span>Имя</span>
-                        <input type="text" value={that.state.offer != null ? that.state.offer.seller.firstName : ''}></input>
-                    </label>
-                    <label>
-                        <span>Фамилия</span>
-                        <input type="text" value={that.state.offer != null ? that.state.offer.seller.lastName : ''}></input>
+                        <select value={`${this.state.offer.seller.firstName} ${this.state.offer.seller.lastName}`}>
+                            {this.state.seller.map((team) => <option value={`${team.firstName} ${team.lastName}`}>{`${team.firstName} ${team.lastName}`}</option>)}
+                        </select>
                     </label>
                     <label>
                         <span>Доставка</span>
-                        <input type="text" value={that.state.offer != null ? that.state.offer.delivery.address.fullName : ''}></input>
+                        <select value={this.state.offer.delivery.address.fullName}>
+                            {this.state.delivery.map((team) => <option key={team.address.fullName} value={team.address.fullName}>{team.address.fullName}</option>)}
+                        </select>
+                        {/* <input type="text" value={that.state.offer != null ? that.state.offer.delivery.address.fullName : ''}></input> */}
                     </label>
                     <label>
                         <span>Сумма заказа</span>

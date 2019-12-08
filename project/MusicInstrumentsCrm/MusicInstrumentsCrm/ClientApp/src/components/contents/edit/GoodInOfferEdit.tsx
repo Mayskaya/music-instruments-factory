@@ -14,6 +14,7 @@ import HttpMethod from '../../../util/http/HttpMethods';
 import Good from '../../../domain/Good';
 import GoodType from '../../../domain/GoodType';
 import Factory from '../../../domain/Factory';
+import { Link } from 'react-router-dom';
 
 interface GoodInOfferEditProps {
     match: { params: { id: any; }; };
@@ -22,13 +23,20 @@ interface GoodInOfferEditProps {
 interface GoodInOfferEditState {
     id: number;
     goodinoffer: GoodInOffer;
+    good: Array<Good>;
+    offer: Array<Offer>;
 }
 
 export default class GoodInOfferEdit extends React.Component<GoodInOfferEditProps, GoodInOfferEditState> {
 
     constructor(props: GoodInOfferEditProps) {
         super(props);
-        this.state = { id: props.match.params.id, goodinoffer: new GoodInOffer(0,new Good(0,'','',new GoodType(0,''),new Factory(0,'',new Address(0,''),new Date()),0),new Offer(0,'',new Buyer(0,'','','','','',new User(0,'','',new Date(),new Date(),true)),new Staff(0,'','','','','','','',new User(0,'','',new Date(),new Date(),true)),new Delivery(0,new Car(0,'','',new Model(0,'',new Mark(0,'',new Country(0,'')),new Date())), new Address(0,''),new Staff(0,'','','','','','','',new User(0,'','',new Date(),new Date(),true))),0),0) };
+        this.state = {
+            id: props.match.params.id,
+            goodinoffer: new GoodInOffer(0, new Good(0, '', '', new GoodType(0, ''), new Factory(0, '', new Address(0, ''), new Date()), 0), new Offer(0, '', new Buyer(0, '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true)), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true)), new Delivery(0, new Car(0, '', '', new Model(0, '', new Mark(0, '', new Country(0, '')), new Date())), new Address(0, ''), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true))), 0), 0),
+            good: new Array(),
+            offer: new Array(),
+        };
     }
 
     componentDidMount() {
@@ -42,6 +50,28 @@ export default class GoodInOfferEdit extends React.Component<GoodInOfferEditProp
             alert("error");
         };
         xhr.send();
+
+        let xhrG = new XMLHttpRequest();
+        xhrG.open(HttpMethod.GET, 'http://localhost/api/v1/Good/');
+        xhrG.onload = (evt) => {
+            let res: Array<Good> = JSON.parse(xhrG.responseText);
+            this.setState({ good: res });
+        };
+        xhrG.onerror = (evt) => {
+            alert("error");
+        };
+        xhrG.send();
+
+        let xhrO = new XMLHttpRequest();
+        xhrO.open(HttpMethod.GET, 'http://localhost/api/v1/Offer/');
+        xhrO.onload = (evt) => {
+            let res: Array<Offer> = JSON.parse(xhrO.responseText);
+            this.setState({ offer: res });
+        };
+        xhrO.onerror = (evt) => {
+            alert("error");
+        };
+        xhrO.send();
     }
 
     public render() {
@@ -51,17 +81,23 @@ export default class GoodInOfferEdit extends React.Component<GoodInOfferEditProp
                 <form className="form-add">
                     <label>
                         <span>Товар</span>
-                        <input type="text" value={ that.state.goodinoffer != null ? that.state.goodinoffer.good.name: '' }></input>
+                        <select value={this.state.goodinoffer.good.name}>
+                            {this.state.good.map((team) => <option value={team.name}>{team.name}</option>)}
+                        </select>
                     </label>
                     <label>
                         <span>Заказ</span>
-                        <input type="text" value={ that.state.goodinoffer != null ? that.state.goodinoffer.offer.code: '' }></input>
+                        <select value={this.state.goodinoffer.offer.code}>
+                            {this.state.offer.map((team) => <option value={team.code}>{team.code}</option>)}
+                        </select>
                     </label>
                     <label>
                         <span>Количество</span>
-                        <input type="text" value={ that.state.goodinoffer != null ? that.state.goodinoffer.count: '' }></input>
+                        <input type="text" value={that.state.goodinoffer != null ? that.state.goodinoffer.count : ''}></input>
                     </label>
                 </form>
+                <button className="btn-content">Save</button>
+                <Link to="/index/GoodInOffer"><button className="btn-content">Cancel</button></Link>
             </div>
         );
     }

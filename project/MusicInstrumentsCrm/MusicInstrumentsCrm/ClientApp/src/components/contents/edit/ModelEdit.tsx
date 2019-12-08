@@ -12,13 +12,18 @@ interface ModelEditProps {
 interface ModelEditState {
     id: number;
     model: Model;
+    mark: Array<Mark>;
 }
 
 export default class ModelEdit extends React.Component<ModelEditProps, ModelEditState> {
 
     constructor(props: ModelEditProps) {
         super(props);
-        this.state = { id: props.match.params.id, model: new Model(0, '', new Mark(0, '', new Country(0, '')), new Date()) };
+        this.state = {
+            id: props.match.params.id,
+            model: new Model(0, '', new Mark(0, '', new Country(0, '')), new Date()),
+            mark: new Array(),
+        };
     }
 
     componentDidMount() {
@@ -32,6 +37,17 @@ export default class ModelEdit extends React.Component<ModelEditProps, ModelEdit
             alert("error");
         };
         xhr.send();
+
+        let xhrM = new XMLHttpRequest();
+        xhrM.open(HttpMethod.GET, 'http://localhost/api/v1/Mark/');
+        xhrM.onload = (evt) => {
+            let res: Array<Mark> = JSON.parse(xhrM.responseText);
+            this.setState({ mark: res });
+        };
+        xhrM.onerror = (evt) => {
+            alert("error");
+        };
+        xhrM.send();
     }
 
     public render() {
@@ -45,7 +61,9 @@ export default class ModelEdit extends React.Component<ModelEditProps, ModelEdit
                     </label>
                     <label>
                         <span>Марка</span>
-                        <input type="text" value={that.state.model != null ? that.state.model.mark.name : ''}></input>
+                        <select value={this.state.model.mark.name}>
+                            {this.state.mark.map((team) => <option key={team.name} value={team.name}>{team.name}</option>)}
+                        </select>
                     </label>
                     <label>
                         <span>Год</span>

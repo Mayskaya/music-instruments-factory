@@ -13,13 +13,20 @@ interface GoodEditProps {
 interface GoodEditState {
     id: number;
     good: Good;
+    goodtype: Array<GoodType>;
+    factory: Array<Factory>;
 }
 
 export default class GoodEdit extends React.Component<GoodEditProps, GoodEditState> {
 
     constructor(props: GoodEditProps) {
         super(props);
-        this.state = { id: props.match.params.id, good: new Good(0, '', '', new GoodType(0, ''), new Factory(0, '', new Address(0, ''), new Date()), 0) };
+        this.state = {
+            id: props.match.params.id,
+            good: new Good(0, '', '', new GoodType(0, ''), new Factory(0, '', new Address(0, ''), new Date()), 0),
+            goodtype: new Array(),
+            factory: new Array(),
+        };
     }
 
     componentDidMount() {
@@ -33,6 +40,28 @@ export default class GoodEdit extends React.Component<GoodEditProps, GoodEditSta
             alert("error");
         };
         xhr.send();
+
+        let xhrG = new XMLHttpRequest();
+        xhrG.open(HttpMethod.GET, 'http://localhost/api/v1/GoodType/');
+        xhrG.onload = (evt) => {
+            let res: Array<GoodType> = JSON.parse(xhrG.responseText);
+            this.setState({ goodtype: res });
+        };
+        xhrG.onerror = (evt) => {
+            alert("error");
+        };
+        xhrG.send();
+
+        let xhrF = new XMLHttpRequest();
+        xhrF.open(HttpMethod.GET, 'http://localhost/api/v1/Factory/');
+        xhrF.onload = (evt) => {
+            let res: Array<Factory> = JSON.parse(xhrF.responseText);
+            this.setState({ factory: res });
+        };
+        xhrF.onerror = (evt) => {
+            alert("error");
+        };
+        xhrF.send();
     }
 
     public render() {
@@ -49,11 +78,15 @@ export default class GoodEdit extends React.Component<GoodEditProps, GoodEditSta
                 </label>
                 <label>
                     <span>Тип</span>
-                    <input type="text" value={that.state.good != null ? that.state.good.goodType.typeName : ''}></input>
+                    <select>
+                        {this.state.goodtype.map((team) => <option value={team.typeName}>{team.typeName}</option>)}
+                    </select>
                 </label>
                 <label>
                     <span>Производитель</span>
-                    <input type="text" value={that.state.good != null ? that.state.good.factory.name : ''}></input>
+                    <select>
+                        {this.state.factory.map((team) => <option value={team.name}>{team.name}</option>)}
+                    </select>
                 </label>
                 <label>
                     <span>Цена</span>

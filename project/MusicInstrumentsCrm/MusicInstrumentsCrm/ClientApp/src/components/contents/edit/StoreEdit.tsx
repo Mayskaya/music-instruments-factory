@@ -11,13 +11,18 @@ interface StoreEditProps {
 interface StoreEditState {
     id: number;
     store: Store;
+    address: Array<Address>;
 }
 
 export default class StoreEdit extends React.Component<StoreEditProps, StoreEditState> {
 
 constructor(props: StoreEditProps) {
         super(props);
-        this.state = { id: props.match.params.id, store: new Store(0,'',new Address(0,''), new Date())};
+        this.state = { 
+            id: props.match.params.id, 
+            store: new Store(0,'',new Address(0,''), new Date()),
+            address: new Array(),
+        };
     }
 
     componentDidMount() {
@@ -31,6 +36,17 @@ constructor(props: StoreEditProps) {
             alert("error");
         };
         xhr.send();
+
+        let xhrAd = new XMLHttpRequest();
+        xhrAd.open(HttpMethod.GET, 'http://localhost/api/v1/Address/');
+        xhrAd.onload = (evt) => {
+            let res: Array<Address> = JSON.parse(xhrAd.responseText);
+            this.setState({ address: res });
+        };
+        xhrAd.onerror = (evt) => {
+            alert("error");
+        };
+        xhrAd.send();
     }
     
     public render() {
@@ -44,7 +60,9 @@ constructor(props: StoreEditProps) {
                     </label>
                     <label>
                         <span>Адрес</span>
-                        <input type="text" value={ that.state.store != null ? that.state.store.address.fullName: '' }></input>
+                        <select value={this.state.store.address.fullName}>
+                            {this.state.address.map((team) => <option value={team.fullName}>{team.fullName}</option>)}
+                        </select>
                     </label>
                     <label>
                         <span>Год открытия</span>

@@ -11,13 +11,18 @@ interface FactoryEditProps {
 interface FactoryEditState {
     id: number;
     factory: Factory;
+    address: Array<Address>;
 }
 
 export default class FactoryEdit extends React.Component<FactoryEditProps, FactoryEditState> {
 
     constructor(props: FactoryEditProps) {
         super(props);
-        this.state = { id: props.match.params.id, factory: new Factory(0, "", new Address(0,""), new Date())};
+        this.state = { 
+            id: props.match.params.id, 
+            factory: new Factory(0, "", new Address(0, ""), new Date()),
+            address: new Array(),
+        };
     }
 
     componentDidMount() {
@@ -31,7 +36,19 @@ export default class FactoryEdit extends React.Component<FactoryEditProps, Facto
             alert("error");
         };
         xhr.send();
+
+        let xhrAd = new XMLHttpRequest();
+        xhrAd.open(HttpMethod.GET, 'http://localhost/api/v1/Address/');
+        xhrAd.onload = (evt) => {
+            let res: Array<Address> = JSON.parse(xhrAd.responseText);
+            this.setState({ address: res });
+        };
+        xhrAd.onerror = (evt) => {
+            alert("error");
+        };
+        xhrAd.send();
     }
+
 
     public render() {
         let that: FactoryEdit = this;
@@ -40,15 +57,17 @@ export default class FactoryEdit extends React.Component<FactoryEditProps, Facto
                 <form className="form-add">
                     <label>
                         <span>Адрес</span>
-                        <input type="text" value={ that.state.factory != null ? that.state.factory.address.fullName: '' }></input>
+                        <select value={this.state.factory.address.fullName}>
+                            {this.state.address.map((team) => <option key={team.fullName} value={team.fullName}>{team.fullName}</option>)}
+                        </select>
                     </label>
                     <label>
                         <span>Название</span>
-                        <input type="text" value={ that.state.factory != null ? that.state.factory.name: '' }></input>
+                        <input type="text" value={that.state.factory != null ? that.state.factory.name : ''}></input>
                     </label>
                     <label>
                         <span>Год основания</span>
-                        <input type="text" value={ that.state.factory != null ? that.state.factory.foundationDate.toString(): '' }></input>
+                        <input type="text" value={that.state.factory != null ? that.state.factory.foundationDate.toString() : ''}></input>
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
