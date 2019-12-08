@@ -10,11 +10,14 @@ RUN apt-get update && \
 
 # Copy csproj and restore as distinct layers
 COPY *.csproj ./
-RUN dotnet restore --verbosity normal
+COPY . ./
 
 # Copy everything else and build
-COPY . ./
-RUN dotnet publish -c Release -o out
+RUN dotnet tool install --global dotnet-ef --version 3.0.0 && \
+	dotnet restore --verbosity normal && \
+	export PATH="$PATH:/root/.dotnet/tools" && \
+	dotnet ef migrations add InitApplicationDb && \
+	dotnet publish -c Release -o out
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0

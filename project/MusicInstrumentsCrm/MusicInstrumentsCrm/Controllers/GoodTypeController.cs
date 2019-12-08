@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MusicInstrumentsCrm.Domain;
 using MusicInstrumentsCrm.Repositories;
@@ -10,6 +11,7 @@ using MusicInstrumentsCrm.Repositories;
 namespace MusicInstrumentsCrm.Controllers
 {
 	[Route("api/v1/[controller]")]
+	[AllowAnonymous]
 	public class GoodTypeController : Controller
 	{
 		private readonly IGoodTypeRepository goodTypeRepository;

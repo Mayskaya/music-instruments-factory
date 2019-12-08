@@ -3,7 +3,7 @@ version: '3.7'
 services:
   app:
     container_name: micrm-app-central
-    image: rienelmot24/micrm-app
+    image: micrm-app
     ports:
       - 80:80
     environment:
@@ -13,7 +13,7 @@ services:
 
   db:
     container_name: micrm-db-central
-    image: rienelmot24/micrm-db
+    image: micrm-db
     ports:
       - 5432:5432
 
