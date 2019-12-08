@@ -107,7 +107,7 @@ namespace MusicInstrumentsCrm
 
 			services.AddScoped<ISummaryService, CsvSummaryService>();
 			services.AddScoped<IConverter<OfferDto, Offer>, OfferConverter>();
-			
+
 			services.AddCors(options =>
 			{
 				options.AddPolicy(SpecificOrigins,
@@ -128,11 +128,10 @@ namespace MusicInstrumentsCrm
 		public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider serviceProvider)
 		{
 			UpdateDatabase(app);
-			
+
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				seedData.Initialize(serviceProvider).Wait();
 			}
 			else
 			{
@@ -140,6 +139,13 @@ namespace MusicInstrumentsCrm
 				app.UseHsts();
 			}
 
+			string shouldInitDb = Environment.GetEnvironmentVariable("SHOULD_INIT_DB");
+			if (shouldInitDb != null && shouldInitDb.Equals("true"))
+			{
+				seedData.Initialize(serviceProvider).Wait();
+			}
+
+//			seedData.InitializeDistribution(serviceProvider).Wait();
 			app.UseCors(SpecificOrigins);
 
 			app.UseRouting();
@@ -151,14 +157,17 @@ namespace MusicInstrumentsCrm
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
+
 			app.UseAuthentication();
 			app.UseIdentityServer();
 
 			app.UseSpa(spa =>
 			{
-				spa.Options.SourcePath = "ClientApp";
-
-				if (env.IsDevelopment()) spa.UseReactDevelopmentServer("start");
+				if (env.IsDevelopment())
+				{
+					spa.Options.SourcePath = "ClientApp/build";
+					spa.UseReactDevelopmentServer(npmScript: "start");
+				}
 			});
 		}
 
