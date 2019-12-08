@@ -693,7 +693,7 @@ namespace MusicInstrumentsCrm.Domain
 				LastLogin = null
 			}, "mmeschera");
 			users.Add(userName, id);
-			
+
 			id = Guid.NewGuid().ToString();
 			userName = "episarenko";
 			await userManager.CreateAsync(new User
@@ -707,7 +707,7 @@ namespace MusicInstrumentsCrm.Domain
 				LastLogin = null
 			}, "episarenko");
 			users.Add(userName, id);
-			
+
 			id = Guid.NewGuid().ToString();
 			userName = "mbarabanova";
 			await userManager.CreateAsync(new User
@@ -721,7 +721,7 @@ namespace MusicInstrumentsCrm.Domain
 				LastLogin = null
 			}, "mbarabanova");
 			users.Add(userName, id);
-			
+
 			id = Guid.NewGuid().ToString();
 			userName = "agolceva";
 			await userManager.CreateAsync(new User
@@ -735,7 +735,7 @@ namespace MusicInstrumentsCrm.Domain
 				LastLogin = null
 			}, "agolceva");
 			users.Add(userName, id);
-			
+
 			id = Guid.NewGuid().ToString();
 			userName = "ahapersky";
 			await userManager.CreateAsync(new User
@@ -770,14 +770,14 @@ namespace MusicInstrumentsCrm.Domain
 			applicationDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
 			applicationDbContext.Database.EnsureCreated();
 
-			await applicationDbContext.Database.ExecuteSqlRawAsync("CREATE ROLE replica_user WITH LOGIN REPLICATION;");
 			var thisServerAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
 			var subscriptionDbAddress = Environment.GetEnvironmentVariable("SUBSCRIPTION_DB");
 			if (thisServerAddress != null)
 			{
 				if (thisServerAddress.Equals(subscriptionDbAddress))
+				{
 					await applicationDbContext.Database.ExecuteSqlRawAsync(
-						"CREATE PUBLICATION Centralized_db_publication " +
+						"CREATE PUBLICATION micrm_pub " +
 						"FOR TABLE " +
 						"\"Car\", " +
 						"\"Buyer\", " +
@@ -789,12 +789,17 @@ namespace MusicInstrumentsCrm.Domain
 						"\"Model\", " +
 						"\"Mark\", " +
 						"\"Country\", " +
-						"\"Address\"; ");
+						"\"Address\";");
+					applicationDbContext.SaveChanges();
+				}
 				else
+				{
 					await applicationDbContext.Database.ExecuteSqlRawAsync(
-						"CREATE SUBSCRIPTION Centralized_db_subscription " +
-						$"CONNECTION 'host={subscriptionDbAddress} dbname=micrm_db user=replica_user port=5436' " +
-						"PUBLICATION Centralized_db_publication;");
+						"CREATE SUBSCRIPTION micrm_sub " +
+						$"CONNECTION 'host={subscriptionDbAddress} dbname=micrm_db user=admin port=5432 password=admin' " +
+						"PUBLICATION micrm_pub;");
+					applicationDbContext.SaveChanges();
+				}
 			}
 		}
 	}

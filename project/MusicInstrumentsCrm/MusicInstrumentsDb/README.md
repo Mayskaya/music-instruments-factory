@@ -37,3 +37,13 @@ docker run --rm -it -p 5432:5432 micrm-db:<tag>
 1. Delivery
 1. Offer
 1. GoodInOffer
+
+
+```
+CREATE PUBLICATION micrm_pub FOR TABLE "Car", "Buyer", "Staff", "Store", "Factory", "GoodType", "Good", "Model", "Mark", "Country", "Address";
+
+
+CREATE SUBSCRIPTION micrm_suba
+	CONNECTION 'host=db dbname=micrm_db user=admin port=5432 password=admin' 
+	PUBLICATION micrm_pub;
+```

@@ -9,7 +9,7 @@ services:
     environment:
       - MICRM_DB_ADDRESS=db
       - SUBSCRIPTION_DB=db
-      - ASPNETCORE_ENVIRONMENT=Development
+      - SHOULD_INIT_DB=true
     depends_on:
       - db
 
@@ -18,24 +18,29 @@ services:
     image: micrm-db
     ports:
       - 5432:5432
+    command: ["-c", "wal_level=logical",  "-c", "max_connections=500"]
 
-    # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
-#  app-msk:
-#    container_name: micrm-app-msk
-#    image: micrm-app
-#    ports:
-#      - 8000:80
-#    environment:
-#      - MICRM_DB_ADDRESS=db-msk
-#      - SUBSCRIPTION_DB=db
-#    depends_on:
-#      - db-msk
-#
-#  db-msk:
-#    container_name: micrm-db-msk
-#    image: micrm-db
-#    ports:
-#      - 5433:5432
+  # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
+  app-msk:
+    container_name: micrm-app-msk
+    image: micrm-app
+    ports:
+      - 8000:80
+    environment:
+      - MICRM_DB_ADDRESS=db-msk
+      - SUBSCRIPTION_DB=db
+      - SHOULD_INIT_DB=false
+    depends_on:
+      - db
+      - app
+      - db-msk
+
+  db-msk:
+    container_name: micrm-db-msk
+    image: micrm-db
+    ports:
+      - 5433:5432
+    command: ["-c", "wal_level=logical", "-c", "max_connections=500"]
 
 # # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN SPB REGION)
 #   app-spb:

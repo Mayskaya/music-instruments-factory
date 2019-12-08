@@ -132,8 +132,6 @@ namespace MusicInstrumentsCrm
 			if (env.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				seedData.Initialize(serviceProvider).Wait();
-				seedData.InitializeDistribution(serviceProvider).Wait();
 			}
 			else
 			{
@@ -141,7 +139,13 @@ namespace MusicInstrumentsCrm
 				app.UseHsts();
 			}
 
-			seedData.Initialize(serviceProvider).Wait();
+			string shouldInitDb = Environment.GetEnvironmentVariable("SHOULD_INIT_DB");
+			if (shouldInitDb != null && shouldInitDb.Equals("true"))
+			{
+				seedData.Initialize(serviceProvider).Wait();
+			}
+
+//			seedData.InitializeDistribution(serviceProvider).Wait();
 			app.UseCors(SpecificOrigins);
 
 			app.UseRouting();
@@ -153,7 +157,7 @@ namespace MusicInstrumentsCrm
 			app.UseHttpsRedirection();
 			app.UseStaticFiles();
 			app.UseSpaStaticFiles();
-			
+
 			app.UseAuthentication();
 			app.UseIdentityServer();
 
@@ -161,6 +165,7 @@ namespace MusicInstrumentsCrm
 			{
 				if (env.IsDevelopment())
 				{
+					spa.Options.SourcePath = "ClientApp/build";
 					spa.UseReactDevelopmentServer(npmScript: "start");
 				}
 			});

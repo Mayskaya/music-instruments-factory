@@ -1,3 +1,4 @@
 ﻿CREATE ROLE replica_user WITH
     LOGIN
-    REPLICATION;
+    PASSWORD 'replica_user'
+    REPLICATION SUPERUSER;

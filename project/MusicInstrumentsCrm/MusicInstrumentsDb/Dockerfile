@@ -1,4 +1,4 @@
-FROM library/postgres:11.5 AS clear
+FROM library/postgres:11.6 AS clear
 
 ENV POSTGRES_USER admin
 ENV POSTGRES_PASSWORD admin
