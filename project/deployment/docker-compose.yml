@@ -8,8 +8,10 @@ services:
       - 80:80
     environment:
       - MICRM_DB_ADDRESS=db
-    depends_on: 
-      - db 
+      - SUBSCRIPTION_DB=db
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - db
 
   db:
     container_name: micrm-db-central
@@ -17,22 +19,23 @@ services:
     ports:
       - 5432:5432
 
-# # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
-#   app-msk:
-#     container_name: micrm-app-msk
-#     image: rienelmot24/micrm-app
-#     ports:
-#       - 8000:80
-#     environment:
-#       - MICRM_DB_ADDRESS=db-msk
-#     depends_on:
-#       - db-msk
-
-#   db-msk:
-#     container_name: micrm-db-msk
-#     image: rienelmot24/micrm-db
-#     ports:
-#       - 5433:5432
+    # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
+#  app-msk:
+#    container_name: micrm-app-msk
+#    image: micrm-app
+#    ports:
+#      - 8000:80
+#    environment:
+#      - MICRM_DB_ADDRESS=db-msk
+#      - SUBSCRIPTION_DB=db
+#    depends_on:
+#      - db-msk
+#
+#  db-msk:
+#    container_name: micrm-db-msk
+#    image: micrm-db
+#    ports:
+#      - 5433:5432
 
 # # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN SPB REGION)
 #   app-spb:
@@ -44,7 +47,7 @@ services:
 #       - MICRM_DB_ADDRESS=db-spb
 #     depends_on:
 #       - db-spb
-
+#
 #   db-spb:
 #     container_name: micrm-db-spb
 #     image: rienelmot24/micrm-db

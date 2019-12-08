@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
@@ -473,7 +473,7 @@ namespace MusicInstrumentsCrm.Domain
 
 		private async Task InitializeRolesAsync(RoleManager<IdentityRole> roleManager)
 		{
-			await roleManager.CreateAsync(new IdentityRole("Admin"));
+			await roleManager.CreateAsync(new IdentityRole("Administrator"));
 			await roleManager.CreateAsync(new IdentityRole("Staff"));
 			await roleManager.CreateAsync(new IdentityRole("Courier"));
 			await roleManager.CreateAsync(new IdentityRole("Buyer"));
@@ -482,227 +482,320 @@ namespace MusicInstrumentsCrm.Domain
 		private async Task InitializeUserAsync(UserManager<User> userManager)
 		{
 			Log.Logger.Information("Initializing users");
-			User newUser;
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "admin";
-			newUser.Email = "admin@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "admin");
-			Thread.Sleep(1000);
-			users.Add(newUser.UserName, newUser.Id);
+			users.Clear();
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "askuzovatkina";
-			newUser.Email = "skuzovatkina.a.a@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "askuzovatkina");
-			users.Add(newUser.UserName, newUser.Id);
+			string id = Guid.NewGuid().ToString();
+			string userName = "admin";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "admin@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "admin");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "amotozov";
-			newUser.Email = "motozov.a.v@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "amotozov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "askuzovatkina";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "skuzovatkina.a.a@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "askuzovatkina");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "yklimova";
-			newUser.Email = "klimova.y.v@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "yklimova");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "amotozov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "motozov.a.v@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "amotozov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "yavakov";
-			newUser.Email = "avakov.y.i@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "yavakov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "yklimova";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "klimova.y.v@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "yklimova");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "ezelentsova";
-			newUser.Email = "zelentsova.e.v@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "ezelentsova");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "yavakov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "avakov.y.i@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "yavakov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "sberdov";
-			newUser.Email = "berdov.s.v@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "sberdov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "ezelentsova";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "zelentsova.e.v@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "ezelentsova");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "afedotova";
-			newUser.Email = "fedotova.a.a@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "afedotova");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "sberdov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "berdov.s.v@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "sberdov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "akozlov";
-			newUser.Email = "kozlov.a.m@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "akozlov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "afedotova";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "fedotova.a.a@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "afedotova");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "promanov";
-			newUser.Email = "romanov.p.s@gmail.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "promanov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "akozlov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "kozlov.a.m@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "akozlov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "bbelov";
-			newUser.Email = "bbelov@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "bbelov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "promanov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "romanov.p.s@gmail.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "promanov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "vpetrov";
-			newUser.Email = "vpetrov@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "vpetrov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "bbelov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "bbelov@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "bbelov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "ibutov";
-			newUser.Email = "ibutov@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "ibutov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "vpetrov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "vpetrov@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "vpetrov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "rarkhipov";
-			newUser.Email = "rarkhipov@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "rarkhipov");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "ibutov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "ibutov@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "ibutov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "mmeschera";
-			newUser.Email = "mmeschera@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "mmeschera");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "rarkhipov";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "rarkhipov@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "rarkhipov");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "episarenko";
-			newUser.Email = "episarenko@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "episarenko");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "mmeschera";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "mmeschera@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "mmeschera");
+			users.Add(userName, id);
+			
+			id = Guid.NewGuid().ToString();
+			userName = "episarenko";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "episarenko@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "episarenko");
+			users.Add(userName, id);
+			
+			id = Guid.NewGuid().ToString();
+			userName = "mbarabanova";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "mbarabanova@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "mbarabanova");
+			users.Add(userName, id);
+			
+			id = Guid.NewGuid().ToString();
+			userName = "agolceva";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "agolceva@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "agolceva");
+			users.Add(userName, id);
+			
+			id = Guid.NewGuid().ToString();
+			userName = "ahapersky";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "ahapersky@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "ahapersky");
+			users.Add(userName, id);
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "mbarabanova";
-			newUser.Email = "mbarabanova@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "mbarabanova");
-			users.Add(newUser.UserName, newUser.Id);
+			id = Guid.NewGuid().ToString();
+			userName = "sgibson";
+			await userManager.CreateAsync(new User
+			{
+				Id = id,
+				UserName = userName,
+				Email = "sgibson@micrm.com",
+				TwoFactorEnabled = false,
+				Active = true,
+				CreationDate = DateTime.Now,
+				LastLogin = null
+			}, "sgibson");
+			users.Add(userName, id);
+		}
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "agolceva";
-			newUser.Email = "agolceva@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "agolceva");
-			users.Add(newUser.UserName, newUser.Id);
+		public async Task InitializeDistribution(IServiceProvider serviceProvider)
+		{
+			applicationDbContext = serviceProvider.GetRequiredService<ApplicationDbContext>();
+			applicationDbContext.Database.EnsureCreated();
 
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "ahapersky";
-			newUser.Email = "ahapersky@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "ahapersky");
-			users.Add(newUser.UserName, newUser.Id);
-
-			newUser = new User();
-			newUser.Id = Guid.NewGuid().ToString();
-			newUser.UserName = "sgibson";
-			newUser.Email = "sgibson@micrm.com";
-			newUser.TwoFactorEnabled = false;
-			newUser.Active = true;
-			newUser.CreationDate = DateTime.Now;
-			newUser.LastLogin = null;
-			await userManager.CreateAsync(newUser, "sgibson");
-			users.Add(newUser.UserName, newUser.Id);
+			await applicationDbContext.Database.ExecuteSqlRawAsync("CREATE ROLE replica_user WITH LOGIN REPLICATION;");
+			var thisServerAddress = Environment.GetEnvironmentVariable("MICRM_DB_ADDRESS");
+			var subscriptionDbAddress = Environment.GetEnvironmentVariable("SUBSCRIPTION_DB");
+			if (thisServerAddress != null)
+			{
+				if (thisServerAddress.Equals(subscriptionDbAddress))
+					await applicationDbContext.Database.ExecuteSqlRawAsync(
+						"CREATE PUBLICATION Centralized_db_publication " +
+						"FOR TABLE " +
+						"\"Car\", " +
+						"\"Buyer\", " +
+						"\"Staff\", " +
+						"\"Store\", " +
+						"\"Factory\", " +
+						"\"GoodType\", " +
+						"\"Good\", " +
+						"\"Model\", " +
+						"\"Mark\", " +
+						"\"Country\", " +
+						"\"Address\"; ");
+				else
+					await applicationDbContext.Database.ExecuteSqlRawAsync(
+						"CREATE SUBSCRIPTION Centralized_db_subscription " +
+						$"CONNECTION 'host={subscriptionDbAddress} dbname=micrm_db user=replica_user port=5436' " +
+						"PUBLICATION Centralized_db_publication;");
+			}
 		}
 	}
 }
