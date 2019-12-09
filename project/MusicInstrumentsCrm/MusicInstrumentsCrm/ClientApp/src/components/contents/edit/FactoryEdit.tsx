@@ -71,6 +71,7 @@ export default class FactoryEdit extends React.Component<FactoryEditProps, Facto
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Factory"><button className="btn-content">Cancel</button></Link>
             </div>
         );

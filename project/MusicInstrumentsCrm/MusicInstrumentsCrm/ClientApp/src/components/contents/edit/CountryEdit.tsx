@@ -43,6 +43,7 @@ export default class CountryEdit extends React.Component<CountryEditProps, Count
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Country"><button className="btn-content">Cancel</button></Link>
             </div>
         );

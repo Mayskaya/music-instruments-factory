@@ -47,7 +47,7 @@ export default class GoodInOfferView extends React.Component<GoodInOfferViewProp
         return (
             <div className="content-view">
                 <Link to="/index/GoodInOfferAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

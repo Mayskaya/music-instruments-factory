@@ -66,6 +66,7 @@ export default class MarkEdit extends React.Component<MarkEditProps, MarkEditSta
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Mark"><button className="btn-content">Cancel</button></Link>
             </div>
         );

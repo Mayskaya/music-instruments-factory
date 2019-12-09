@@ -68,6 +68,7 @@ export default class StaffEdit extends React.Component<StaffEditProps, StaffEdit
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Staff"><button className="btn-content">Cancel</button></Link>
             </div>
         );

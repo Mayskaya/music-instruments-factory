@@ -24,9 +24,8 @@ export default class CarEdit extends React.Component<CarEditProps, CarEditState>
             id: props.match.params.id,
             mark: new Array(),
             car: new Car(0, '', '', new Model(0, "", new Mark(0, '', new Country(0, '')), new Date())),
-
         };
-
+        // this.handleInputChange = this.handleInputChange.bind(this);
     }
 
     componentDidMount() {
@@ -41,7 +40,7 @@ export default class CarEdit extends React.Component<CarEditProps, CarEditState>
             alert("error");
         };
         xhr.send();
-        
+
         let xhrM = new XMLHttpRequest();
         xhrM.open(HttpMethod.GET, `http://localhost/api/v1/Car/${this.props.match.params.id}`);
         xhrM.onload = (evt) => {
@@ -54,9 +53,15 @@ export default class CarEdit extends React.Component<CarEditProps, CarEditState>
         xhrM.send();
     };
 
-    Select() {
+    // handleInputChange(event) {
+    //     let target = event.target;
+    //     let value = target.value;
+    //     let name = target.name;
 
-    }
+    //     var partialState: any = {};
+    //     partialState[name] = value;
+    //     this.setState(partialState);
+    // }
 
     public render() {
         let that: CarEdit = this;
@@ -66,24 +71,25 @@ export default class CarEdit extends React.Component<CarEditProps, CarEditState>
                 <form className="form-add">
                     <label>
                         <span>Номер</span>
-                        <input type="text" value={that.state.car != null ? that.state.car.serial : ''}></input>
+                        <input name='serial' type="text" value={that.state.car != null ? that.state.car.serial : ''}></input>
                     </label>
                     <label>
                         <span>Регион</span>
-                        <input type="text" value={that.state.car != null ? that.state.car.region : ''}></input>
+                        <input name='region' type="text" value={that.state.car != null ? that.state.car.region : ''}></input>
                     </label>
                     <label>
                         <span>Марка</span>
-                        <select value={this.state.car.model.mark.name}>
+                        <select name='mark' value={this.state.car.model.mark.name}>
                             {this.state.mark.map((team) => <option key={team.name} value={team.name}>{team.name}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Модель</span>
-                        <input type="text" value={that.state.car != null ? that.state.car.model.modelName : ''}></input>
+                        <input name='model' type="text" value={that.state.car != null ? that.state.car.model.modelName : ''}></input>
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Car"><button className="btn-content">Cancel</button></Link>
             </div>
         );

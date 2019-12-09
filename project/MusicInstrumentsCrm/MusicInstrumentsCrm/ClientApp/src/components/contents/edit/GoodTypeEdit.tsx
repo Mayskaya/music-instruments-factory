@@ -43,6 +43,7 @@ export default class GoodTypeEdit extends React.Component<GoodTypeEditProps, Goo
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/GoodType"><button className="btn-content">Cancel</button></Link>
             </div>
         );

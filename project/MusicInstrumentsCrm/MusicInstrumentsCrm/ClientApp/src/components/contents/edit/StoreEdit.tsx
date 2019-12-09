@@ -70,6 +70,7 @@ constructor(props: StoreEditProps) {
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Store"><button className="btn-content">Cancel</button></Link>
             </div>
         );

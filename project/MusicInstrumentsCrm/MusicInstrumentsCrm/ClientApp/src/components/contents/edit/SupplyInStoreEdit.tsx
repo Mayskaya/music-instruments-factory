@@ -93,6 +93,7 @@ constructor(props: SupplyInStoreEditProps) {
                     </label>
                 </form>
                 <button className="btn-content" >Save</button>
+                <button className="btn-content">Delete</button>
                 {/* onClick={(evt)=>{this.saveBtn(evt)}} */}
                 <Link to="/index/SupplyInStore"><button className="btn-content">Cancel</button></Link>
             </div>

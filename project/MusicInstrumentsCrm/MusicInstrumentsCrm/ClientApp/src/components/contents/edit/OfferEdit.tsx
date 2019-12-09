@@ -117,6 +117,7 @@ export default class OfferEdit extends React.Component<OfferEditProps, OfferEdit
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Offer"><button className="btn-content">Cancel</button></Link>
             </div>
         );

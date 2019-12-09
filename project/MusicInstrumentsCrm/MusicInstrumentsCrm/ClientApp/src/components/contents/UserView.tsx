@@ -47,7 +47,7 @@ export default class UserView extends React.Component<UserViewProps, UserViewSta
         return (
             <div className="content-view">
                 <Link to="/index/UserAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

@@ -46,6 +46,7 @@ export default class UserEdit extends React.Component<UserEditProps, UserEditSta
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/User"><button className="btn-content">Cancel</button></Link>
             </div>
         );

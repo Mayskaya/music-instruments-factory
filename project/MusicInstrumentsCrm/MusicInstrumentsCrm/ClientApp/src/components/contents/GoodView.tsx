@@ -48,7 +48,7 @@ export default class GoodView extends React.Component<GoodViewProps, GoodViewSta
         return (
             <div className="content-view">
                 <Link to="/index/GoodAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

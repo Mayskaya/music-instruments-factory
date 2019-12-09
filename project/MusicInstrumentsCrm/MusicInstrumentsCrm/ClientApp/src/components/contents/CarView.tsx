@@ -47,7 +47,7 @@ export default class CarView extends React.Component<CarViewProps, CarViewState>
         return (
             <div className="content-view">
                 <Link to="/index/CarAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>
@@ -66,8 +66,6 @@ export default class CarView extends React.Component<CarViewProps, CarViewState>
                         })
                     }
                 </table>
-                <button className="btn-content">Save</button>
-                <Link to="/index/Car"><button className="btn-content">Cancel</button></Link>
                 </div>
         );
     }

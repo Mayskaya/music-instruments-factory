@@ -47,7 +47,7 @@ export default class ModelView extends React.Component<ModelViewProps, ModelView
         return (
             <div className="content-view">
                 <Link to="/index/ModelAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

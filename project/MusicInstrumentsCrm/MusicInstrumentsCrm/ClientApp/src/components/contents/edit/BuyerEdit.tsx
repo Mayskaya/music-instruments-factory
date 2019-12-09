@@ -64,6 +64,7 @@ export default class BuyerEdit extends React.Component<BuyerEditProps, BuyerEdit
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Buyer"><button className="btn-content">Cancel</button></Link>
             </div>
         );

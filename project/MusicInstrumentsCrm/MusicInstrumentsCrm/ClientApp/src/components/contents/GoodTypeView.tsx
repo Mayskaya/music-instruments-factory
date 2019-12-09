@@ -47,7 +47,6 @@ export default class GoodTypeView extends React.Component<GoodTypeViewProps, Goo
         return (
             <div className="content-view">
                 <Link to="/index/GoodTypeAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

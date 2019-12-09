@@ -47,7 +47,7 @@ export default class AddressView extends React.Component<AddressViewProps, Addre
         return (
             <div className="content-view">
                 <Link to="/index/AddressAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr >
                         <th>ID</th>

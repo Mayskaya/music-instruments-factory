@@ -47,7 +47,6 @@ export default class BuyerView extends React.Component<BuyerViewProps, BuyerView
         return (
             <div className="content-view">
                 <Link to="/index/BuyerAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
 
                 <table className="table-content">
                     <tr>

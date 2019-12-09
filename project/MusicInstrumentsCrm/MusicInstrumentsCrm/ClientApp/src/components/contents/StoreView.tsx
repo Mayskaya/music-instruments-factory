@@ -47,7 +47,7 @@ export default class StoreView extends React.Component<StoreViewProps, StoreView
         return (
             <div className="content-view">
                 <Link to="/index/StoreAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

@@ -47,7 +47,7 @@ export default class SupplyInStoreView extends React.Component<SupplyInStoreView
         return (
             <div className="content-view">
                 <Link to="/index/SupplyInStoreAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

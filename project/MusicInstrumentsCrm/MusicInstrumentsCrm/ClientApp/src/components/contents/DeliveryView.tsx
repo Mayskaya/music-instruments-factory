@@ -51,7 +51,7 @@ export default class DeliveryView extends React.Component<DeliveryViewProps, Del
         return (
             <div className="content-view">
                 <Link to="/index/DeliveryAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

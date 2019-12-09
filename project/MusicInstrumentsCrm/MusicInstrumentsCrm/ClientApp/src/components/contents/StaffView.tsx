@@ -47,7 +47,7 @@ export default class StaffView extends React.Component<StaffViewProps, StaffView
         return (
             <div className="content-view">
                 <Link to="/index/StaffAdd"><button className="btn-content">Add</button></Link>
-                <button className="btn-content">Delete</button>
+                
                 <table className="table-content">
                     <tr>
                         <th>ID</th>

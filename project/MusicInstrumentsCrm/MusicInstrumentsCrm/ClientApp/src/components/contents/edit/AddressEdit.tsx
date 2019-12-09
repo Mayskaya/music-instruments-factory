@@ -43,6 +43,7 @@ export default class AddressEdit extends React.Component<AddressEditProps, Addre
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Address"><button className="btn-content">Cancel</button></Link>
             </div>
         );

@@ -71,6 +71,7 @@ export default class ModelEdit extends React.Component<ModelEditProps, ModelEdit
                     </label>
                 </form>
                 <button className="btn-content">Save</button>
+                <button className="btn-content">Delete</button>
                 <Link to="/index/Model"><button className="btn-content">Cancel</button></Link>
             </div>
         );
