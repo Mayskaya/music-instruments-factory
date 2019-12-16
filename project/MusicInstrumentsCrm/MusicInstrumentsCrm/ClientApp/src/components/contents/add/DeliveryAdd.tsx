@@ -3,26 +3,48 @@ import Car from '../../../domain/Car';
 import Address from '../../../domain/Address';
 import Staff from '../../../domain/Staff';
 import HttpMethod from '../../../util/http/HttpMethods';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
+import Delivery from '../../../domain/Delivery';
+import User from '../../../domain/User';
+import Country from '../../../domain/Country';
+import Mark from '../../../domain/Mark';
+import Model from '../../../domain/Model';
+
+interface DeliveryAddProps extends RouteComponentProps {
+
+}
 
 interface DeliveryEditState {
     car: Array<Car>;
     address: Array<Address>;
     staff: Array<Staff>;
+    delivery: Delivery;
 }
 
-export default class DeliveryAdd extends React.Component<{}, DeliveryEditState> {
+export default class DeliveryAdd extends React.Component<DeliveryAddProps, DeliveryEditState> {
 
-    constructor() {
-        super({});
+    constructor(props: DeliveryAddProps) {
+        super(props);
         this.state = {
             car: new Array(),
             address: new Array(),
             staff: new Array(),
+            delivery: new Delivery(0, new Car(0, '', '', new Model(0, '', new Mark(0, '', new Country(0, '')), new Date())), new Address(0, ''), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true))),
         };
     }
 
     componentDidMount() {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Delivery/');
+        xhr.onload = (evt) => {
+            let res: Delivery = JSON.parse(xhr.responseText);
+            this.setState({ delivery: res });
+        };
+        xhr.onerror = (evt) => {
+            alert("error");
+        };
+        xhr.send();
+
         let xhrC = new XMLHttpRequest();
         xhrC.open(HttpMethod.GET, 'http://localhost/api/v1/Car/');
         xhrC.onload = (evt) => {
@@ -57,30 +79,51 @@ export default class DeliveryAdd extends React.Component<{}, DeliveryEditState> 
         xhrS.send();
     }
 
+    handleSaveButton(event: React.MouseEvent) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.POST, 'http://localhost/api/v1/Delivery');
+        xhr.onload = (evt) => {
+            alert('Data saved!');
+            this.props.history.push('/index/Delivery');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        xhr.send(JSON.stringify(this.state.car));
+    }
+
+    handleInputChange(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        this.setState({
+            car: value,
+        });
+    }
+
     public render() {
         return (
             <div className="DeliveryAdd">
                 <form className="form-add">
                     <label>
                         <span>Машина</span>
-                        <select>
+                        <select onChange={(evt) => { this.handleInputChange(evt) }}>
                             {this.state.car.map((team) => <option value={`${team.serial} ${team.region}`}>{`${team.serial} ${team.region}`}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Адрес</span>
-                        <select>
+                        <select onChange={(evt) => { this.handleInputChange(evt) }}>
                             {this.state.address.map((team) => <option value={team.fullName}>{team.fullName}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Курьер</span>
-                        <select>
+                        <select onChange={(evt) => { this.handleInputChange(evt) }}>
                             {this.state.staff.map((team) => <option value={`${team.firstName} ${team.lastName}`}>{`${team.firstName} ${team.lastName}`}</option>)}
                         </select>
                     </label>
                 </form>
-                <button className="btn-content">Save</button>
+                <button className="btn-content" onClick={(evt) => { this.handleSaveButton(evt) }}>Save</button>
                 <Link to="/index/Delivery"><button className="btn-content">Cancel</button></Link>
             </div>
         );

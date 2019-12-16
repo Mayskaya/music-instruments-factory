@@ -6,17 +6,17 @@ import Model from '../../../domain/Model';
 import Car from '../../../domain/Car';
 import Country from '../../../domain/Country';
 
-interface CarEditProps extends RouteComponentProps {
+interface CarAddProps extends RouteComponentProps {
 }
 
-interface CarEditState {
+interface CarAddState {
     car: Car;
     mark: Array<Mark>;
     model: Array<Model>;
 }
 
-export default class CarAdd extends React.Component<CarEditProps, CarEditState> {
-    constructor(props: CarEditProps) {
+export default class CarAdd extends React.Component<CarAddProps, CarAddState> {
+    constructor(props: CarAddProps) {
         super(props);
         this.state = {
             mark: new Array(),

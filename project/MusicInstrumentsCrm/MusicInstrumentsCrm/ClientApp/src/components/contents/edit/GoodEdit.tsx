@@ -4,10 +4,13 @@ import GoodType from '../../../domain/GoodType';
 import Factory from '../../../domain/Factory';
 import Address from '../../../domain/Address';
 import HttpMethod from '../../../util/http/HttpMethods';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
-interface GoodEditProps {
-    match: { params: { id: any; }; };
+interface MatchProps{
+    id: string;
+}
+
+interface GoodEditProps extends RouteComponentProps<MatchProps>{
 }
 
 interface GoodEditState {
@@ -22,7 +25,7 @@ export default class GoodEdit extends React.Component<GoodEditProps, GoodEditSta
     constructor(props: GoodEditProps) {
         super(props);
         this.state = {
-            id: props.match.params.id,
+            id: parseInt(props.match.params.id),
             good: new Good(0, '', '', new GoodType(0, ''), new Factory(0, '', new Address(0, ''), new Date()), 0),
             goodtype: new Array(),
             factory: new Array(),
@@ -64,37 +67,110 @@ export default class GoodEdit extends React.Component<GoodEditProps, GoodEditSta
         xhrF.send();
     }
 
+    handleSaveButton(event: React.MouseEvent) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.PUT, 'http://localhost/api/v1/Good');
+        xhr.onload = (evt) => {
+            alert('Data saved!');
+            this.props.history.push('/index/Good');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        debugger;
+        xhr.send(JSON.stringify(this.state.good));
+    }
+
+    handleInputChangeName(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldGood: Good = this.state.good;
+        oldGood.name = value;
+        this.setState({
+            good: oldGood,
+        });
+      }
+      handleInputChangeDescription(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldGood: Good = this.state.good;
+        oldGood.description = value;
+        this.setState({
+            good: oldGood,
+        });
+      }
+      handleInputChangeType(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldGood: Good = this.state.good;
+        oldGood.goodType.typeName = value;
+        this.setState({
+            good: oldGood,
+        });
+      }
+      handleInputChangeFactory(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldGood: Good = this.state.good;
+        oldGood.factory.name = value;
+        this.setState({
+            good: oldGood,
+        });
+      }
+      handleInputChangePrice(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldGood: Good = this.state.good;
+        oldGood.price = value;
+        this.setState({
+            good: oldGood,
+        });
+      }
+
+      handleDeleteButton(event: React.MouseEvent){
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.DELETE, `http://localhost/api/v1/Good/${this.props.match.params.id}`);
+        xhr.onload = (evt) => {
+            alert('Data removed!');
+            this.props.history.push('/index/Good');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        xhr.send();
+      }
+
     public render() {
         let that: GoodEdit = this;
         return (<div className="GoodEdit">
             <form className="form-add">
                 <label>
                     <span>Название</span>
-                    <input type="text" value={that.state.good != null ? that.state.good.name : ''}></input>
+                    <input type="text" onChange={(evt) =>{this.handleInputChangeName(evt)}} defaultValue={that.state.good != null ? that.state.good.name : ''}></input>
                 </label>
                 <label>
                     <span>Описание</span>
-                    <input type="text" value={that.state.good != null ? that.state.good.description : ''}></input>
+                    <input type="text" onChange={(evt) =>{this.handleInputChangeDescription(evt)}} defaultValue={that.state.good != null ? that.state.good.description : ''}></input>
                 </label>
                 <label>
                     <span>Тип</span>
-                    <select value={this.state.good.goodType.typeName}>
+                    <select onChange={(evt) =>{this.handleInputChangeType(evt)}} defaultValue={this.state.good.goodType.typeName}>
                         {this.state.goodtype.map((team) => <option value={team.typeName}>{team.typeName}</option>)}
                     </select>
                 </label>
                 <label>
                     <span>Производитель</span>
-                    <select value={this.state.good.factory.name}>
+                    <select onChange={(evt) =>{this.handleInputChangeFactory(evt)}} defaultValue={this.state.good.factory.name}>
                         {this.state.factory.map((team) => <option value={team.name}>{team.name}</option>)}
                     </select>
                 </label>
                 <label>
                     <span>Цена</span>
-                    <input type="text" value={that.state.good != null ? that.state.good.price : ''}></input>
+                    <input type="number" onChange={(evt) =>{this.handleInputChangePrice(evt)}} defaultValue={this.state.good != null ? this.state.good.price : ''}></input>
                 </label>
             </form>
-            <button className="btn-content">Save</button>
-            <button className="btn-content">Delete</button>
+            <button className="btn-content" onClick={(evt) =>{this.handleSaveButton(evt)}}>Save</button>
+            <button className="btn-content" onClick={(evt) =>{this.handleDeleteButton(evt)}}>Delete</button>
             <Link to="/index/Good"><button className="btn-content">Cancel</button></Link>
         </div>
         );

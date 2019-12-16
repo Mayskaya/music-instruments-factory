@@ -7,11 +7,15 @@ import Country from '../../../domain/Country';
 import Address from '../../../domain/Address';
 import Staff from '../../../domain/Staff';
 import User from '../../../domain/User';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import HttpMethod from '../../../util/http/HttpMethods';
 
-interface DeliveryEditProps {
-    match: { params: { id: any; }; };
+
+interface MatchProps{
+    id: string;
+}
+
+interface DeliveryEditProps extends RouteComponentProps<MatchProps> {
 }
 
 interface DeliveryEditState {
@@ -26,7 +30,7 @@ export default class DeliveryEdit extends React.Component<DeliveryEditProps, Del
     constructor(props: DeliveryEditProps) {
         super(props);
         this.state = {
-            id: props.match.params.id,
+            id: parseInt(props.match.params.id),
             delivery: new Delivery(0, new Car(0, '', '', new Model(0, '', new Mark(0, '', new Country(0, '')), new Date())), new Address(0, ''), new Staff(0, '', '', '', '', '', '', '', new User(0, '', '', new Date(), new Date(), true))),
             car: new Array(),
             address: new Array(),
@@ -80,32 +84,103 @@ export default class DeliveryEdit extends React.Component<DeliveryEditProps, Del
         xhrS.send();
     }
 
+    handleSaveButton(event: React.MouseEvent) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.PUT, 'http://localhost/api/v1/Delivery');
+        xhr.onload = (evt) => {
+            alert('Data saved!');
+            this.props.history.push('/index/Delivery');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        debugger;
+        xhr.send(JSON.stringify(this.state.delivery));
+    }
+
+    handleInputChangeSerial(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldDelivery: Delivery = this.state.delivery;
+        oldDelivery.car.serial = value;
+        this.setState({
+            delivery: oldDelivery,
+        });
+      }
+      handleInputChangeRegion(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldDelivery: Delivery = this.state.delivery;
+        oldDelivery.car.region = value;
+        this.setState({
+            delivery: oldDelivery,
+        });
+      }
+      handleInputChangeAddress(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldDelivery: Delivery = this.state.delivery;
+        oldDelivery.address = value;
+        this.setState({
+            delivery: oldDelivery,
+        });
+      }
+      handleInputChangeCourier(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldDelivery: Delivery = this.state.delivery;
+        oldDelivery.courier = value;
+        this.setState({
+            delivery: oldDelivery,
+        });
+      }
+
+      handleDeleteButton(event: React.MouseEvent){
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.DELETE, `http://localhost/api/v1/Delivery/${this.props.match.params.id}`);
+        xhr.onload = (evt) => {
+            alert('Data removed!');
+            this.props.history.push('/index/Delivery');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        xhr.send();
+      }
+
     public render() {
         let that: DeliveryEdit = this;
         return (
             <div className="DeliveryAdd">
                 <form className="form-add">
+                    <label>Машина</label>
                     <label>
-                        <span>Машина</span>
-                        <select value={`${this.state.delivery.car.serial} ${this.state.delivery.car.region}`}>
-                            {this.state.car.map((team) => <option value={`${team.serial} ${team.region}`}>{`${team.serial} ${team.region}`}</option>)}
+                        <span>Номер</span>
+                        <select onChange={(evt) =>{this.handleInputChangeSerial(evt)}} defaultValue={this.state.delivery.car.serial}>
+                            {this.state.car.map((team) => <option value={team.serial}>{team.serial}</option>)}
+                        </select>
+                    </label>
+                    <label>
+                        <span>Регион</span>
+                        <select onChange={(evt) =>{this.handleInputChangeRegion(evt)}} defaultValue={this.state.delivery.car.region}>
+                            {this.state.car.map((team) => <option value={team.region}>{team.region}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Адрес</span>
-                        <select value={this.state.delivery.address.fullName}>
+                        <select onChange={(evt) =>{this.handleInputChangeAddress(evt)}} defaultValue={this.state.delivery.address.fullName}>
                             {this.state.address.map((team) => <option value={team.fullName}>{team.fullName}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Курьер</span>
-                        <select value={`${this.state.delivery.courier.firstName} ${this.state.delivery.courier.lastName}`}>
+                        <select onChange={(evt) =>{this.handleInputChangeCourier(evt)}} defaultValue={`${this.state.delivery.courier.firstName} ${this.state.delivery.courier.lastName}`}>
                             {this.state.staff.map((team) => <option value={`${team.firstName} ${team.lastName}`}>{`${team.firstName} ${team.lastName}`}</option>)}
                         </select>
                     </label>
                 </form>
-                <button className="btn-content">Save</button>
-                <button className="btn-content">Delete</button>
+                <button className="btn-content" onClick={(evt) =>{this.handleSaveButton(evt)}}>Save</button>
+                <button className="btn-content" onClick={(evt) =>{this.handleDeleteButton(evt)}}>Delete</button>
                 <Link to="/index/Delivery"><button className="btn-content">Cancel</button></Link>
             </div>
         );
