@@ -5,7 +5,6 @@ import HttpMethod from "../../util/http/HttpMethods";
 import { Strings } from '../../util/Strings';
 
 export interface CarViewProps extends RouteComponentProps {
-
 }
 
 export interface CarViewState {

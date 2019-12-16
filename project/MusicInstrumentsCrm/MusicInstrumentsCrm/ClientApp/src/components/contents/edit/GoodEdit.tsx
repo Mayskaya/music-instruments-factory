@@ -78,13 +78,13 @@ export default class GoodEdit extends React.Component<GoodEditProps, GoodEditSta
                 </label>
                 <label>
                     <span>Тип</span>
-                    <select>
+                    <select value={this.state.good.goodType.typeName}>
                         {this.state.goodtype.map((team) => <option value={team.typeName}>{team.typeName}</option>)}
                     </select>
                 </label>
                 <label>
                     <span>Производитель</span>
-                    <select>
+                    <select value={this.state.good.factory.name}>
                         {this.state.factory.map((team) => <option value={team.name}>{team.name}</option>)}
                     </select>
                 </label>

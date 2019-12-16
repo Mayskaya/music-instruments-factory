@@ -1,11 +1,15 @@
 import React from 'react';
 import HttpMethod from "../../../util/http/HttpMethods";
 import Address from '../../../domain/Address';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
-interface AddressEditProps {
-    match: { params: { id: any; }; };
+interface MatchProps{
+    id: string;
 }
+
+interface AddressEditProps extends RouteComponentProps<MatchProps>{
+}
+
 
 interface AddressEditState {
     id: number;
@@ -16,7 +20,10 @@ export default class AddressEdit extends React.Component<AddressEditProps, Addre
 
     constructor(props: AddressEditProps) {
         super(props, {});
-        this.state = { id: props.match.params.id, address: new Address(0, "") };
+        this.state = { 
+            id: parseInt(props.match.params.id),
+            address: new Address(0, "") 
+        };
     }
 
     componentDidMount() {
@@ -32,6 +39,43 @@ export default class AddressEdit extends React.Component<AddressEditProps, Addre
         xhr.send();
     }
 
+    handleSaveButton(event: React.MouseEvent) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.PUT, 'http://localhost/api/v1/Address');
+        xhr.onload = (evt) => {
+            alert('Data saved!');
+            this.props.history.push('/index/Address');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        xhr.send(JSON.stringify(this.state.address));
+
+    }
+
+    handleInputChange(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldAddress: Address = this.state.address;
+        oldAddress.fullName = value;
+        this.setState({
+            address: oldAddress,
+        });
+      }
+
+      handleDeleteButton(event: React.MouseEvent){
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.DELETE, `http://localhost/api/v1/Address/${this.props.match.params.id}`);
+        xhr.onload = (evt) => {
+            alert('Data removed!');
+            this.props.history.push('/index/Address');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        xhr.send();
+      }
+
     public render() {
         let that: AddressEdit = this;
         return (
@@ -39,11 +83,11 @@ export default class AddressEdit extends React.Component<AddressEditProps, Addre
                 <form className="form-add">
                     <label>
                         <span>Полный адрес</span>
-                        <input type="text" value={ that.state.address != null ? that.state.address.fullName: '' }></input>
+                        <input type="text" onChange={(evt) =>{this.handleInputChange(evt)}} defaultValue={ that.state.address != null ? that.state.address.fullName: '' }></input>
                     </label>
                 </form>
-                <button className="btn-content">Save</button>
-                <button className="btn-content">Delete</button>
+                <button className="btn-content" onClick={(evt) =>{this.handleSaveButton(evt)}}>Save</button>
+                <button className="btn-content" onClick={(evt) =>{this.handleDeleteButton(evt)}}>Delete</button>
                 <Link to="/index/Address"><button className="btn-content">Cancel</button></Link>
             </div>
         );

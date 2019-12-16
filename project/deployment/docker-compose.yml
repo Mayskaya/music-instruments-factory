@@ -3,7 +3,7 @@ version: '3.7'
 services:
   app:
     container_name: micrm-app-central
-    image: micrm-app
+    image: rienelmot24/micrm-app
     ports:
       - 80:80
     environment:
@@ -15,32 +15,32 @@ services:
 
   db:
     container_name: micrm-db-central
-    image: micrm-db
+    image: rienelmot24/micrm-db
     ports:
       - 5432:5432
     command: ["-c", "wal_level=logical",  "-c", "max_connections=500"]
 
   # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN MOSCOW REGION)
-  app-msk:
-    container_name: micrm-app-msk
-    image: micrm-app
-    ports:
-      - 8000:80
-    environment:
-      - MICRM_DB_ADDRESS=db-msk
-      - SUBSCRIPTION_DB=db
-      - SHOULD_INIT_DB=false
-    depends_on:
-      - db
-      - app
-      - db-msk
+  # app-msk:
+  #   container_name: micrm-app-msk
+  #   image: micrm-app
+  #   ports:
+  #     - 8000:80
+  #   environment:
+  #     - MICRM_DB_ADDRESS=db-msk
+  #     - SUBSCRIPTION_DB=db
+  #     - SHOULD_INIT_DB=false
+  #   depends_on:
+  #     - db
+  #     - app
+  #     - db-msk
 
-  db-msk:
-    container_name: micrm-db-msk
-    image: micrm-db
-    ports:
-      - 5433:5432
-    command: ["-c", "wal_level=logical", "-c", "max_connections=500"]
+  # db-msk:
+  #   container_name: micrm-db-msk
+  #   image: micrm-db
+  #   ports:
+  #     - 5433:5432
+  #   command: ["-c", "wal_level=logical", "-c", "max_connections=500"]
 
 # # MODELLING DISTRIBUTED SYSTEM (CREATING SYSTEM IN SPB REGION)
 #   app-spb:
