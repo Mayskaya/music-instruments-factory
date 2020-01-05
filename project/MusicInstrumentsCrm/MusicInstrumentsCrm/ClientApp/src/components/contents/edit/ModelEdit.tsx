@@ -3,10 +3,12 @@ import Model from '../../../domain/Model';
 import Mark from '../../../domain/Mark';
 import Country from '../../../domain/Country';
 import HttpMethod from '../../../util/http/HttpMethods';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
-interface ModelEditProps {
-    match: { params: { id: any; }; };
+interface MatchProps {
+    id: string;
+}
+interface ModelEditProps extends RouteComponentProps<MatchProps> {
 }
 
 interface ModelEditState {
@@ -20,7 +22,7 @@ export default class ModelEdit extends React.Component<ModelEditProps, ModelEdit
     constructor(props: ModelEditProps) {
         super(props);
         this.state = {
-            id: props.match.params.id,
+            id: parseInt(props.match.params.id),
             model: new Model(0, '', new Mark(0, '', new Country(0, '')), new Date()),
             mark: new Array(),
         };
@@ -50,6 +52,61 @@ export default class ModelEdit extends React.Component<ModelEditProps, ModelEdit
         xhrM.send();
     }
 
+    handleSaveButton(event: React.MouseEvent) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.PUT, 'http://localhost/api/v1/Model');
+        xhr.onload = (evt) => {
+            alert('Data saved!');
+            this.props.history.push('/index/Model');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        debugger;
+        xhr.send(JSON.stringify(this.state.model));
+    }
+
+    handleDeleteButton(event: React.MouseEvent) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.DELETE, `http://localhost/api/v1/Model/${this.props.match.params.id}`);
+        xhr.onload = (evt) => {
+            alert('Data removed!');
+            this.props.history.push('/index/Model');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        xhr.send();
+    }
+
+    handleInputChangeModel(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldModel: Model = this.state.model;
+        oldModel.modelName = value;
+        this.setState({
+            model: oldModel,
+        });
+    }
+    handleInputChangeMark(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldModel: Model = this.state.model;
+        oldModel.mark.name = value;
+        this.setState({
+            model: oldModel,
+        });
+    }
+    handleInputChangeYear(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldModel: Model = this.state.model;
+        oldModel.year = value;
+        this.setState({
+            model: oldModel,
+        });
+    }
+
     public render() {
         let that: ModelEdit = this;
         return (
@@ -57,21 +114,21 @@ export default class ModelEdit extends React.Component<ModelEditProps, ModelEdit
                 <form className="form-add">
                     <label>
                         <span>Название модели</span>
-                        <input type="text" value={that.state.model != null ? that.state.model.modelName : ''}></input>
+                        <input type="text" onChange={(evt) => { this.handleInputChangeModel(evt) }} defaultValue={that.state.model != null ? that.state.model.modelName : ''}></input>
                     </label>
                     <label>
                         <span>Марка</span>
                         <select value={this.state.model.mark.name}>
-                            {this.state.mark.map((team) => <option key={team.name} value={team.name}>{team.name}</option>)}
+                            {this.state.mark.map((team) => <option key={team.name} onChange={(evt) => { this.handleInputChangeMark(evt) }} defaultValue={team.name}>{team.name}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Год</span>
-                        <input type="text" value={that.state.model != null ? that.state.model.year.toString() : ''}></input>
+                        <input type="text" onChange={(evt) => { this.handleInputChangeYear(evt) }} defaultValue={that.state.model != null ? that.state.model.year.toString() : ''}></input>
                     </label>
                 </form>
-                <button className="btn-content">Save</button>
-                <button className="btn-content">Delete</button>
+                <button className="btn-content" onClick={(evt) => { this.handleSaveButton(evt) }}>Save</button>
+                <button className="btn-content" onClick={(evt) => { this.handleDeleteButton(evt) }}>Delete</button>
                 <Link to="/index/Model"><button className="btn-content">Cancel</button></Link>
             </div>
         );

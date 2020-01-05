@@ -6,10 +6,13 @@ import Factory from '../../../domain/Factory';
 import Address from '../../../domain/Address';
 import Store from '../../../domain/Store';
 import HttpMethod from '../../../util/http/HttpMethods';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 
-interface SupplyInStoreEditProps {
-    match: { params: { id: any; }; };
+interface MatchProps{
+    id: string;
+}
+
+interface SupplyInStoreEditProps extends RouteComponentProps<MatchProps>{
 }
 
 interface SupplyInStoreEditState {
@@ -24,7 +27,7 @@ export default class SupplyInStoreEdit extends React.Component<SupplyInStoreEdit
 constructor(props: SupplyInStoreEditProps) {
         super(props);
         this.state = { 
-            id: props.match.params.id, 
+            id: parseInt(props.match.params.id), 
             supplyinstore: new SupplyInStore(0,new Good(0,'','',new GoodType(0,''),new Factory(0,'',new Address(0,''), new Date()),0), new Store(0,'',new Address(0,''), new Date()),new Date()),
             good: new Array(),
             store: new Array(),
@@ -66,9 +69,60 @@ constructor(props: SupplyInStoreEditProps) {
         xhrS.send();
     }
 
-    // saveBtn(event: React.MouseEvent){
-    //     if(event.target)
-    // }
+    handleSaveButton(event: React.MouseEvent) {
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.PUT, 'http://localhost/api/v1/SupplyInStore');
+        xhr.onload = (evt) => {
+            alert('Data saved!');
+            this.props.history.push('/index/SupplyInStore');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        debugger;
+        xhr.send(JSON.stringify(this.state.supplyinstore));
+    }
+
+    handleDeleteButton(event: React.MouseEvent){
+        let xhr = new XMLHttpRequest();
+        xhr.open(HttpMethod.DELETE, `http://localhost/api/v1/SupplyInStore/${this.props.match.params.id}`);
+        xhr.onload = (evt) => {
+            alert('Data removed!');
+            this.props.history.push('/index/SupplyInStore');
+        };
+        xhr.onerror = (evt) => {
+            alert('error');
+        };
+        xhr.send();
+      }
+
+    handleInputChangeGood(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldSup: SupplyInStore = this.state.supplyinstore;
+        oldSup.good.name = value;
+        this.setState({
+            supplyinstore: oldSup,
+        });
+      }
+      handleInputChangeStore(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldSup: SupplyInStore = this.state.supplyinstore;
+        oldSup.store.name = value;
+        this.setState({
+            supplyinstore: oldSup,
+        });
+      }
+      handleInputChangeDate(event: { target: any; }) {
+        const target = event.target;
+        const value = target.value;
+        let oldSup: SupplyInStore = this.state.supplyinstore;
+        oldSup.date = value;
+        this.setState({
+            supplyinstore: oldSup,
+        });
+      }
 
     public render() {
         let that: SupplyInStoreEdit = this;
@@ -77,24 +131,23 @@ constructor(props: SupplyInStoreEditProps) {
                 <form className="form-add">
                     <label>
                         <span>Товар</span>
-                        <select value={this.state.supplyinstore.good.name}>
+                        <select onChange={(evt) =>{this.handleInputChangeGood(evt)}} defaultValue={this.state.supplyinstore.good.name}>
                             {this.state.good.map((team) => <option value={team.name}>{team.name}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Магазин</span>
-                        <select value={this.state.supplyinstore.store.name}>
+                        <select onChange={(evt) =>{this.handleInputChangeStore(evt)}} defaultValue={this.state.supplyinstore.store.name}>
                             {this.state.store.map((team) => <option id='value1' value={team.name}>{team.name}</option>)}
                         </select>
                     </label>
                     <label>
                         <span>Дата поставки</span>
-                        <input type="text" value={ that.state.supplyinstore != null ? that.state.supplyinstore.date.toString(): '' }></input>
+                        <input type="text" onChange={(evt) =>{this.handleInputChangeDate(evt)}} defaultValue={ that.state.supplyinstore != null ? that.state.supplyinstore.date.toString(): '' }></input>
                     </label>
                 </form>
-                <button className="btn-content" >Save</button>
-                <button className="btn-content">Delete</button>
-                {/* onClick={(evt)=>{this.saveBtn(evt)}} */}
+                <button className="btn-content" onClick={(evt) =>{this.handleSaveButton(evt)}}>Save</button>
+                <button className="btn-content" onClick={(evt) =>{this.handleDeleteButton(evt)}}>Delete</button>
                 <Link to="/index/SupplyInStore"><button className="btn-content">Cancel</button></Link>
             </div>
         );

@@ -27,7 +27,7 @@ export default class CarAdd extends React.Component<CarAddProps, CarAddState> {
 
     componentDidMount() {
         let xhr = new XMLHttpRequest();
-        xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Mark/');
+        xhr.open(HttpMethod.GET, 'http://localhost/api/v1/Mark');
         xhr.onload = (evt) => {
             let resm: Array<Mark> = JSON.parse(xhr.responseText);
             this.setState({ mark: resm })
@@ -38,7 +38,7 @@ export default class CarAdd extends React.Component<CarAddProps, CarAddState> {
         xhr.send();
 
         let xhrMo = new XMLHttpRequest();
-        xhrMo.open(HttpMethod.GET, 'http://localhost/api/v1/Model/');
+        xhrMo.open(HttpMethod.GET, 'http://localhost/api/v1/Model');
         xhrMo.onload = (evt) => {
             let res: Array<Model> = JSON.parse(xhrMo.responseText);
             this.setState({ model: res });
